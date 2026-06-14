@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Our Talent | Content &amp; Co — Creators with real influence." />
+    <meta name="theme-color" content="#0d0d0d" />
+    <title>Our Talent | Content &amp; Co</title>
+
+    <style>
+      :root{--background:#0d0d0d;--foreground:#ffffff;--font-sans:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;}
+      *,*::before,*::after{box-sizing:border-box;}
+      html{color-scheme:dark;background:var(--background);overflow-x:hidden;}
+      body{margin:0;min-height:100dvh;font-family:var(--font-sans);color:var(--foreground);background:var(--background);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block" rel="stylesheet" />
+    </noscript>
+
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/favicon.png" />
+  </head>
+  <body>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="header-nav left-nav">
+        <a href="talent.html" class="header-nav-link">Our Talent</a>
+        <a href="work.html" class="header-nav-link">Our Work</a>
+      </nav>
+      <a href="index.html" class="header-logo-link" aria-label="Home">
+        <img src="assets/logo.png" alt="Content &amp; Co" class="header-logo" width="70" height="70" decoding="async" />
+      </a>
+      <nav class="header-nav right-nav">
+        <a href="about.html" class="header-nav-link">About Us</a>
+        <a href="contact.html" class="header-nav-link">Contact</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <!-- ── Hero ── -->
+      <section class="hero" aria-label="Introduction" style="min-height: 50vh;">
+        <div class="hero-inner" style="margin-top: 4rem;">
+          <div class="hero-content">
+            <h1 class="hero-heading">OUR TALENT</h1>
+            <div class="hero-copy" style="max-width: 44rem;">
+              <p class="hero-subtitle">
+                We represent and partner with creators who build real trust, not just empty views.
+              </p>
+              <p class="hero-desc">
+                From tech reviewers and software developers to finance experts and lifestyle vloggers — we select talent based on audience loyalty, quality of engagement, and history of professional collaborations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grid of Categories -->
+      <div class="content-stack">
+        <section class="services-wrap" aria-label="Talent Categories">
+          <p class="section-label" style="display: block; text-align: center; margin-bottom: 3rem;">TALENT CATEGORIES</p>
+          
+          <div class="services-grid">
+            <article class="panel service-panel">
+              <p class="service-index" aria-hidden="true">
+                <span class="service-paren">(</span><span class="service-num">01</span><span class="service-paren">)</span>
+              </p>
+              <h2 class="service-title">TECH &amp; DEVELOPMENT</h2>
+              <p class="service-desc">
+                Software developers, hardware builders, product reviewers, and engineering channels. Audiences trust their recommendations for software tools, gadgets, and technical infrastructure.
+              </p>
+            </article>
+
+            <article class="panel service-panel">
+              <p class="service-index" aria-hidden="true">
+                <span class="service-paren">(</span><span class="service-num">02</span><span class="service-paren">)</span>
+              </p>
+              <h2 class="service-title">FINANCE &amp; BUSINESS</h2>
+              <p class="service-desc">
+                Fintech guides, personal finance educators, startup mentors, and investment analysts. They speak directly to motivated professionals and decision-makers looking to optimize budgets.
+              </p>
+            </article>
+
+            <article class="panel service-panel">
+              <p class="service-index" aria-hidden="true">
+                <span class="service-paren">(</span><span class="service-num">03</span><span class="service-paren">)</span>
+              </p>
+              <h2 class="service-title">CREATIVE &amp; LIFESTYLE</h2>
+              <p class="service-desc">
+                Designers, filmmakers, travelers, and storytellers. They build lifestyle-focused integrations that feel natural, visual, and seamlessly integrated into their daily adventures.
+              </p>
+            </article>
+
+            <article class="panel service-panel">
+              <p class="service-index" aria-hidden="true">
+                <span class="service-paren">(</span><span class="service-num">04</span><span class="service-paren">)</span>
+              </p>
+              <h2 class="service-title">GAMING &amp; ENTERTAINMENT</h2>
+              <p class="service-desc">
+                Streamers, commentators, and digital entertainers. Highly active communities with high engagement rates, perfect for launching consumer apps, services, and interactive campaigns.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section style="text-align: center; margin-top: 2rem;">
+          <p style="font-size: clamp(1rem, 1.5vw, 1.25rem); color: var(--muted); margin-bottom: 2rem;">Are you a creator looking for professional brand representation?</p>
+          <a href="contact.html" class="hero-cta" style="display: inline-flex; text-decoration: none; color: #0d0d0d;">JOIN THE ROSTER</a>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer" aria-label="Site footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="contact.html" class="footer-nav-link">Get In Touch</a>
+        <a href="terms.html" class="footer-nav-link">Terms of Use</a>
+        <a href="privacy.html" class="footer-nav-link">Privacy Policy</a>
+      </nav>
+
+      <div class="footer-logo-wrap">
+        <img src="assets/logo.png" alt="Content &amp; Co" class="footer-logo" width="120" height="120" loading="lazy" decoding="async" />
+      </div>
+
+      <p class="footer-copy">
+        &copy; 2026 Content &amp; Co. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>

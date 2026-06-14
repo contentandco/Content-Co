@@ -5,17 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Content & Co — Influencer marketing for modern brands and creators."
+      content="Content &amp; Co — Influencer marketing agency putting brands inside the videos people are already watching."
     />
     <meta name="theme-color" content="#0d0d0d" />
     <title>Content &amp; Co</title>
+
+    <!-- Critical inline styles: paint dark background + hide animated elements before CSS arrives -->
+    <style>
+      :root{--background:#0d0d0d;--foreground:#ffffff;--font-sans:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;}
+      *,*::before,*::after{box-sizing:border-box;}
+      html{color-scheme:dark;background:var(--background);overflow-x:hidden;}
+      body{margin:0;min-height:100dvh;font-family:var(--font-sans);color:var(--foreground);background:var(--background);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+      /* Pre-hide animated elements so they never flash visible before styles.css kicks in */
+      .animate-in{opacity:0;}
+    </style>
+
+    <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load only what we use: Instrument Sans 400/600/700/800 -->
+    <!-- display=block: short block period so font renders on first paint, no swap flash -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:ital,wght@0,400;0,600;0,700;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block" rel="stylesheet" />
+    </noscript>
+
+    <!-- Preload the main stylesheet so it arrives as fast as possible -->
+    <link rel="preload" href="styles.css" as="style" />
     <link rel="stylesheet" href="styles.css" />
+
     <link rel="icon" href="assets/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="assets/favicon.png" />
   </head>
@@ -23,19 +52,25 @@
     <div class="cursor-glow" aria-hidden="true"></div>
     <div class="glow" aria-hidden="true"></div>
 
+    <header class="site-header">
+      <nav class="header-nav left-nav">
+        <a href="talent.html" class="header-nav-link">Our Talent</a>
+        <a href="work.html" class="header-nav-link">Our Work</a>
+      </nav>
+      <a href="index.html" class="header-logo-link" aria-label="Home">
+        <img src="assets/logo.png" alt="Content &amp; Co" class="header-logo" width="70" height="70" decoding="async" />
+      </a>
+      <nav class="header-nav right-nav">
+        <a href="about.html" class="header-nav-link">About Us</a>
+        <a href="#contact" class="header-nav-link">Contact</a>
+      </nav>
+    </header>
+
     <main class="page">
+      <!-- ── Hero ── -->
       <section class="hero" aria-label="Introduction">
         <div class="glitter" id="glitter" aria-hidden="true"></div>
         <div class="hero-inner">
-          <img
-            class="logo animate-in"
-            src="assets/logo.png"
-            width="220"
-            height="220"
-            alt="Content &amp; Co"
-            decoding="async"
-            fetchpriority="high"
-          />
           <div class="hero-content animate-in stagger-1">
             <h1 class="hero-heading">WE HELP BRANDS SHOW UP<br>WHERE ATTENTION ACTUALLY IS</h1>
             <div class="hero-copy">
@@ -54,22 +89,17 @@
         </div>
       </section>
 
+      <!-- ── Mission + Services + Contact ── -->
       <div class="content-stack content-stack--raised">
-        <section
-          class="mission-section reveal"
-          aria-labelledby="mission-heading"
-        >
-          <p class="section-label" id="mission-heading">
-            OUR MISSION &amp; SERVICES
-          </p>
 
+        <!-- Mission -->
+        <section class="mission-section reveal" aria-labelledby="mission-heading">
+          <p class="section-label" id="mission-heading">OUR MISSION &amp; SERVICES</p>
           <div class="mission-copy">
             <p>
               Influencer marketing is full of noise. Agencies that overpromise, deals that fall apart, integrations that feel like ads. Brands lose money. Creators lose trust with their audience. Everyone loses.
             </p>
-            <p>
-              Content &amp; Co exists to fix the middle.
-            </p>
+            <p>Content &amp; Co exists to fix the middle.</p>
             <p>
               We sit between brands and creators — not as a platform, not as a marketplace, but as the person in the room who knows both sides and makes sure the deal actually works. We match carefully, negotiate honestly, and only earn when value is delivered.
             </p>
@@ -80,13 +110,12 @@
           </div>
         </section>
 
+        <!-- Services -->
         <section class="services-wrap reveal" aria-label="Services">
           <div class="services-grid">
             <article class="panel service-panel">
               <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span>
-                <span class="service-num">01</span>
-                <span class="service-paren">)</span>
+                <span class="service-paren">(</span><span class="service-num">01</span><span class="service-paren">)</span>
               </p>
               <h2 class="service-title">FIND YOUR MATCH</h2>
               <p class="service-desc">
@@ -96,9 +125,7 @@
 
             <article class="panel service-panel">
               <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span>
-                <span class="service-num">02</span>
-                <span class="service-paren">)</span>
+                <span class="service-paren">(</span><span class="service-num">02</span><span class="service-paren">)</span>
               </p>
               <h2 class="service-title">WE PITCH FOR YOU</h2>
               <p class="service-desc">
@@ -108,9 +135,7 @@
 
             <article class="panel service-panel">
               <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span>
-                <span class="service-num">03</span>
-                <span class="service-paren">)</span>
+                <span class="service-paren">(</span><span class="service-num">03</span><span class="service-paren">)</span>
               </p>
               <h2 class="service-title">DEAL, DONE</h2>
               <p class="service-desc">
@@ -120,9 +145,7 @@
 
             <article class="panel service-panel">
               <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span>
-                <span class="service-num">04</span>
-                <span class="service-paren">)</span>
+                <span class="service-paren">(</span><span class="service-num">04</span><span class="service-paren">)</span>
               </p>
               <h2 class="service-title">WE EAT WHEN YOU EAT</h2>
               <p class="service-desc">
@@ -132,31 +155,19 @@
           </div>
         </section>
 
-        <section
-          class="contact-section reveal"
-          id="contact"
-          aria-labelledby="contact-heading"
-        >
+        <!-- Contact -->
+        <section class="contact-section reveal" id="contact" aria-labelledby="contact-heading">
           <h2 class="contact-heading" id="contact-heading">Contact</h2>
 
           <div class="contact-body">
-            <div
-              class="form-success"
-              id="form-success"
-              hidden
-              tabindex="-1"
-            >
+            <div class="form-success" id="form-success" hidden tabindex="-1">
               <p class="form-success-title">Thank you</p>
-              <p class="form-success-text">
-                We received your message and will get back to you within 24
-                hours.
-              </p>
+              <p class="form-success-text">We received your message and will get back to you within 24 hours.</p>
             </div>
 
             <p class="form-error" id="form-error" hidden role="alert">
               Something went wrong. Please try again or email
-              <a href="mailto:tafiqul@contentco.info">tafiqul@contentco.info</a
-              >.
+              <a href="mailto:tafiqul@contentco.info">tafiqul@contentco.info</a>.
             </p>
 
             <form
@@ -165,137 +176,66 @@
               action="https://formsubmit.co/ajax/tafiqul@contentco.info"
               method="POST"
             >
-              <input
-                type="hidden"
-                name="_subject"
-                value="New inquiry — Content & Co"
-              />
+              <input type="hidden" name="_subject" value="New inquiry — Content &amp; Co" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_captcha" value="false" />
-              <input
-                type="text"
-                name="_honey"
-                class="honeypot"
-                tabindex="-1"
-                autocomplete="off"
-                aria-hidden="true"
-              />
+              <!-- Honeypot spam trap -->
+              <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <div class="field-group">
                 <label class="field-label" for="form-name">Full name</label>
                 <div class="field">
-                  <input
-                    type="text"
-                    id="form-name"
-                    name="name"
-                    placeholder="Jane Smith"
-                    required
-                    autocomplete="name"
-                  />
+                  <input type="text" id="form-name" name="name" placeholder="Jane Smith" required autocomplete="name" />
                 </div>
               </div>
 
               <div class="field-group">
                 <label class="field-label" for="form-email">Email</label>
                 <div class="field">
-                  <input
-                    type="email"
-                    id="form-email"
-                    name="email"
-                    placeholder="tell@stories.com"
-                    required
-                    autocomplete="email"
-                  />
+                  <input type="email" id="form-email" name="email" placeholder="tell@stories.com" required autocomplete="email" />
                 </div>
               </div>
 
               <div class="field-group">
                 <label class="field-label" for="form-company">Company or channel name</label>
                 <div class="field">
-                  <input
-                    type="text"
-                    id="form-company"
-                    name="company"
-                    placeholder="Your company or channel name"
-                    required
-                  />
+                  <input type="text" id="form-company" name="company" placeholder="Your company or channel name" required />
                 </div>
               </div>
 
               <div class="field-group">
                 <label class="field-label" for="form-website">Website / YouTube channel link (optional)</label>
                 <div class="field">
-                  <input
-                    type="text"
-                    id="form-website"
-                    name="website"
-                    placeholder="Your website or YouTube channel link"
-                  />
+                  <input type="text" id="form-website" name="website" placeholder="Your website or YouTube channel link" />
                 </div>
               </div>
 
               <fieldset class="field-group">
                 <legend class="field-label">I'm reaching out as a:</legend>
                 <div class="radio-group">
-                  <label class="radio-label">
-                    <input type="radio" name="role" value="Brand" required />
-                    Brand
-                  </label>
-                  <label class="radio-label">
-                    <input type="radio" name="role" value="Agency" />
-                    Agency
-                  </label>
-                  <label class="radio-label">
-                    <input type="radio" name="role" value="Creator" />
-                    Creator
-                  </label>
-                  <label class="radio-label">
-                    <input type="radio" name="role" value="Other" />
-                    Other
-                  </label>
+                  <label class="radio-label"><input type="radio" name="role" value="Brand" required /> Brand</label>
+                  <label class="radio-label"><input type="radio" name="role" value="Agency" /> Agency</label>
+                  <label class="radio-label"><input type="radio" name="role" value="Creator" /> Creator</label>
+                  <label class="radio-label"><input type="radio" name="role" value="Other" /> Other</label>
                 </div>
               </fieldset>
 
               <fieldset class="field-group">
                 <legend class="field-label">What can we help you with?</legend>
                 <div class="checkbox-group">
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="help_with[]" value="sponsor video" />
-                    I want to sponsor a creator's video
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="help_with[]" value="creative support" />
-                    I'm looking for creative support for a campaign
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="help_with[]" value="launch series" />
-                    I want to launch a YouTube series
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="help_with[]" value="join roster" />
-                    I want to join your creator roster
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="help_with[]" value="brand partnership" />
-                    I want help with a brand partnership
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" name="help_with[]" value="other" />
-                    I'm just curious / other
-                  </label>
+                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="sponsor video" /> I want to sponsor a creator's video</label>
+                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="creative support" /> I'm looking for creative support for a campaign</label>
+                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="launch series" /> I want to launch a YouTube series</label>
+                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="join roster" /> I want to join your creator roster</label>
+                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="brand partnership" /> I want help with a brand partnership</label>
+                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="other" /> I'm just curious / other</label>
                 </div>
               </fieldset>
 
               <div class="field-group">
                 <label class="field-label" for="form-message">Tell us more</label>
                 <div class="field field-message">
-                  <textarea
-                    id="form-message"
-                    name="message"
-                    placeholder="What's your goal? Any specific creators, timelines, or ideas in mind?"
-                    rows="4"
-                    required
-                  ></textarea>
+                  <textarea id="form-message" name="message" placeholder="What's your goal? Any specific creators, timelines, or ideas in mind?" rows="4" required></textarea>
                 </div>
               </div>
 
@@ -303,15 +243,38 @@
             </form>
           </div>
 
-          <p class="contact-legal">
-            <span class="contact-legal-paren">(</span>
-            Content &amp; Co
-            <span class="contact-legal-paren">)</span>
-          </p>
+
         </section>
+
       </div>
     </main>
 
+    <!-- ── Footer ── -->
+    <footer class="site-footer" aria-label="Site footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="contact.html" class="footer-nav-link">Get In Touch</a>
+        <a href="terms.html" class="footer-nav-link">Terms of Use</a>
+        <a href="privacy.html" class="footer-nav-link">Privacy Policy</a>
+      </nav>
+
+      <div class="footer-logo-wrap">
+        <img
+          src="assets/logo.png"
+          alt="Content &amp; Co"
+          class="footer-logo"
+          width="120"
+          height="120"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <p class="footer-copy">
+        &copy; 2026 Content &amp; Co. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- JS is fully deferred — loads after HTML is painted -->
     <script src="main.js" defer></script>
   </body>
 </html>
