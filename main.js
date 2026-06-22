@@ -134,28 +134,28 @@
     });
   }
 
-  if (!mqFine.matches || mqReduce.matches) return;
+  if (mqFine.matches && !mqReduce.matches) {
+    let raf = 0;
+    let pendingX = 50;
+    let pendingY = 42;
 
-  let raf = 0;
-  let pendingX = 50;
-  let pendingY = 42;
+    const apply = () => {
+      raf = 0;
+      root.style.setProperty("--mx", `${pendingX}%`);
+      root.style.setProperty("--my", `${pendingY}%`);
+    };
 
-  function apply() {
-    raf = 0;
-    root.style.setProperty("--mx", `${pendingX}%`);
-    root.style.setProperty("--my", `${pendingY}%`);
+    const onMove = (event) => {
+      const x = (event.clientX / window.innerWidth) * 100;
+      const y = (event.clientY / window.innerHeight) * 100;
+      pendingX = x;
+      pendingY = y;
+      document.body.classList.add("is-cursor-active");
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
   }
-
-  function onMove(event) {
-    const x = (event.clientX / window.innerWidth) * 100;
-    const y = (event.clientY / window.innerHeight) * 100;
-    pendingX = x;
-    pendingY = y;
-    document.body.classList.add("is-cursor-active");
-    if (!raf) raf = requestAnimationFrame(apply);
-  }
-
-  window.addEventListener("pointermove", onMove, { passive: true });
 
   // —— Hamburger Mobile Nav ——
   const hamburger = document.getElementById("hamburger");

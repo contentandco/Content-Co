@@ -237,6 +237,10 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
   display: inline;
 }
 
+.desktop-only {
+  display: inline;
+}
+
 .second-line-wrap {
   white-space: nowrap;
 }
@@ -262,6 +266,9 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
     display: inline;
   }
   .desktop-space {
+    display: none;
+  }
+  .desktop-only {
     display: none;
   }
   .second-line-wrap {
