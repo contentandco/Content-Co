@@ -57,10 +57,7 @@ body {
 }
 
 .honeypot {
-  position: absolute;
-  left: -9999px;
-  opacity: 0;
-  pointer-events: none;
+  display: none !important;
 }
 
 .cursor-glow {
