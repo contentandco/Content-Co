@@ -64,7 +64,19 @@
         <a href="about.html" class="header-nav-link">About Us</a>
         <a href="#contact" class="header-nav-link">Contact</a>
       </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <a href="talent.html" class="mobile-nav-link">Our Talent</a>
+      <a href="work.html" class="mobile-nav-link">Our Work</a>
+      <a href="about.html" class="mobile-nav-link">About Us</a>
+      <a href="#contact" class="mobile-nav-link" id="mobile-contact-link">Contact</a>
+    </nav>
 
     <main class="page">
       <!-- ── Hero ── -->
@@ -72,7 +84,7 @@
         <div class="glitter" id="glitter" aria-hidden="true"></div>
         <div class="hero-inner">
           <div class="hero-content animate-in stagger-1">
-            <h1 class="hero-heading">WE HELP BRANDS SHOW UP<br>WHERE ATTENTION ACTUALLY IS</h1>
+            <h1 class="hero-heading">WE HELP BRANDS SHOW UP<br><span class="second-line-wrap">WHERE ATTENTION<span class="desktop-space"> </span><br class="phone-only">ACTUALLY IS</span></h1>
             <div class="hero-copy">
               <p class="hero-subtitle">
                 Content &amp; Co is an influencer marketing agency built to put brands inside the videos people are already watching.

@@ -128,10 +128,10 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
 }
 
 /* Tight padding on small screens gives heading maximum horizontal room */
-@media (max-width: 480px) {
+@media (max-width: 48rem) {
   .hero {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .hero-inner {
     max-width: 100%;
@@ -221,13 +221,52 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
 .hero-heading {
   margin: 0 0 clamp(1rem, 3vw, 1.5rem);
   font-family: var(--font-sans);
-  /* vw-driven so both lines always fit on one line each at any screen width */
   font-size: clamp(1.2rem, 5.5vw, 4rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.04em;
   text-transform: uppercase;
   color: var(--foreground);
+}
+
+.phone-only {
+  display: none;
+}
+
+.desktop-space {
+  display: inline;
+}
+
+.second-line-wrap {
+  white-space: nowrap;
+}
+
+@media (max-width: 48rem) {
+  .hero-heading {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
+  .hero-content {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .hero-copy {
+    text-align: left;
+  }
+  .hero-cta {
+    align-self: flex-start;
+  }
+  .phone-only {
+    display: inline;
+  }
+  .desktop-space {
+    display: none;
+  }
+  .second-line-wrap {
+    white-space: normal;
+  }
 }
 
 .hero-copy {
@@ -241,19 +280,28 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
 .hero-subtitle {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(1.125rem, 1.8vw + 0.5rem, 1.5rem);
+  font-size: clamp(1rem, 1.6vw + 0.4rem, 1.4rem);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--foreground);
 }
 
 .hero-desc {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(0.9375rem, 1.2vw + 0.5rem, 1.125rem);
+  font-size: clamp(0.875rem, 1vw + 0.4rem, 1.0625rem);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--muted);
+}
+
+@media (max-width: 48rem) {
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .hero-desc {
+    font-size: 0.875rem;
+  }
 }
 
 .hero-cta {
@@ -854,12 +902,120 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
   color: var(--foreground);
 }
 
-@media (max-width: 60rem) {
+/* —— Mobile Hamburger Menu —— */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 200;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--foreground);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 0;
+  z-index: 150;
+  background: rgba(13, 13, 13, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-nav.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:focus {
+  color: var(--foreground);
+  transform: translateX(6px);
+}
+
+.mobile-nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.mobile-nav-close:hover {
+  color: var(--foreground);
+}
+
+@media (max-width: 48rem) {
   .header-nav {
-    display: none; /* Hide on small screens for a cleaner look */
+    display: none;
   }
   .site-header {
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0.75rem var(--pad-x);
+  }
+  .header-logo-link {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hamburger {
+    display: flex;
+  }
+  .mobile-nav {
+    display: flex;
   }
 }
 
@@ -953,4 +1109,112 @@ body.is-pointer-fine.is-cursor-active .cursor-glow {
 
 .legal-section-body a:hover {
   text-decoration-color: var(--foreground);
+}
+
+/* —— Global Mobile Responsive Fixes —— */
+
+@media (max-width: 48rem) {
+
+  /* Footer */
+  .site-footer {
+    padding: clamp(3rem, 8vw, 5rem) var(--pad-x) clamp(2rem, 5vw, 3rem);
+  }
+
+  .footer-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: clamp(2rem, 6vw, 3rem);
+  }
+
+  .footer-logo {
+    width: clamp(8rem, 40vw, 14rem);
+  }
+
+  .footer-logo-wrap {
+    margin-bottom: clamp(2rem, 6vw, 3rem);
+  }
+
+  /* Content stack closer on mobile */
+  .content-stack {
+    padding: 0 1rem clamp(3rem, 8vw, 5rem);
+    gap: clamp(2.5rem, 8vw, 4rem);
+  }
+
+  .content-stack--raised {
+    margin-top: clamp(3rem, 8vh, 6rem);
+  }
+
+  /* Services grid single col */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Mission copy */
+  .mission-copy {
+    gap: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  /* Legal / inner pages */
+  .legal-content {
+    padding: 0 1rem;
+  }
+
+  .legal-intro {
+    margin: 0 auto clamp(2.5rem, 6vw, 4rem);
+    padding: 0 0.5rem;
+  }
+
+  .legal-intro h1 {
+    font-size: clamp(2rem, 9vw, 3.5rem);
+  }
+
+  .legal-section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .legal-section-number {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+
+  .legal-section-body h2 {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Contact form */
+  .contact-section {
+    padding: clamp(1.5rem, 4vw, 2rem) 0 0;
+  }
+
+  .contact-heading {
+    font-size: clamp(3rem, 18vw, 6rem);
+  }
+
+  .contact-form {
+    gap: 1.25rem;
+  }
+
+  /* Work page article cards */
+  .panel {
+    padding: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  /* Hero inner pages */
+  .hero[style*="50vh"] {
+    min-height: 40vh !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-heading {
+    font-size: 2rem;
+  }
+
+  .hero-cta {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.875rem;
+  }
 }

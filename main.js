@@ -156,4 +156,40 @@
   }
 
   window.addEventListener("pointermove", onMove, { passive: true });
+
+  // —— Hamburger Mobile Nav ——
+  const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.getElementById("mobile-nav");
+  const mobileClose = document.getElementById("mobile-nav-close");
+
+  function openMobileNav() {
+    if (!mobileNav || !hamburger) return;
+    mobileNav.classList.add("is-open");
+    hamburger.classList.add("is-open");
+    hamburger.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileNav() {
+    if (!mobileNav || !hamburger) return;
+    mobileNav.classList.remove("is-open");
+    hamburger.classList.remove("is-open");
+    hamburger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburger) hamburger.addEventListener("click", openMobileNav);
+  if (mobileClose) mobileClose.addEventListener("click", closeMobileNav);
+
+  // Close when clicking a link inside the mobile nav
+  if (mobileNav) {
+    mobileNav.querySelectorAll(".mobile-nav-link").forEach((link) => {
+      link.addEventListener("click", closeMobileNav);
+    });
+  }
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMobileNav();
+  });
 })();
