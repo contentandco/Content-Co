@@ -534,15 +534,15 @@
       <header class="chamber-header">
         <div class="chamber-header-left anim-fade-up anim-delay-1">
           <span class="status-dot"></span>
-          <span class="chamber-header-label">Content &amp; Co / Roster Request</span>
+          <span class="chamber-header-label">Content &amp; Co / Creator Partnerships</span>
         </div>
-        <span class="chamber-header-status anim-fade-up anim-delay-2">Status: Ready</span>
+        <span class="chamber-header-status anim-fade-up anim-delay-2" id="header-status">Status: Accepting Requests</span>
       </header>
 
       <!-- Main Content -->
       <div class="chamber-main">
         <div class="chamber-title-wrap">
-          <span class="chamber-instrument-label anim-fade-up anim-delay-1">Creator Roster · No. 01</span>
+          <span class="chamber-instrument-label anim-fade-up anim-delay-1" id="instrument-label">Creator Roster Request · No. 02</span>
           <span class="chamber-divider anim-fade-up anim-delay-2" aria-hidden="true"></span>
           <h1 class="chamber-heading anim-fade-up anim-delay-2">Request Your Creator Roster</h1>
           <p class="chamber-subheading anim-fade-up anim-delay-3">
@@ -555,19 +555,19 @@
           <div class="form-progress">
             <div class="progress-item">
               <span class="progress-label">REQUEST</span>
-              <span class="progress-status" id="request-status">Submit Your Brief</span>
+              <span class="progress-status" id="request-status">Received</span>
             </div>
             <div class="progress-item">
               <span class="progress-label">REVIEW</span>
-              <span class="progress-status" id="review-status">We'll Review Your Campaign</span>
+              <span class="progress-status" id="review-status">In Progress</span>
             </div>
             <div class="progress-item">
               <span class="progress-label">MATCHING</span>
-              <span class="progress-status" id="matching-status">We'll Research Creators</span>
+              <span class="progress-status" id="matching-status">Researching Creators</span>
             </div>
             <div class="progress-item">
               <span class="progress-label">STATUS</span>
-              <span class="progress-status" id="status-status">We'll Be In Touch Soon</span>
+              <span class="progress-status" id="status-status">We'll Contact You Soon</span>
             </div>
           </div>
 
@@ -615,7 +615,7 @@
             </div>
 
             <div class="field-group">
-              <label class="field-label required" for="full-name">Full name</label>
+              <label class="field-label" for="full-name">Full name *</label>
               <div class="field">
                 <input 
                   type="text" 
@@ -629,7 +629,7 @@
             </div>
 
             <div class="field-group">
-              <label class="field-label required" for="company-name">Company name</label>
+              <label class="field-label" for="company-name">Company Name *</label>
               <div class="field">
                 <input 
                   type="text" 
@@ -643,7 +643,7 @@
             </div>
 
             <div class="field-group">
-              <label class="field-label required" for="company-website">Company website</label>
+              <label class="field-label" for="company-website">Company website *</label>
               <div class="field">
                 <input 
                   type="url" 
@@ -656,7 +656,7 @@
             </div>
 
             <div class="field-group">
-              <label class="field-label required" for="email">Email address</label>
+              <label class="field-label" for="email">Email address *</label>
               <div class="field">
                 <input 
                   type="email" 
@@ -670,7 +670,7 @@
             </div>
 
             <div class="field-group">
-              <label class="field-label required" for="campaign-goal">CAMPAIGN GOAL</label>
+              <label class="field-label" for="campaign-goal">CAMPAIGN GOAL *</label>
               <div class="field">
                 <select id="campaign-goal" name="campaign_goal" required>
                   <option value="" selected disabled>Your campaign goals*</option>
@@ -754,9 +754,9 @@
 
       <!-- Footer -->
       <footer class="chamber-footer">
-        <span class="chamber-footer-label anim-fade-up anim-delay-4">Content &amp; Co · Creator Roster System</span>
+        <span class="chamber-footer-label anim-fade-up anim-delay-4">Content &amp; Co · Creator Partnerships</span>
         <span class="chamber-footer-links anim-fade-up anim-delay-5">
-          <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="index.html">Home</a>
+          <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>
         </span>
       </footer>
     </main>
@@ -777,26 +777,23 @@
         // Form elements for live updates
         const companyName = document.getElementById('company-name');
         
-        // Update progress indicators based on form input
+        // Update progress indicators based on form completion
         function updateProgressIndicators() {
-          // Update REQUEST status based on form completion
+          // Only update REQUEST to show completion status
           const requiredFields = form.querySelectorAll('[required]');
           const filledFields = Array.from(requiredFields).filter(field => field.value.trim());
           const completionPercentage = Math.round((filledFields.length / requiredFields.length) * 100);
           
-          if (completionPercentage < 100) {
-            requestStatus.textContent = 'Submit Your Brief';
-            reviewStatus.textContent = "We'll Review Your Campaign";
-            matchingStatus.textContent = "We'll Research Creators";
-            statusStatus.textContent = "We'll Be In Touch Soon";
-          } else {
+          if (completionPercentage === 100) {
             requestStatus.textContent = 'Ready to Submit';
+            requestStatus.style.color = 'var(--accent)';
+          } else {
+            requestStatus.textContent = 'Received';
+            requestStatus.style.color = '';
           }
         }
         
-        // Add event listeners for live updates
-        companyName.addEventListener('input', updateProgressIndicators);
-        // Listen to all required fields
+        // Add event listeners for form completion updates
         const requiredFields = form.querySelectorAll('[required]');
         requiredFields.forEach(field => {
           field.addEventListener('input', updateProgressIndicators);
@@ -842,6 +839,18 @@
             if (response.ok) {
               successMessage.style.display = 'block';
               errorMessage.style.display = 'none';
+              
+              // Update header status and instrument label after submission
+              const headerStatus = document.getElementById('header-status');
+              const instrumentLabel = document.getElementById('instrument-label');
+              if (headerStatus) headerStatus.textContent = 'Status: Reviewing Request';
+              if (instrumentLabel) instrumentLabel.textContent = 'Request Received · No. 03';
+              
+              // Update page title and heading after submission
+              const pageHeading = document.querySelector('.chamber-heading');
+              const pageSubheading = document.querySelector('.chamber-subheading');
+              if (pageHeading) pageHeading.textContent = 'Creator Roster Request Received';
+              if (pageSubheading) pageSubheading.textContent = 'Thanks for reaching out. We\'re now reviewing your campaign and will email you shortly to confirm your request or ask any questions we may have.';
               
               // Update status indicators after successful submission
               requestStatus.textContent = 'Received ✓';
