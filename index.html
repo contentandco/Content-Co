@@ -5,288 +5,570 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Content &amp; Co — Influencer marketing agency putting brands inside the videos people are already watching."
+      content="Find the creators your customers already trust. Handpicked creators, built for your brand."
     />
-    <meta name="theme-color" content="#0d0d0d" />
-    <title>Content &amp; Co</title>
+    <meta name="theme-color" content="#fafaf9" />
+    <title>Find My Creators — Content &amp; Co</title>
+    <meta name="author" content="Content & Co" />
+    <meta property="og:title" content="Find My Creators — Content & Co" />
+    <meta
+      property="og:description"
+      content="Find the creators your customers already trust. Handpicked creators, built for your brand."
+    />
+    <meta property="og:type" content="website" />
 
-    <!-- Critical inline styles: paint dark background + hide animated elements before CSS arrives -->
-    <style>
-      :root{--background:#0d0d0d;--foreground:#ffffff;--font-sans:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;}
-      *,*::before,*::after{box-sizing:border-box;}
-      html{color-scheme:dark;background:var(--background);overflow-x:hidden;}
-      body{margin:0;min-height:100dvh;font-family:var(--font-sans);color:var(--foreground);background:var(--background);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-      /* Pre-hide animated elements so they never flash visible before styles.css kicks in */
-      .animate-in{opacity:0;}
-    </style>
-
-    <!-- Preconnect to Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Load only what we use: Instrument Sans 400/600/700/800 -->
-    <!-- display=block: short block period so font renders on first paint, no swap flash -->
     <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
     />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700;800&display=block" rel="stylesheet" />
-    </noscript>
-
-    <!-- Preload the main stylesheet so it arrives as fast as possible -->
-    <link rel="preload" href="styles.css" as="style" />
-    <link rel="stylesheet" href="styles.css" />
 
     <link rel="icon" href="assets/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+        --card-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.25);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      /* ─── Main layout ─── */
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100svh;
+        overflow: hidden;
+        background:
+          radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      /* Nature Background (blue & low opacity, easy to adjust or remove) */
+      .map-bg-nature {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('Back ground Nature.svg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.35;
+        pointer-events: none;
+      }
+
+      /* ─── Background specimen card ─── */
+      .specimen-wrap {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .specimen-card {
+        position: relative;
+        width: min(90vw, 680px);
+        transform: rotate(-1.2deg);
+        border-radius: 16px;
+        background: var(--card-bg);
+        opacity: 0.22;
+        box-shadow: var(--card-shadow);
+        filter: blur(3px);
+        border: 1px solid rgba(9, 9, 11, 0.05);
+      }
+
+      .specimen-watermark {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%) rotate(-8deg);
+        user-select: none;
+        font-family: var(--font-mono);
+        font-size: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: rgba(24, 24, 27, 0.10);
+      }
+
+      .specimen-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e4e4e7;
+        background: #fafaf9;
+        padding: 0.75rem 1.25rem;
+        border-radius: 16px 16px 0 0;
+      }
+
+      .specimen-header-left { display: flex; flex-direction: column; gap: 0.375rem; }
+      .specimen-bar { border-radius: 4px; }
+      .specimen-bar-accent { height: 6px; width: 6rem; background: rgba(16, 185, 129, 0.6); }
+      .specimen-bar-md { height: 12px; width: 10rem; background: #d4d4d8; }
+      .specimen-header-right { display: flex; flex-direction: column; gap: 0.375rem; align-items: flex-end; }
+      .specimen-bar-sm { height: 6px; width: 4rem; background: #d4d4d8; }
+      .specimen-bar-xs { height: 6px; width: 3rem; background: #e4e4e7; }
+
+      .specimen-body {
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+
+      .specimen-col { display: flex; flex-direction: column; gap: 0.5rem; }
+      .specimen-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+      .specimen-line { height: 8px; flex: 1; border-radius: 4px; background: #e4e4e7; }
+      .specimen-dot { width: 6px; height: 6px; border-radius: 50%; background: #d4d4d8; }
+      .specimen-block { height: 56px; border-radius: 8px; background: #d4d4d8; margin-top: 0.75rem; }
+
+      .specimen-right { display: flex; flex-direction: column; gap: 0.75rem; }
+      .specimen-title-bar { height: 20px; width: 75%; border-radius: 4px; background: #d4d4d8; }
+      .specimen-desc-bar { height: 8px; width: 100%; border-radius: 4px; background: #e4e4e7; }
+
+      .specimen-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        padding-top: 0.25rem;
+      }
+
+      .specimen-card-green {
+        height: 64px;
+        border-radius: 8px;
+        border: 1px solid #6ee7b7;
+        background: rgba(110, 231, 183, 0.3);
+      }
+
+      .specimen-card-amber {
+        height: 64px;
+        border-radius: 8px;
+        border: 1px solid #fcd34d;
+        background: rgba(252, 211, 77, 0.3);
+      }
+
+      /* ─── Center radial glow ─── */
+      .center-glow {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Corner brackets ─── */
+      .corner-brackets {
+        position: absolute;
+        inset: 1rem;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .corner-brackets span {
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .corner-brackets .tl { top: 0; left: 0; border-left: 1px solid var(--border-light); border-top: 1px solid var(--border-light); }
+      .corner-brackets .tr { top: 0; right: 0; border-right: 1px solid var(--border-light); border-top: 1px solid var(--border-light); }
+      .corner-brackets .bl { bottom: 0; left: 0; border-left: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+      .corner-brackets .br { bottom: 0; right: 0; border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+
+      @media (min-width: 24rem) {
+        .corner-brackets { inset: 1.5rem; }
+      }
+
+      /* ─── Side labels ─── */
+      .side-label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        color: var(--text-faint);
+        pointer-events: none;
+        display: none;
+      }
+
+      .side-label-left {
+        left: 1.25rem;
+        transform: translateY(-50%) rotate(-90deg);
+      }
+
+      .side-label-right {
+        right: 1.25rem;
+        transform: translateY(-50%) rotate(90deg);
+      }
+
+      @media (min-width: 64rem) {
+        .side-label { display: block; }
+      }
+
+      /* ─── Header ─── */
+      .map-header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .map-header { padding: 1.25rem 2.5rem; }
+      }
+
+      .map-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent-glow);
+        animation: pulse-dot 2.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse-dot {
+        0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+        50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 4px var(--accent); }
+      }
+
+      .map-header-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #52525b;
+      }
+
+      .map-header-status {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+        display: none;
+      }
+
+      @media (min-width: 40rem) {
+        .map-header-status { display: inline; }
+      }
+
+      /* ─── Hero center content ─── */
+      .map-hero {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .map-instrument-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--accent);
+      }
+
+      .map-divider {
+        display: block;
+        margin-top: 1.25rem;
+        width: 3rem;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.5), transparent);
+      }
+
+      .map-heading {
+        margin-top: 1.75rem;
+        font-family: var(--font-serif);
+        font-size: clamp(2.75rem, 10vw, 5.25rem);
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+        color: var(--text);
+      }
+
+      @media (min-width: 40rem) {
+        .map-heading { margin-top: 2rem; }
+      }
+
+      .map-subheading {
+        margin-top: 1.5rem;
+        max-width: 46ch;
+        font-family: var(--font-sans);
+        font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+        font-weight: 400;
+        line-height: 1.7;
+        color: #52525b;
+        text-wrap: pretty;
+      }
+
+      @media (min-width: 40rem) {
+        .map-subheading { margin-top: 1.75rem; }
+      }
+
+      /* ─── CTA ─── */
+      .map-cta-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2.25rem;
+      }
+
+      @media (min-width: 40rem) {
+        .map-cta-wrap { margin-top: 3rem; }
+      }
+
+      .map-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.75rem;
+        background: var(--accent);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 6px;
+        box-shadow: 0 22px 45px -20px rgba(16, 185, 129, 0.75);
+        border: 1px solid var(--accent);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+
+      .map-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 26px 50px -18px rgba(16, 185, 129, 0.85);
+      }
+
+      .map-cta:active {
+        transform: translateY(0);
+      }
+
+      .map-cta-arrow {
+        width: 16px;
+        height: 16px;
+        opacity: 0.7;
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .map-cta:hover .map-cta-arrow {
+        transform: translateX(2px);
+      }
+
+      .map-cta-meta {
+        margin-top: 1.25rem;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+      }
+
+      /* ─── Footer ─── */
+      .map-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .map-footer { padding: 1.25rem 2.5rem; }
+      }
+
+      .map-footer-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+
+      .map-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-muted);
+      }
+
+      .map-footer-links a {
+        color: var(--text-muted);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+      }
+
+      .map-footer-links a:hover {
+        color: var(--text);
+      }
+
+      /* ─── Entrance animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .anim-fade-up {
+        opacity: 0;
+        animation: fade-up 0.8s ease-out forwards;
+      }
+
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+      .anim-delay-3 { animation-delay: 0.45s; }
+      .anim-delay-4 { animation-delay: 0.65s; }
+      .anim-delay-5 { animation-delay: 0.85s; }
+
+      .anim-fade-in {
+        opacity: 0;
+        animation: fade-in 1s ease-out forwards;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-fade-up,
+        .anim-fade-in {
+          opacity: 1;
+          animation: none;
+        }
+      }
+
+      /* ─── Mobile tweaks ─── */
+      @media (max-width: 40rem) {
+        .map-hero {
+          padding: 1rem;
+        }
+
+        .specimen-card {
+          width: 95vw;
+        }
+
+        .specimen-watermark {
+          font-size: 1.75rem;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="cursor-glow" aria-hidden="true"></div>
-    <div class="glow" aria-hidden="true"></div>
+    <main class="map-page">
+      <!-- Nature Background (easy to comment out or delete) -->
+      <div class="map-bg-nature" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <nav class="header-nav left-nav">
-        <a href="talent.html" class="header-nav-link">Our Talent</a>
-        <a href="work.html" class="header-nav-link">Our Work</a>
-      </nav>
-      <a href="index.html" class="header-logo-link" aria-label="Home">
-        <img src="assets/logo.png" alt="Content &amp; Co" class="header-logo" width="70" height="70" decoding="async" />
-      </a>
-      <nav class="header-nav right-nav">
-        <a href="about.html" class="header-nav-link">About Us</a>
-        <a href="#contact" class="header-nav-link">Contact</a>
-      </nav>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </header>
 
-    <!-- Mobile Navigation Overlay -->
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
-      <a href="talent.html" class="mobile-nav-link">Our Talent</a>
-      <a href="work.html" class="mobile-nav-link">Our Work</a>
-      <a href="about.html" class="mobile-nav-link">About Us</a>
-      <a href="#contact" class="mobile-nav-link" id="mobile-contact-link">Contact</a>
-    </nav>
 
-    <main class="page">
-      <!-- ── Hero ── -->
-      <section class="hero" aria-label="Introduction">
-        <div class="glitter" id="glitter" aria-hidden="true"></div>
-        <div class="hero-inner">
-          <div class="hero-content animate-in stagger-1">
-            <h1 class="hero-heading">WE HELP BRANDS<span class="desktop-space"> </span><br class="phone-only">SHOW UP <br class="desktop-only"><span class="second-line-wrap">WHERE<span class="desktop-space"> </span><br class="phone-only">ATTENTION ACTUALLY IS</span></h1>
-            <div class="hero-copy">
-              <p class="hero-subtitle">
-                Content &amp; Co is an influencer marketing agency built to put brands inside the videos people are already watching.
-              </p>
-              <p class="hero-desc">
-                Not ads. Not banners. Real integrations — inside content that audiences trust, from creators whose recommendations actually convert.
-              </p>
-              <p class="hero-desc">
-                We handle everything between the brand brief and the published video. The right creator, the right deal, the right integration. And we only get paid when it happens.
-              </p>
-            </div>
-            <a href="#contact" class="hero-cta">GET IN TOUCH</a>
-          </div>
+      <!-- Center radial glow -->
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <!-- Corner brackets -->
+      <div class="corner-brackets" aria-hidden="true">
+        <span class="tl"></span>
+        <span class="tr"></span>
+        <span class="bl"></span>
+        <span class="br"></span>
+      </div>
+
+      <!-- Side labels (large screens) -->
+      <span class="side-label side-label-left" aria-hidden="true">Creator partnerships</span>
+      <span class="side-label side-label-right" aria-hidden="true">Partnerships · Campaigns</span>
+
+      <!-- Header -->
+      <header class="map-header">
+        <div class="map-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="map-header-label">Content &amp; Co / Partnership System</span>
         </div>
-      </section>
+        <span class="map-header-status anim-fade-up anim-delay-2">Status: Matching Creators</span>
+      </header>
 
-      <!-- ── Mission + Services + Contact ── -->
-      <div class="content-stack content-stack--raised">
-
-        <!-- Mission -->
-        <section class="mission-section reveal" aria-labelledby="mission-heading">
-          <p class="section-label" id="mission-heading">OUR MISSION &amp; SERVICES</p>
-          <div class="mission-copy">
-            <p>
-              Influencer marketing is full of noise. Agencies that overpromise, deals that fall apart, integrations that feel like ads. Brands lose money. Creators lose trust with their audience. Everyone loses.
-            </p>
-            <p>Content &amp; Co exists to fix the middle.</p>
-            <p>
-              We sit between brands and creators — not as a platform, not as a marketplace, but as the person in the room who knows both sides and makes sure the deal actually works. We match carefully, negotiate honestly, and only earn when value is delivered.
-            </p>
-            <p>
-              No retainers. No inflated follower counts. No chasing trends.<br>
-              Just partnerships built on the right fit — and a model that means we're as invested in the outcome as you are.
-            </p>
-          </div>
-        </section>
-
-        <!-- Services -->
-        <section class="services-wrap reveal" aria-label="Services">
-          <div class="services-grid">
-            <article class="panel service-panel">
-              <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span><span class="service-num">01</span><span class="service-paren">)</span>
-              </p>
-              <h2 class="service-title">FIND YOUR MATCH</h2>
-              <p class="service-desc">
-                You tell us the brand or the creator. We do the research — audience overlap, engagement quality, deal history. No cold intros. Every match is deliberate.
-              </p>
-            </article>
-
-            <article class="panel service-panel">
-              <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span><span class="service-num">02</span><span class="service-paren">)</span>
-              </p>
-              <h2 class="service-title">WE PITCH FOR YOU</h2>
-              <p class="service-desc">
-                We handle outreach. We know how to talk to brands and how to talk to creators. You don't send a single email until there's a real conversation on the table.
-              </p>
-            </article>
-
-            <article class="panel service-panel">
-              <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span><span class="service-num">03</span><span class="service-paren">)</span>
-              </p>
-              <h2 class="service-title">DEAL, DONE</h2>
-              <p class="service-desc">
-                Brief, contract, deliverables, timeline. We structure it so both sides are protected and the integration actually gets made — not just agreed to.
-              </p>
-            </article>
-
-            <article class="panel service-panel">
-              <p class="service-index" aria-hidden="true">
-                <span class="service-paren">(</span><span class="service-num">04</span><span class="service-paren">)</span>
-              </p>
-              <h2 class="service-title">WE EAT WHEN YOU EAT</h2>
-              <p class="service-desc">
-                Our cut comes from the deal value, not your pocket upfront. If the deal doesn't close, we don't charge. That's the whole model.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <!-- Contact -->
-        <section class="contact-section reveal" id="contact" aria-labelledby="contact-heading">
-          <h2 class="contact-heading" id="contact-heading">Contact</h2>
-
-          <div class="contact-body">
-            <div class="form-success" id="form-success" hidden tabindex="-1">
-              <p class="form-success-title">Thank you</p>
-              <p class="form-success-text">We received your message and will get back to you within 24 hours.</p>
-            </div>
-
-            <p class="form-error" id="form-error" hidden role="alert">
-              Something went wrong. Please try again or email
-              <a href="mailto:tafiqul@contentco.info">tafiqul@contentco.info</a>.
-            </p>
-
-            <form
-              class="contact-form"
-              id="contact-form"
-              action="https://formsubmit.co/ajax/tafiqul@contentco.info"
-              method="POST"
-            >
-              <input type="hidden" name="_subject" value="New inquiry — Content &amp; Co" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
-              <!-- Honeypot spam trap -->
-              <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-              <div class="field-group">
-                <label class="field-label" for="form-name">Full name</label>
-                <div class="field">
-                  <input type="text" id="form-name" name="name" placeholder="Jane Smith" required autocomplete="name" />
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" for="form-email">Email</label>
-                <div class="field">
-                  <input type="email" id="form-email" name="email" placeholder="tell@stories.com" required autocomplete="email" />
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" for="form-company">Company or channel name</label>
-                <div class="field">
-                  <input type="text" id="form-company" name="company" placeholder="Your company or channel name" required />
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label" for="form-website">Website / YouTube channel link (optional)</label>
-                <div class="field">
-                  <input type="text" id="form-website" name="website" placeholder="Your website or YouTube channel link" />
-                </div>
-              </div>
-
-              <fieldset class="field-group">
-                <legend class="field-label">I'm reaching out as a:</legend>
-                <div class="radio-group">
-                  <label class="radio-label"><input type="radio" name="role" value="Brand" required /> Brand</label>
-                  <label class="radio-label"><input type="radio" name="role" value="Agency" /> Agency</label>
-                  <label class="radio-label"><input type="radio" name="role" value="Creator" /> Creator</label>
-                  <label class="radio-label"><input type="radio" name="role" value="Other" /> Other</label>
-                </div>
-              </fieldset>
-
-              <fieldset class="field-group">
-                <legend class="field-label">What can we help you with?</legend>
-                <div class="checkbox-group">
-                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="sponsor video" /> I want to sponsor a creator's video</label>
-                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="creative support" /> I'm looking for creative support for a campaign</label>
-                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="launch series" /> I want to launch a YouTube series</label>
-                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="join roster" /> I want to join your creator roster</label>
-                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="brand partnership" /> I want help with a brand partnership</label>
-                  <label class="checkbox-label"><input type="checkbox" name="help[]" value="other" /> I'm just curious / other</label>
-                </div>
-              </fieldset>
-
-              <div class="field-group">
-                <label class="field-label" for="form-message">Tell us more</label>
-                <div class="field field-message">
-                  <textarea id="form-message" name="message" placeholder="What's your goal? Any specific creators, timelines, or ideas in mind?" rows="4" required></textarea>
-                </div>
-              </div>
-
-              <button type="submit" class="contact-submit">Submit</button>
-            </form>
-          </div>
-
-
-        </section>
-
+      <!-- Hero -->
+      <div class="map-hero">
+        <span class="map-instrument-label anim-fade-up anim-delay-1">Partnership System · No. 01</span>
+        <span class="map-divider anim-fade-up anim-delay-2" aria-hidden="true"></span>
+        <h1 class="map-heading anim-fade-up anim-delay-2">Request a Creator Roster</h1>
+        <p class="map-subheading anim-fade-up anim-delay-3">
+          We handpick creators that fit your product, audience, and campaign goals.
+        </p>
+        <div class="map-cta-wrap anim-fade-up anim-delay-4">
+          <a href="old-agency/contact.html" class="map-cta" id="cta-run-map">
+            Request My Creator Roster
+            <svg class="map-cta-arrow" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 8 8.22 4.28a.75.75 0 0 1 0-1.06Z"></path>
+              <path d="M12.5 8H3.75a.75.75 0 0 1 0-1.5h8.75a.75.75 0 0 1 0 1.5Z"></path>
+            </svg>
+          </a>
+          <p class="map-cta-meta anim-fade-up anim-delay-5">Handpicked · Vetted · Ready to partner</p>
+        </div>
       </div>
+
+      <!-- Footer -->
+      <footer class="map-footer">
+        <span class="map-footer-label anim-fade-up anim-delay-4">Content &amp; Co · Partnership System</span>
+        <span class="map-footer-links anim-fade-up anim-delay-5">
+          <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="index.html">Home</a>
+        </span>
+      </footer>
+
     </main>
-
-    <!-- ── Footer ── -->
-    <footer class="site-footer" aria-label="Site footer">
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="contact.html" class="footer-nav-link">Get In Touch</a>
-        <a href="terms.html" class="footer-nav-link">Terms of Use</a>
-        <a href="privacy.html" class="footer-nav-link">Privacy Policy</a>
-      </nav>
-
-      <div class="footer-logo-wrap">
-        <img
-          src="assets/logo.png"
-          alt="Content &amp; Co"
-          class="footer-logo"
-          width="120"
-          height="120"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <p class="footer-copy">
-        &copy; 2026 Content &amp; Co. All rights reserved.
-      </p>
-    </footer>
-
-    <!-- JS is fully deferred — loads after HTML is painted -->
-    <script src="main.js" defer></script>
   </body>
 </html>
