@@ -724,33 +724,37 @@
           <h2 class="form-card-title" id="form-title">Creator Application</h2>
           <p class="form-card-subtitle" id="form-desc">Tell us about your content so we can consider you for future brand partnerships.</p>
 
-          <form class="form-grid" id="creator-form" action="#" method="POST">
+          <form class="form-grid" id="creator-form" action="https://formsubmit.co/ajax/tafiqul@contentco.info" method="POST">
+            <input type="hidden" name="_subject" value="New Creator Application — Content & Co" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" style="display: none;" />
+            <input type="hidden" name="_replyto" value="" />
+
             <div class="field-row">
               <div class="field">
                 <label class="field-label" for="full-name">Full Name / Handle</label>
-                <input class="field-input" type="text" id="full-name" required placeholder="e.g. Alex Morgan (@alexcreates)" />
+                <input class="field-input" type="text" id="full-name" name="name" required placeholder="e.g. Alex Morgan (@alexcreates)" />
               </div>
               <div class="field">
                 <label class="field-label" for="email">Email Address</label>
-                <input class="field-input" type="email" id="email" required placeholder="alex@domain.com" />
+                <input class="field-input" type="email" id="email" name="email" required placeholder="alex@domain.com" />
               </div>
             </div>
 
             <div class="field-row">
               <div class="field">
                 <label class="field-label" for="primary-platform">Primary Platform</label>
-                <select class="field-select" id="primary-platform" required>
+                <select class="field-select" id="primary-platform" name="platform" required>
                   <option value="" disabled selected>Select main platform</option>
                   <option value="youtube">YouTube</option>
                   <option value="instagram">Instagram</option>
-                  <option value="tiktok">TikTok</option>
-                  <option value="x">X / Twitter</option>
-                  <option value="podcast">Podcast / Blog</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
               <div class="field">
                 <label class="field-label" for="niche">Primary Niche</label>
-                <select class="field-select" id="niche" required>
+                <select class="field-select" id="niche" name="niche" required>
                   <option value="" disabled selected>Select content category</option>
                   <option value="tech">Tech &amp; Software</option>
                   <option value="lifestyle">Lifestyle &amp; Daily Vlogs</option>
@@ -766,7 +770,7 @@
             <div class="field-row">
               <div class="field">
                 <label class="field-label" for="reach">Audience Size / Reach</label>
-                <select class="field-select" id="reach" required>
+                <select class="field-select" id="reach" name="audience_size" required>
                   <option value="" disabled selected>Select follower/subscriber range</option>
                   <option value="1k-10k">1k – 10k followers</option>
                   <option value="10k-50k">10k – 50k followers</option>
@@ -776,7 +780,7 @@
               </div>
               <div class="field">
                 <label class="field-label" for="channel-link">Channel / Portfolio Link</label>
-                <input class="field-input" type="url" id="channel-link" placeholder="https://youtube.com/@yourchannel" />
+                <input class="field-input" type="url" id="channel-link" name="channel_link" placeholder="https://youtube.com/@yourchannel" />
               </div>
             </div>
 
@@ -798,26 +802,64 @@
 
       <!-- Script for Submission View Switch -->
       <script>
-        document.getElementById('creator-form').addEventListener('submit', function(e) {
-          e.preventDefault();
-          
-          // Update Page Header Status
-          document.getElementById('header-status').textContent = 'STATUS: APPLICATION RECEIVED';
-          
-          // Update Hero Content
-          document.getElementById('small-heading').textContent = 'APPLICATION RECEIVED · NO. 02';
-          document.getElementById('main-heading').textContent = 'Application Received';
-          document.getElementById('hero-desc').textContent = "Thanks for applying. We'll review your content and email you shortly to confirm your application or request any additional information.";
-          
-          // Hide CTA Arrow & Form, Show Success State inside Form Card
-          document.getElementById('cta-wrapper').style.display = 'none';
-          document.getElementById('creator-form').style.display = 'none';
-          document.getElementById('form-title').style.display = 'none';
-          document.getElementById('form-desc').style.display = 'none';
-          document.getElementById('success-message').style.display = 'block';
-          
-          // Smooth scroll to top hero message
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.addEventListener('DOMContentLoaded', function() {
+          const form = document.getElementById('creator-form');
+          const submitBtn = document.getElementById('submit-btn');
+          const emailField = document.getElementById('email');
+          const replyToField = form.querySelector('input[name="_replyto"]');
+
+          // Sync reply-to with email field
+          emailField.addEventListener('input', function() {
+            replyToField.value = this.value;
+          });
+
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Check honeypot
+            const honey = form.querySelector('input[name="_honey"]');
+            if (honey && honey.value) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const formData = new FormData(form);
+
+            try {
+              const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { Accept: 'application/json' }
+              });
+
+              if (response.ok) {
+                // Update Page Header Status
+                document.getElementById('header-status').textContent = 'STATUS: APPLICATION RECEIVED';
+
+                // Update Hero Content
+                document.getElementById('small-heading').textContent = 'APPLICATION RECEIVED · NO. 02';
+                document.getElementById('main-heading').textContent = 'Application Received';
+                document.getElementById('hero-desc').textContent = "Thanks for applying. We'll review your content and email you shortly to confirm your application or request any additional information.";
+
+                // Hide CTA Arrow & Form, Show Success State inside Form Card
+                document.getElementById('cta-wrapper').style.display = 'none';
+                form.style.display = 'none';
+                document.getElementById('form-title').style.display = 'none';
+                document.getElementById('form-desc').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+
+                // Smooth scroll to top hero message
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                throw new Error('Submission failed');
+              }
+            } catch (error) {
+              alert('Something went wrong. Please try again or email tafiqul@contentco.info directly.');
+            } finally {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Submit Application';
+            }
+          });
         });
       </script>
 
