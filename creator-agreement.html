@@ -330,9 +330,24 @@
       </footer>
     </main>
     <script>
-      if (document.referrer && document.referrer.includes('index.html')) {
-        document.getElementById('back-link').setAttribute('href', 'index.html');
-      }
+      (function() {
+        const backLink = document.getElementById('back-link');
+        if (document.referrer) {
+          if (document.referrer.includes('index.html')) {
+            sessionStorage.setItem('lastOrigin', 'index.html');
+            backLink.setAttribute('href', 'index.html');
+          } else if (document.referrer.includes('creators.html') || document.referrer.includes('test-creators.html')) {
+            sessionStorage.setItem('lastOrigin', 'creators.html');
+            backLink.setAttribute('href', 'creators.html');
+          } else {
+            const savedOrigin = sessionStorage.getItem('lastOrigin');
+            if (savedOrigin) backLink.setAttribute('href', savedOrigin);
+          }
+        } else {
+          const savedOrigin = sessionStorage.getItem('lastOrigin');
+          if (savedOrigin) backLink.setAttribute('href', savedOrigin);
+        }
+      })();
     </script>
   </body>
 </html>
