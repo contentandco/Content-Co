@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Join Content & Co's Creator Network. Get matched with handpicked brand campaigns that align with your content, audience, and creative vision." />
+    <meta name="keywords" content="creator platform, content creator opportunities, brand collaborations, influencer partnerships, monetize content, youtube monetization, instagram brand deals, tiktok partnerships" />
+    <meta name="author" content="Content & Co" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#10b981" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://contentco.info/creators.html" />
+    <meta property="og:title" content="Join Creator Network — Content & Co" />
+    <meta property="og:description" content="Get matched with handpicked brand campaigns that align with your content and audience." />
+    <meta property="og:image" content="https://contentco.info/assets/logo.png" />
+    <meta property="og:image:alt" content="Content & Co - Creator Network" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Join Creator Network — Content & Co" />
+    <meta name="twitter:description" content="Get matched with handpicked brand campaigns that align with your content and audience." />
+    <meta name="twitter:image" content="https://contentco.info/assets/logo.png" />
+    <meta name="twitter:image:alt" content="Content & Co - Creator Network" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://contentco.info/creators.html" />
+    
+    <!-- Page Title -->
+    <title>Join Creator Network — Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/favicon.png" />
+    <link rel="mask-icon" href="assets/favicon.svg" color="#10b981">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Preload WebP background image -->
+    <link rel="preload" href="Background nature.webp" as="image" fetchpriority="low" type="image/webp">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Content & Co Creator Network",
+      "description": "Platform connecting content creators with premium brand campaigns. Get matched with handpicked brand partnerships.",
+      "url": "https://contentco.info/creators.html",
+      "logo": "https://contentco.info/assets/logo.png",
+      "sameAs": [],
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "featureList": "Brand matching, Campaign management, Fair compensation, Creative freedom",
+      "targetAudience": {
+        "@type": "Audience",
+        "audienceType": "Content Creators, Influencers, Digital Artists"
+      },
+      "serviceType": "Creator Platform, Brand Partnerships, Campaign Management"
+    }
+    </script>
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+        --card-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.25);
+        --input-bg: #ffffff;
+        --input-border: rgba(212, 212, 216, 0.8);
+        --input-focus: var(--accent);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      /* ─── Main layout ─── */
+      .creator-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      /* Nature Background */
+      .creator-bg-nature {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('Background nature.webp');
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), -webkit-image-set(url('Background nature.webp') 1x, url('Back ground Nature.svg') 1x);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), image-set(url('Background nature.webp') 1x, url('Back ground Nature.svg') 1x);
+        background-size: cover;
+        background-position: center;
+        opacity: 0.35;
+        pointer-events: none;
+        will-change: transform;
+      }
+
+      /* ─── Background specimen card ─── */
+      .specimen-wrap {
+        position: absolute;
+        top: 220px;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .specimen-card {
+        position: relative;
+        width: min(90vw, 680px);
+        transform: rotate(-1.2deg);
+        border-radius: 16px;
+        background: var(--card-bg);
+        opacity: 0.22;
+        box-shadow: var(--card-shadow);
+        filter: blur(3px);
+        border: 1px solid rgba(9, 9, 11, 0.05);
+      }
+
+      .specimen-watermark {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%) rotate(-8deg);
+        user-select: none;
+        font-family: var(--font-mono);
+        font-size: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: rgba(24, 24, 27, 0.10);
+      }
+
+      .specimen-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e4e4e7;
+        background: #fafaf9;
+        padding: 0.75rem 1.25rem;
+        border-radius: 16px 16px 0 0;
+      }
+
+      .specimen-header-left { display: flex; flex-direction: column; gap: 0.375rem; }
+      .specimen-bar { border-radius: 4px; }
+      .specimen-bar-accent { height: 6px; width: 6rem; background: rgba(16, 185, 129, 0.6); }
+      .specimen-bar-md { height: 12px; width: 10rem; background: #d4d4d8; }
+      .specimen-header-right { display: flex; flex-direction: column; gap: 0.375rem; align-items: flex-end; }
+      .specimen-bar-sm { height: 6px; width: 4rem; background: #d4d4d8; }
+      .specimen-bar-xs { height: 6px; width: 3rem; background: #e4e4e7; }
+
+      .specimen-body {
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+
+      .specimen-col { display: flex; flex-direction: column; gap: 0.5rem; }
+      .specimen-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+      .specimen-line { height: 8px; flex: 1; border-radius: 4px; background: #e4e4e7; }
+      .specimen-dot { width: 6px; height: 6px; border-radius: 50%; background: #d4d4d8; }
+      .specimen-block { height: 56px; border-radius: 8px; background: #d4d4d8; margin-top: 0.75rem; }
+
+      .specimen-right { display: flex; flex-direction: column; gap: 0.75rem; }
+      .specimen-title-bar { height: 20px; width: 75%; border-radius: 4px; background: #d4d4d8; }
+      .specimen-desc-bar { height: 8px; width: 100%; border-radius: 4px; background: #e4e4e7; }
+
+      .specimen-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        padding-top: 0.25rem;
+      }
+
+      .specimen-card-green {
+        height: 64px;
+        border-radius: 8px;
+        border: 1px solid #6ee7b7;
+        background: rgba(110, 231, 183, 0.3);
+      }
+
+      .specimen-card-amber {
+        height: 64px;
+        border-radius: 8px;
+        border: 1px solid #fcd34d;
+        background: rgba(252, 211, 77, 0.3);
+      }
+
+      /* ─── Center radial glow ─── */
+      .center-glow {
+        position: absolute;
+        left: 50%;
+        top: 350px;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Corner brackets ─── */
+      .corner-brackets {
+        position: absolute;
+        inset: 1rem;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .corner-brackets span {
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .corner-brackets .tl { top: 0; left: 0; border-left: 1px solid var(--border-light); border-top: 1px solid var(--border-light); }
+      .corner-brackets .tr { top: 0; right: 0; border-right: 1px solid var(--border-light); border-top: 1px solid var(--border-light); }
+      .corner-brackets .bl { bottom: 0; left: 0; border-left: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+      .corner-brackets .br { bottom: 0; right: 0; border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+
+      @media (min-width: 24rem) {
+        .corner-brackets { inset: 1.5rem; }
+      }
+
+      /* ─── Side labels ─── */
+      .side-label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        color: var(--text-faint);
+        pointer-events: none;
+        display: none;
+      }
+
+      .side-label-left {
+        left: 1.25rem;
+        transform: translateY(-50%) rotate(-90deg);
+      }
+
+      .side-label-right {
+        right: 1.25rem;
+        transform: translateY(-50%) rotate(90deg);
+      }
+
+      @media (min-width: 64rem) {
+        .side-label { display: block; }
+      }
+
+      /* ─── Header ─── */
+      .creator-header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .creator-header { padding: 1.25rem 2.5rem; }
+      }
+
+      .creator-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent-glow);
+        animation: pulse-dot 2.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse-dot {
+        0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+        50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 4px var(--accent); }
+      }
+
+      .creator-header-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #52525b;
+      }
+
+      .creator-header-status {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+        display: none;
+      }
+
+      @media (min-width: 40rem) {
+        .creator-header-status { display: inline; }
+      }
+
+      /* ─── Hero center content ─── */
+      .creator-hero {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1.5rem 2.5rem;
+        text-align: center;
+      }
+
+      .creator-instrument-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--accent);
+      }
+
+      .creator-divider {
+        display: block;
+        margin-top: 1.25rem;
+        width: 3rem;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.5), transparent);
+      }
+
+      .creator-heading {
+        margin-top: 1.75rem;
+        font-family: var(--font-serif);
+        font-size: clamp(2.75rem, 8vw, 4.75rem);
+        font-weight: 400;
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+        color: var(--text);
+      }
+
+      @media (min-width: 40rem) {
+        .creator-heading { margin-top: 2rem; }
+      }
+
+      .creator-subheading {
+        margin-top: 1.5rem;
+        max-width: 50ch;
+        font-family: var(--font-sans);
+        font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+        font-weight: 400;
+        line-height: 1.7;
+        color: #52525b;
+        text-wrap: pretty;
+      }
+
+      @media (min-width: 40rem) {
+        .creator-subheading { margin-top: 1.75rem; }
+      }
+
+      /* ─── CTA ─── */
+      .creator-cta-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+      }
+
+      .creator-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        background: var(--accent);
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 50%;
+        box-shadow: 0 22px 45px -20px rgba(16, 185, 129, 0.75);
+        border: 1px solid var(--accent);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+
+      .creator-cta:hover {
+        transform: translateY(3px);
+        box-shadow: 0 26px 50px -18px rgba(16, 185, 129, 0.85);
+      }
+
+      .creator-cta-arrow {
+        width: 20px;
+        height: 20px;
+        opacity: 0.9;
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .creator-cta:hover .creator-cta-arrow {
+        transform: translateY(2px);
+      }
+
+      .creator-cta-meta {
+        margin-top: 1.25rem;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+      }
+
+      /* ─── Form Section Container ─── */
+      .form-section {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 680px;
+        margin: 2rem auto 4rem;
+        padding: 0 1.5rem;
+      }
+
+      .form-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        border: 1px solid var(--border-light);
+        box-shadow: var(--card-shadow);
+        padding: 2.5rem 2rem;
+      }
+
+      @media (min-width: 40rem) {
+        .form-card { padding: 3rem 2.5rem; }
+      }
+
+      .form-card-title {
+        font-family: var(--font-serif);
+        font-size: 2rem;
+        font-weight: 400;
+        color: var(--text);
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-card-subtitle {
+        font-family: var(--font-sans);
+        font-size: 0.9375rem;
+        color: var(--text-muted);
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .form-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .field-row { grid-template-columns: 1fr 1fr; }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .field-label {
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .field-input, .field-select, .field-textarea {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 0.9375rem;
+        color: var(--text);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        outline: none;
+      }
+
+      .field-input:focus, .field-select:focus, .field-textarea:focus {
+        border-color: var(--input-focus);
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .field-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%271717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        margin-top: 0.5rem;
+        padding: 1rem 1.75rem;
+        background: var(--accent);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 22px 45px -20px rgba(16, 185, 129, 0.75);
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 26px 50px -18px rgba(16, 185, 129, 0.85);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .privacy-note {
+        margin-top: 1rem;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-align: center;
+        color: var(--text-muted);
+      }
+
+      .privacy-note a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      /* ─── Footer ─── */
+      .creator-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 1.5rem;
+        margin-top: auto;
+      }
+
+      @media (min-width: 40rem) {
+        .creator-footer { padding: 1.5rem 2.5rem; }
+      }
+
+      .creator-footer-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+
+      .creator-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-muted);
+      }
+
+      .creator-footer-links a {
+        color: var(--text-muted);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+      }
+
+      .creator-footer-links a:hover {
+        color: var(--text);
+      }
+
+      /* ─── Entrance animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .anim-fade-up {
+        opacity: 0;
+        animation: fade-up 0.8s ease-out forwards;
+      }
+
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+      .anim-delay-3 { animation-delay: 0.45s; }
+      .anim-delay-4 { animation-delay: 0.65s; }
+      .anim-delay-5 { animation-delay: 0.85s; }
+
+      .anim-fade-in {
+        opacity: 0;
+        animation: fade-in 1s ease-out forwards;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-fade-up,
+        .anim-fade-in {
+          opacity: 1;
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="creator-page">
+      <!-- Nature Background -->
+      <div class="creator-bg-nature" aria-hidden="true"></div>
+
+      <!-- Center radial glow -->
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <!-- Corner brackets -->
+      <div class="corner-brackets" aria-hidden="true">
+        <span class="tl"></span>
+        <span class="tr"></span>
+        <span class="bl"></span>
+        <span class="br"></span>
+      </div>
+
+      <!-- Side labels (large screens) -->
+      <span class="side-label side-label-left" id="side-label-l" aria-hidden="true">CREATOR APPLICATIONS</span>
+      <span class="side-label side-label-right" id="side-label-r" aria-hidden="true">BRAND PARTNERSHIPS · COLLABORATIONS</span>
+
+      <!-- Header -->
+      <header class="creator-header">
+        <div class="creator-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="creator-header-label">CONTENT &amp; CO / CREATOR PARTNERSHIPS</span>
+        </div>
+        <span class="creator-header-status anim-fade-up anim-delay-2" id="header-status">STATUS: ACCEPTING APPLICATIONS</span>
+      </header>
+
+      <!-- Hero -->
+      <div class="creator-hero">
+        <span class="creator-instrument-label anim-fade-up anim-delay-1" id="small-heading">CREATOR APPLICATION · NO. 01</span>
+        <span class="creator-divider anim-fade-up anim-delay-2" aria-hidden="true"></span>
+        <h1 class="creator-heading anim-fade-up anim-delay-2" id="main-heading">Join Our Creator Network</h1>
+        <p class="creator-subheading anim-fade-up anim-delay-3" id="hero-desc">
+          Apply to join our creator network. We'll review your content and reach out when we have campaigns that fit your niche and audience.
+        </p>
+        <div class="creator-cta-wrap anim-fade-up anim-delay-4" id="cta-wrapper">
+          <a href="#join-form" class="creator-cta" aria-label="Scroll to form">
+            <svg class="creator-cta-arrow" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 12.5a.75.75 0 0 1-.53-.22l-4.25-4.25a.75.75 0 0 1 1.06-1.06L8 10.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-.53.22Z"></path>
+              <path d="M8 12.5a.75.75 0 0 1-.75-.75V3.75a.75.75 0 0 1 1.5 0v8a.75.75 0 0 1-.75.75Z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form Section -->
+      <section class="form-section anim-fade-up anim-delay-4" id="join-form">
+        <div class="form-card">
+          <h2 class="form-card-title" id="form-title">Creator Application</h2>
+          <p class="form-card-subtitle" id="form-desc">Tell us about your content so we can consider you for future brand partnerships.</p>
+
+          <form class="form-grid" id="creator-form" action="#" method="POST">
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="full-name">Full Name / Handle</label>
+                <input class="field-input" type="text" id="full-name" required placeholder="e.g. Alex Morgan (@alexcreates)" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="email">Email Address</label>
+                <input class="field-input" type="email" id="email" required placeholder="alex@domain.com" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="primary-platform">Primary Platform</label>
+                <select class="field-select" id="primary-platform" required>
+                  <option value="" disabled selected>Select main platform</option>
+                  <option value="youtube">YouTube</option>
+                  <option value="instagram">Instagram</option>
+                  <option value="tiktok">TikTok</option>
+                  <option value="x">X / Twitter</option>
+                  <option value="podcast">Podcast / Blog</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="niche">Primary Niche</label>
+                <select class="field-select" id="niche" required>
+                  <option value="" disabled selected>Select content category</option>
+                  <option value="tech">Tech &amp; Software</option>
+                  <option value="lifestyle">Lifestyle &amp; Daily Vlogs</option>
+                  <option value="beauty">Beauty &amp; Fashion</option>
+                  <option value="fitness">Health &amp; Fitness</option>
+                  <option value="finance">Business &amp; Finance</option>
+                  <option value="gaming">Gaming &amp; Entertainment</option>
+                  <option value="education">Education &amp; Productivity</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="reach">Audience Size / Reach</label>
+                <select class="field-select" id="reach" required>
+                  <option value="" disabled selected>Select follower/subscriber range</option>
+                  <option value="1k-10k">1k – 10k followers</option>
+                  <option value="10k-50k">10k – 50k followers</option>
+                  <option value="50k-250k">50k – 250k followers</option>
+                  <option value="250k+">250k+ followers</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="channel-link">Channel / Portfolio Link</label>
+                <input class="field-input" type="url" id="channel-link" placeholder="https://youtube.com/@yourchannel" />
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">Submit Application</button>
+            <p class="privacy-note">
+              By applying, you agree to our <a href="creator-agreement.html">Creator Agreement</a>, <a href="privacy.html">Privacy Policy</a>, and <a href="terms.html">Terms</a>. You authorize Content &amp; Co to represent your profile for relevant brand partnerships.
+            </p>
+          </form>
+          
+          <div id="success-message" style="display: none; text-align: center; padding: 2rem 1rem;">
+            <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; color: var(--accent);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.75rem; font-weight: 400; margin-bottom: 0.75rem; color: var(--text);">Application Submitted</h3>
+            <p style="font-family: var(--font-sans); font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; max-width: 420px; margin: 0 auto;">We have received your details. Our team will review your channel and contact you via email when matching campaigns open up.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Script for Submission View Switch -->
+      <script>
+        document.getElementById('creator-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Update Page Header Status
+          document.getElementById('header-status').textContent = 'STATUS: APPLICATION RECEIVED';
+          
+          // Update Hero Content
+          document.getElementById('small-heading').textContent = 'APPLICATION RECEIVED · NO. 02';
+          document.getElementById('main-heading').textContent = 'Application Received';
+          document.getElementById('hero-desc').textContent = "Thanks for applying. We'll review your content and email you shortly to confirm your application or request any additional information.";
+          
+          // Hide CTA Arrow & Form, Show Success State inside Form Card
+          document.getElementById('cta-wrapper').style.display = 'none';
+          document.getElementById('creator-form').style.display = 'none';
+          document.getElementById('form-title').style.display = 'none';
+          document.getElementById('form-desc').style.display = 'none';
+          document.getElementById('success-message').style.display = 'block';
+          
+          // Smooth scroll to top hero message
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      </script>
+
+      <!-- Footer -->
+      <footer class="creator-footer">
+        <span class="creator-footer-label anim-fade-up anim-delay-4">CONTENT &amp; CO · CREATOR PARTNERSHIPS</span>
+        <span class="creator-footer-links anim-fade-up anim-delay-5">
+          <a href="creator-agreement.html">Creator Agreement</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="index.html">Brand Portal</a>
+        </span>
+      </footer>
+
+    </main>
+  </body>
+</html>

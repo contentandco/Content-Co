@@ -225,7 +225,7 @@
   </head>
   <body>
     <main class="legal-page">
-      <a href="index.html" class="back-link anim anim-d1">← Content &amp; Co</a>
+      <a href="index.html" id="back-link" class="back-link anim anim-d1">← Content &amp; Co</a>
 
       <h1 class="legal-title anim anim-d2">Privacy Policy</h1>
       <p class="legal-date anim anim-d2">Last updated: 23 July 2026</p>
@@ -292,5 +292,10 @@
         </span>
       </footer>
     </main>
+    <script>
+      if (document.referrer && (document.referrer.includes('creators.html') || document.referrer.includes('test-creators.html'))) {
+        document.getElementById('back-link').setAttribute('href', 'creators.html');
+      }
+    </script>
   </body>
 </html>
