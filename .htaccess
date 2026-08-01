@@ -38,6 +38,12 @@
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-XSS-Protection "1; mode=block"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Ensure SVG files are served with correct MIME type
+  <FilesMatch "\.svg$">
+    Header set Content-Type "image/svg+xml"
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
 </IfModule>
 
 # Remove .html extension (optional - if you want cleaner URLs)
