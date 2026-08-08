@@ -1,7 +1,6 @@
 # robots.txt for Content & Co
 User-agent: *
 Allow: /
-Disallow: /old-agency/
 
 # Sitemap location
 Sitemap: https://contentco.info/sitemap.xml
