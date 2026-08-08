@@ -8,9 +8,9 @@
   "theme_color": "#10b981",
   "icons": [
     {
-      "src": "Favicon.webp",
+      "src": "assets/Google search.png",
       "sizes": "any",
-      "type": "image/webp",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
