@@ -626,6 +626,7 @@
             <input type="hidden" name="_captcha" value="false" />
             <input type="text" name="_honey" style="display: none;" />
             <input type="hidden" name="_replyto" value="" />
+            <input type="hidden" name="campaign_source" id="campaign-source-input" value="direct" />
 
             <div class="form-messages">
               <div class="form-success" id="form-success" style="display: none;">
@@ -810,6 +811,14 @@
         const successMessage = document.getElementById('form-success');
         const errorMessage = document.getElementById('form-error');
         const submitButton = form.querySelector('button[type="submit"]');
+        
+        // Parse URL ref parameter to track source
+        const urlParams = new URLSearchParams(window.location.search);
+        const refParam = urlParams.get('ref');
+        const campaignSourceInput = document.getElementById('campaign-source-input');
+        if (refParam && campaignSourceInput) {
+          campaignSourceInput.value = refParam;
+        }
         
         // Progress indicator elements
         const requestStatus = document.getElementById('request-status');
