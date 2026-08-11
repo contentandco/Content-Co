@@ -212,6 +212,87 @@
         text-decoration: underline;
       }
 
+      /* ─── Newsletter Card Styles ─── */
+      .newsletter-section {
+        margin-top: 5rem;
+        width: 100%;
+        max-width: 680px;
+        text-align: left;
+      }
+
+      .newsletter-card {
+        padding: 2.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+      }
+
+      .newsletter-title {
+        font-family: var(--font-serif);
+        font-size: 1.75rem;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+      }
+
+      .newsletter-desc {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+
+      .newsletter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        min-width: 240px;
+        padding: 0.85rem 1.25rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-light);
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+
+      .newsletter-input:focus {
+        border-color: var(--accent);
+      }
+
+      .newsletter-btn {
+        padding: 0.85rem 1.75rem;
+        background: var(--text);
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-weight: 500;
+        font-size: 0.95rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .newsletter-btn:hover {
+        background: var(--accent);
+        color: var(--text);
+      }
+
+      .newsletter-success {
+        display: none;
+        color: #047857;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 1rem;
+      }
+
       /* ─── Animations ─── */
       @keyframes fade-up {
         from { opacity: 0; transform: translateY(18px); }
@@ -260,6 +341,27 @@
           
 
         </div>
+
+        <!-- Newsletter Subscription section -->
+        <div class="newsletter-section anim-fade-up anim-delay-4">
+          <div class="newsletter-card">
+            <h3 class="newsletter-title">Get strategic campaign ideas in your inbox</h3>
+            <p class="newsletter-desc">
+              Subscribe to get handpicked creator marketing strategy breakdowns, case studies, and matching methods. Zero spam.
+            </p>
+            <form class="newsletter-form" id="newsletter-form" action="https://formsubmit.co/ajax/tafiqul@contentco.info" method="POST">
+              <input type="hidden" name="_subject" value="New Blog Newsletter Subscriber!" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="text" name="_honey" style="display: none;" />
+              
+              <input type="email" name="email" class="newsletter-input" placeholder="you@company.com" required />
+              <button type="submit" class="newsletter-btn" id="subscribe-btn">Subscribe</button>
+            </form>
+            <div class="newsletter-success" id="subscribe-success">✓ Subscribed successfully!</div>
+          </div>
+        </div>
+
       </div>
 
       <footer class="map-footer">
@@ -269,5 +371,50 @@
         </span>
       </footer>
     </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('newsletter-form');
+        const submitBtn = document.getElementById('subscribe-btn');
+        const successMessage = document.getElementById('subscribe-success');
+
+        if (form && submitBtn && successMessage) {
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Check honeypot
+            const honey = form.querySelector('input[name="_honey"]');
+            if (honey && honey.value) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+
+            const formData = new FormData(form);
+
+            try {
+              const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { Accept: 'application/json' }
+              });
+
+              if (response.ok) {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                form.reset();
+              } else {
+                throw new Error('Subscription failed');
+              }
+            } catch (error) {
+              console.error(error);
+              alert('Something went wrong. Please try again or email us.');
+            } finally {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Subscribe';
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
