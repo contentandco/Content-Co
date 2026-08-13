@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Finding influencers is easy, but finding the right ones is hard. Learn how to identify creators who actually fit your brand, audience, and budget." />
+    <meta name="theme-color" content="#10b981" />
+    <title>How to Find the Right Influencers for Your Brand - Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="../assets/Google%20search.png" type="image/png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('../Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .center-glow {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Header & Footer ─── */
+      .map-header, .map-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+      @media (min-width: 40rem) { .map-header, .map-footer { padding: 1.25rem 2.5rem; } }
+
+      .map-header-left { display: flex; align-items: center; gap: 0.75rem; }
+      .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+      
+      .map-header-label, .map-footer-label, .map-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+      .map-footer-links a { color: var(--text-muted); text-decoration: underline; }
+
+      /* ─── Blog Post ─── */
+      .blog-container {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 1.5rem;
+        display: flex;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .blog-post {
+        max-width: 720px;
+        width: 100%;
+        background: var(--card-bg);
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px -15px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-light);
+      }
+
+      @media (max-width: 40rem) {
+        .blog-post { padding: 2rem 1.5rem; }
+      }
+
+      .post-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        color: var(--text);
+        text-wrap: balance;
+      }
+      
+      .post-meta {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 1.5rem;
+      }
+
+      .post-content {
+        font-family: var(--font-sans);
+        color: #3f3f46;
+        line-height: 1.8;
+        font-size: 1.125rem;
+      }
+
+      .post-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .post-content h2 {
+        font-family: var(--font-serif);
+        font-size: 2rem;
+        color: var(--text);
+        margin-top: 3.5rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.2;
+      }
+
+      .post-content ul {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      .post-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .post-content strong {
+        font-weight: 600;
+        color: var(--text);
+      }
+      
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      /* ─── Animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-fade-up { opacity: 0; animation: fade-up 0.8s ease-out forwards; }
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+    </style>
+  </head>
+  <body>
+    <main class="map-page">
+      <div class="map-bg-nature" aria-hidden="true"></div>
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <header class="map-header">
+        <div class="map-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="map-header-label">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Content &amp; Co</a> / <a href="../blog.html" style="color: inherit; text-decoration: none;">Blog</a>
+          </span>
+        </div>
+      </header>
+
+      <div class="blog-container anim-fade-up anim-delay-2">
+        <article class="blog-post">
+          <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+          
+          <h1 class="post-title">How to Find the Right Influencers for Your Brand</h1>
+          <div class="post-meta">August 13, 2026 · 3 min read</div>
+          
+          <div class="post-content">
+            <p>Finding influencers isn't difficult anymore.</p>
+            <p>You can search Instagram, TikTok, YouTube, or use an influencer platform and find thousands of creators in minutes.</p>
+            <p>The difficult part is figuring out <strong>which ones are actually worth your time and budget.</strong></p>
+            <p>A creator can have 200,000 followers and still be a poor fit for your brand. Another with 20,000 followers might have exactly the audience you want.</p>
+            <p>So how do you tell the difference?</p>
+
+            <h2>Start with your customer, not the influencer</h2>
+            <p>Before searching for creators, think about who you actually want to reach.</p>
+            <p>Where do they live? What are they interested in? What kind of content do they watch?</p>
+            <p>If you're a travel brand, for example, you probably want someone whose audience is already interested in travel—not simply someone with a large following.</p>
+            <p>The closer the creator's audience is to your customer, the more useful the partnership can be.</p>
+
+            <h2>Don't let follower count make the decision</h2>
+            <p>Follower count is easy to see, so it's tempting to use it as your first filter.</p>
+            <p>Don't.</p>
+            <p>Look at recent views, engagement, and the quality of the conversations happening around their content.</p>
+            <p>A creator with 30,000 followers who regularly gets strong views and thoughtful comments can be much more valuable than a creator with 300,000 followers whose audience barely interacts.</p>
+            <p>The goal isn't to reach <strong>the most people</strong>.</p>
+            <p>It's to reach <strong>the right people</strong>.</p>
+
+            <h2>Watch their recent content</h2>
+            <p>Don't make your decision from the creator's profile page alone.</p>
+            <p>Watch their recent videos. Read their captions. Look at the comments.</p>
+            <p>Ask yourself:</p>
+            <p><strong>Would this creator naturally talk about my product?</strong></p>
+            <p>If every piece of content feels completely unrelated to your brand, the partnership may feel forced.</p>
+            <p>But if your product fits naturally into what they already create, the promotion has a much better chance of feeling like something their audience would actually want to hear about.</p>
+
+            <h2>Look at their previous brand deals</h2>
+            <p>Past sponsorships can tell you a lot.</p>
+            <p>Have they worked with brands similar to yours? Did the sponsored content feel natural? Do they promote a different product every few days?</p>
+            <p>You're not just hiring someone's audience.</p>
+            <p>You're also choosing someone to represent your brand.</p>
+            <p>Take a few minutes to understand how they handle partnerships before sending an offer.</p>
+
+            <h2>Make a shortlist, not a giant spreadsheet</h2>
+            <p>You don't need hundreds of names.</p>
+            <p>Start with a smaller group of creators who genuinely look like a fit.</p>
+            <p>For each one, check:</p>
+            <ul>
+              <li>Does their audience match our customer?</li>
+              <li>Does their content fit our brand?</li>
+              <li>Are their recent views consistent?</li>
+              <li>Does their audience actually engage?</li>
+              <li>Do their previous partnerships make sense?</li>
+              <li>Can I imagine our product appearing naturally in their content?</li>
+            </ul>
+            <p>If the answer is mostly yes, you've probably found someone worth contacting.</p>
+
+            <h2>The right influencer isn't always the biggest one</h2>
+            <p>This is probably the most important thing to remember.</p>
+            <p><strong>You're not looking for the biggest creator. You're looking for the right creator.</strong></p>
+            <p>A smaller creator with a focused audience, strong content, and genuine credibility can be a better partner than a much larger creator who has little connection to your target customer.</p>
+            <p>Once you start looking at influencers this way, finding creators becomes less about collecting follower counts and more about finding people who can actually make sense for your brand.</p>
+
+            <h3 style="margin-top: 3rem; font-family: var(--font-serif); font-size: 1.5rem; color: var(--text);">A simple rule to remember</h3>
+            <p style="font-family: var(--font-mono); font-size: 0.95rem; background: var(--accent-soft); padding: 1.25rem; border-left: 4px solid var(--accent); border-radius: 6px; margin-top: 0.75rem; color: var(--text);">
+              Right audience &rarr; right content &rarr; real engagement &rarr; natural fit.
+            </p>
+            <p style="margin-top: 1.5rem;">Get those four things right, and you've already done much of the hard work.</p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="map-footer">
+        <span class="map-footer-label anim-fade-up anim-delay-2">Content &amp; Co</span>
+        <span class="map-footer-links anim-fade-up anim-delay-2">
+          <a href="../index.html">Home</a> · <a href="../privacy.html">Privacy</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
