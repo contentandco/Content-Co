@@ -150,20 +150,35 @@
       .blog-list {
         margin-top: 4rem;
         text-align: left;
-        max-width: 680px;
+        max-width: 1200px;
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
         gap: 2rem;
       }
 
+      @media (min-width: 48rem) {
+        .blog-list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 64rem) {
+        .blog-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
       .blog-card {
-        padding: 2rem;
+        padding: 2.25rem 2rem;
         background: var(--card-bg);
         border-radius: 16px;
         box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
         border: 1px solid var(--border-light);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
       .blog-card:hover {
@@ -172,19 +187,18 @@
       }
 
       .blog-card-meta {
-        font-size: 0.75rem;
+        font-size: 0.725rem;
         color: var(--text-muted);
         font-family: var(--font-mono);
-        margin-bottom: 1rem;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.05em;
       }
 
       .blog-card-title {
         font-family: var(--font-serif);
-        font-size: 2rem;
+        font-size: 1.6rem;
         margin-bottom: 1rem;
-        line-height: 1.1;
+        line-height: 1.2;
       }
 
       .blog-card-title a {
@@ -196,6 +210,32 @@
         color: #52525b;
         line-height: 1.6;
         margin-bottom: 1.5rem;
+        flex-grow: 1; /* Allows excerpt to fill space so footers line up perfectly */
+      }
+
+      .blog-card-badge {
+        display: inline-block;
+        align-self: flex-start;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 0.35rem 0.75rem;
+        background: var(--accent-soft);
+        color: #047857;
+        border-radius: 100px;
+        margin-bottom: 1.25rem;
+      }
+
+      .blog-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto; /* Pushes the footer to the bottom of the card */
+        border-top: 1px solid rgba(212, 212, 216, 0.4);
+        padding-top: 1.25rem;
+        width: 100%;
       }
 
       .blog-card-readmore {
@@ -210,6 +250,45 @@
 
       .blog-card-readmore:hover {
         text-decoration: underline;
+      }
+
+      /* ─── Category Filter Styles ─── */
+      .blog-filter {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 2.5rem auto;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 1.25rem;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .filter-tab {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 0.5rem 1.25rem;
+        border-radius: 100px;
+        border: 1px solid var(--border-light);
+        background: #ffffff;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        outline: none;
+      }
+
+      .filter-tab:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+
+      .filter-tab.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #ffffff;
       }
 
       /* ─── Newsletter Card Styles ─── */
@@ -327,36 +406,58 @@
           Thoughts, strategies, and news on creator partnerships and influencer marketing.
         </p>
         
+        <!-- Blog Category Filter Tabs -->
+        <div class="blog-filter anim-fade-up anim-delay-3">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="brands">Brands</button>
+          <button class="filter-tab" data-filter="creators">Creators</button>
+        </div>
+
         <div class="blog-list anim-fade-up anim-delay-4">
           
           <!-- Blog Post 3 -->
-          <article class="blog-card">
-            <p class="blog-card-meta">August 23, 2026 · 3 min read</p>
-            <h2 class="blog-card-title"><a href="blog/travel-sponsorship-red-flags.html">Travel Sponsorship Red Flags: Deals Creators Should Think Twice About</a></h2>
-            <p class="blog-card-excerpt">
-              A travel sponsorship can look great in the first email. The brand is offering a free hotel, a paid trip, or a nice fee. It sounds like an easy yes. But sometimes the problem isn't the rate—it's everything that comes with the deal.
-            </p>
-            <a href="blog/travel-sponsorship-red-flags.html" class="blog-card-readmore">Read article &rarr;</a>
+          <article class="blog-card" data-category="creators">
+            <div>
+              <span class="blog-card-badge">Creators</span>
+              <h2 class="blog-card-title"><a href="blog/travel-sponsorship-red-flags.html">Travel Sponsorship Red Flags: Deals Creators Should Think Twice About</a></h2>
+              <p class="blog-card-excerpt">
+                A travel sponsorship can look great in the first email. The brand is offering a free hotel, a paid trip, or a nice fee. It sounds like an easy yes. But sometimes the problem isn't the rate—it's everything that comes with the deal.
+              </p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-meta">August 23, 2026 · 3 min read</span>
+              <a href="blog/travel-sponsorship-red-flags.html" class="blog-card-readmore">Read article &rarr;</a>
+            </div>
           </article>
           
           <!-- Blog Post 2 -->
-          <article class="blog-card">
-            <p class="blog-card-meta">August 13, 2026 · 3 min read</p>
-            <h2 class="blog-card-title"><a href="blog/how-to-find-the-right-influencers-for-your-brand.html">How to Find the Right Influencers for Your Brand</a></h2>
-            <p class="blog-card-excerpt">
-              Finding influencers is easy, but finding the right ones is hard. A creator can have 200,000 followers and still be a poor fit for your brand. Another with 20,000 followers might have exactly the audience you want. Here is how to tell the difference.
-            </p>
-            <a href="blog/how-to-find-the-right-influencers-for-your-brand.html" class="blog-card-readmore">Read article &rarr;</a>
+          <article class="blog-card" data-category="brands">
+            <div>
+              <span class="blog-card-badge">Brands</span>
+              <h2 class="blog-card-title"><a href="blog/how-to-find-the-right-influencers-for-your-brand.html">How to Find the Right Influencers for Your Brand</a></h2>
+              <p class="blog-card-excerpt">
+                Finding influencers is easy, but finding the right ones is hard. A creator can have 200,000 followers and still be a poor fit for your brand. Another with 20,000 followers might have exactly the audience you want. Here is how to tell the difference.
+              </p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-meta">August 13, 2026 · 3 min read</span>
+              <a href="blog/how-to-find-the-right-influencers-for-your-brand.html" class="blog-card-readmore">Read article &rarr;</a>
+            </div>
           </article>
           
           <!-- Blog Post 1 -->
-          <article class="blog-card">
-            <p class="blog-card-meta">August 8, 2026 · 4 min read</p>
-            <h2 class="blog-card-title"><a href="blog/how-to-choose-influencer-platform.html">How to Choose the Right Influencer Marketing Platform</a></h2>
-            <p class="blog-card-excerpt">
-              There are a lot of influencer marketing platforms now. Some help you find creators. Others handle outreach, campaign management, payments, affiliate tracking...
-            </p>
-            <a href="blog/how-to-choose-influencer-platform.html" class="blog-card-readmore">Read article &rarr;</a>
+          <article class="blog-card" data-category="brands">
+            <div>
+              <span class="blog-card-badge">Brands</span>
+              <h2 class="blog-card-title"><a href="blog/how-to-choose-influencer-platform.html">How to Choose the Right Influencer Marketing Platform</a></h2>
+              <p class="blog-card-excerpt">
+                There are a lot of influencer marketing platforms now. Some help you find creators. Others handle outreach, campaign management, payments, affiliate tracking...
+              </p>
+            </div>
+            <div class="blog-card-footer">
+              <span class="blog-card-meta">August 8, 2026 · 4 min read</span>
+              <a href="blog/how-to-choose-influencer-platform.html" class="blog-card-readmore">Read article &rarr;</a>
+            </div>
           </article>
           
 
@@ -394,6 +495,26 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        // Blog post category filtering logic
+        const tabs = document.querySelectorAll('.filter-tab');
+        const cards = document.querySelectorAll('.blog-card');
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const filter = tab.getAttribute('data-filter');
+            cards.forEach(card => {
+              if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        });
+
         const form = document.getElementById('newsletter-form');
         const submitBtn = document.getElementById('subscribe-btn');
         const successMessage = document.getElementById('subscribe-success');
