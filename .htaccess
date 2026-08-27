@@ -51,6 +51,11 @@
     Header set Content-Type "image/webp"
     Header set Cache-Control "public, max-age=31536000"
   </FilesMatch>
+  
+  # Ensure XML files are served with correct MIME type
+  <FilesMatch "\.xml$">
+    Header set Content-Type "application/xml"
+  </FilesMatch>
 </IfModule>
 
 # Custom 404 Page
