@@ -7,7 +7,7 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://contentco.info/contact.html</loc>
+    <loc>https://contentco.info/contact-us.html</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -103,7 +103,7 @@
     <priority>0.5</priority>
   </url>
     <url>
-        <loc>https://contentco.info/calculator.html</loc>
+        <loc>https://contentco.info/rate-calculator.html</loc>
         <lastmod>2026-08-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
