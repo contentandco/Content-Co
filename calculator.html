@@ -495,7 +495,7 @@
           <label class="label" for="profileUrl">YouTube Channel Link or @Handle</label>
           <div class="url-input-wrapper">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-            <input type="text" id="profileUrl" class="url-input" placeholder="e.g. youtube.com/@suhitamin or @mkbhd" value="" />
+            <input type="text" id="profileUrl" class="url-input" placeholder="e.g. youtube.com/@channel or @username" value="" />
           </div>
         </div>
 
@@ -512,8 +512,12 @@
             </select>
           </div>
           <div>
-            <label class="label" for="followersOverride">Subscribers Count (Optional Override)</label>
-            <input type="number" id="followersOverride" class="number-input" placeholder="Live fetch or enter e.g. 50000" />
+            <label class="label" for="sampleSizeSelect">Analysis Depth (Recent Uploads)</label>
+            <select id="sampleSizeSelect" class="select-input">
+              <option value="10" selected>Last 10 Uploads (Standard)</option>
+              <option value="25">Last 25 Uploads (Deeper Sample)</option>
+              <option value="50">Last 50 Uploads (Extended Sample)</option>
+            </select>
           </div>
         </div>
 
@@ -553,27 +557,61 @@
             <div class="worth-subtitle">Per Dedicated Reel / Video (Based on Fair Market CPM)</div>
           </div>
 
-          <!-- Rates Breakdown Grid -->
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
-              <div class="metric-label">📹 Dedicated Video (Full Video)</div>
-              <div id="resDedicated" class="metric-value" style="font-size: 1.35rem; color: #047857;">$500 - $800</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Entire video centered around your brand/product</div>
+          <!-- Rates Breakdown Grid: Section 1 - Placement Pricing -->
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">🎯 Video Integration Rates (By Placement)</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+              
+              <!-- First 1/3rd Placement -->
+              <div class="metric-card" style="text-align: left; padding: 1.25rem; border-left: 4px solid #10b981;">
+                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; color: #047857;">🥇 First 1/3rd of Video (Prime Placement)</div>
+                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
+                  <div><strong>30s Integration:</strong> <span id="resFirst30" style="font-family: var(--font-mono); font-weight: 700;">$3,200 - $4,500</span></div>
+                  <div><strong>60s Integration:</strong> <span id="resFirst60" style="font-family: var(--font-mono); font-weight: 700;">$4,500 - $6,000</span></div>
+                  <div><strong>90s Integration:</strong> <span id="resFirst90" style="font-family: var(--font-mono); font-weight: 700;">$5,800 - $7,500</span></div>
+                  <div style="font-size: 0.78rem; color: #047857; margin-top: 0.25rem; font-weight: 600;">📦 Multi-Deal (3+ Videos): <span id="resBundleFirst">$4,000 - $5,500 / video</span></div>
+                </div>
+              </div>
+
+              <!-- Second 1/2 Placement -->
+              <div class="metric-card" style="text-align: left; padding: 1.25rem; border-left: 4px solid #6366f1;">
+                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; color: #4338ca;">🥈 Second 1/2 of Video (Mid/End Placement)</div>
+                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
+                  <div><strong>30s Integration:</strong> <span id="resSecond30" style="font-family: var(--font-mono); font-weight: 700;">$2,200 - $3,000</span></div>
+                  <div><strong>60s Integration:</strong> <span id="resSecond60" style="font-family: var(--font-mono); font-weight: 700;">$3,200 - $4,500</span></div>
+                  <div><strong>90s Integration:</strong> <span id="resSecond90" style="font-family: var(--font-mono); font-weight: 700;">$4,800 - $6,500</span></div>
+                  <div style="font-size: 0.78rem; color: #4338ca; margin-top: 0.25rem; font-weight: 600;">📦 Multi-Deal (3+ Videos): <span id="resBundleSecond">$2,800 - $4,000 / video</span></div>
+                </div>
+              </div>
+
             </div>
-            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
-              <div class="metric-label">⏱️ 60-Sec Integration (Mid-roll)</div>
-              <div id="resIntegration60" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$250 - $400</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">60s dedicated segment/shoutout inside video</div>
-            </div>
-            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
-              <div class="metric-label">⚡ 30-Sec Integration (Short Shoutout)</div>
-              <div id="resIntegration30" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$150 - $260</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Quick 30-second product mention/sponsor spot</div>
-            </div>
-            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
-              <div class="metric-label">📱 YouTube Short (Vertical Video)</div>
-              <div id="resShortsRate" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$120 - $220</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Standalone YouTube Short / Vertical reel</div>
+          </div>
+
+          <!-- Rates Breakdown Grid: Section 2 - Cross-Platform Extras -->
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">📲 Instagram &amp; Shorts Deliverables</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+              
+              <!-- Instagram Rates -->
+              <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem;">📸 Instagram Rates</div>
+                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
+                  <div><strong>1x Instagram Reel:</strong> <span id="resIgReel" style="font-family: var(--font-mono); font-weight: 700;">$4,500 - $6,000</span></div>
+                  <div><strong>1x Instagram Story:</strong> <span id="resIgStory" style="font-family: var(--font-mono); font-weight: 700;">$2,000 - $3,000</span></div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;">Multi-Reel (3+): <span id="resIgReelBundle" style="font-weight: 600;">$4,000 - $5,500 / reel</span></div>
+                </div>
+              </div>
+
+              <!-- Shorts & Community -->
+              <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem;">📱 Shorts &amp; Community Tab</div>
+                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
+                  <div><strong>1x YouTube Short:</strong> <span id="resShortsRate" style="font-family: var(--font-mono); font-weight: 700;">$1,800 - $2,800</span></div>
+                  <div><strong>1x Community Post:</strong> <span id="resCommunityPost" style="font-family: var(--font-mono); font-weight: 700;">$800 - $1,400</span></div>
+                  <div><strong>Full Dedicated Video:</strong> <span id="resDedicated" style="font-family: var(--font-mono); font-weight: 700;">$9,000 - $14,000</span></div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -584,7 +622,7 @@
               <div id="resFollowers" class="metric-value">18,700</div>
             </div>
             <div class="metric-card">
-              <div class="metric-label">Avg. Views / Video</div>
+              <div id="resViewsLabel" class="metric-label">Avg. Views (Sample Size)</div>
               <div id="resAvgViews" class="metric-value">3,500</div>
             </div>
             <div class="metric-card">
@@ -626,7 +664,7 @@
         if (platform === 'tiktok') input.placeholder = 'e.g. tiktok.com/@creator';
       }
 
-      async function fetchYouTubeData(handle) {
+      async function fetchYouTubeData(handle, sampleSize = 10) {
         try {
           // Step 1: Search channel by handle or query
           const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(handle)}&key=${YT_API_KEY}`;
@@ -650,11 +688,12 @@
           const totalViews = parseInt(channelInfo.statistics.viewCount) || 0;
           const videoCount = parseInt(channelInfo.statistics.videoCount) || 1;
 
-          // Step 3: Fetch recent uploaded videos to calculate real average views per video
+          // Step 3: Fetch recent uploaded videos based on requested sample size (up to 50 videos)
           let avgViews = Math.round(totalViews / Math.max(videoCount, 1));
           if (channelInfo.contentDetails && channelInfo.contentDetails.relatedPlaylists) {
             const uploadsPlaylistId = channelInfo.contentDetails.relatedPlaylists.uploads;
-            const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${uploadsPlaylistId}&maxResults=10&key=${YT_API_KEY}`;
+            const fetchLimit = Math.min(Math.max(sampleSize, 5), 50);
+            const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${uploadsPlaylistId}&maxResults=${fetchLimit}&key=${YT_API_KEY}`;
             const plRes = await fetch(playlistUrl);
             if (plRes.ok) {
               const plData = await plRes.json();
@@ -677,6 +716,7 @@
             title: channelTitle,
             subscribers: subCount,
             avgViews: avgViews,
+            sampleSizeAnalyzed: sampleSize,
             avatar: channelInfo.snippet.thumbnails?.default?.url
           };
         } catch (err) {
@@ -715,13 +755,15 @@
         let handle = rawInput.replace(/https?:\/\/(www\.)?/, '').replace(/(instagram\.com|youtube\.com)\/@?/, '').replace(/[\/@]/g, '');
         if (!handle) handle = 'creator';
 
+        const sampleSize = parseInt(document.getElementById('sampleSizeSelect')?.value) || 10;
+        
         let followers = followerOverride;
-        let avgViews = (currentPlatform === 'instagram' && reelViewsOverride) ? reelViewsOverride : 0;
+        let avgViews = 0;
         let profileName = '@' + handle;
 
         // Fetch live API data if YouTube platform is selected
         if (currentPlatform === 'youtube' && YT_API_KEY) {
-          const liveData = await fetchYouTubeData(handle);
+          const liveData = await fetchYouTubeData(handle, sampleSize);
           if (liveData) {
             profileName = liveData.title + ` (@${handle})`;
             if (!followers || isNaN(followers)) followers = liveData.subscribers;
@@ -741,48 +783,96 @@
           avgViews = Math.floor(followers * 0.22);
         }
 
-        loadingBox.style.display = 'none';
+        // Calculate Effective Valuation incorporating both View CPM + Subscriber Authority Weight
+        // High subscriber channels (500k-1M+) command authority base pricing even if view count fluctuates
+        let subAuthorityFactor = Math.max(1.0, Math.log10(Math.max(followers, 10000)) / 4.5);
+        let effectiveViews = Math.max(avgViews, Math.round(followers * 0.12));
 
-        // Dedicated Video Rate (Entire video dedicated to sponsor)
-        let dedicatedWorth = (avgViews / 1000) * 45 * nicheMultiplier;
-        let minDedicated = Math.max(150, Math.round(dedicatedWorth * 0.85 / 10) * 10);
-        let maxDedicated = Math.max(250, Math.round(dedicatedWorth * 1.30 / 10) * 10);
+        // First 1/3rd Placement Base (Prime spot): ~$28-$35 CPM per 60s
+        let base1st30 = (effectiveViews / 1000) * 22 * nicheMultiplier * subAuthorityFactor;
+        let minFirst30 = Math.max(150, Math.round(base1st30 * 0.85 / 100) * 100);
+        let maxFirst30 = Math.max(250, Math.round(base1st30 * 1.25 / 100) * 100);
 
-        // 60-Sec Mid-roll Integration Rate
-        let int60Worth = (avgViews / 1000) * 28 * nicheMultiplier;
-        let minInt60 = Math.max(90, Math.round(int60Worth * 0.85 / 10) * 10);
-        let maxInt60 = Math.max(160, Math.round(int60Worth * 1.25 / 10) * 10);
+        let base1st60 = (effectiveViews / 1000) * 32 * nicheMultiplier * subAuthorityFactor;
+        let minFirst60 = Math.max(250, Math.round(base1st60 * 0.85 / 100) * 100);
+        let maxFirst60 = Math.max(400, Math.round(base1st60 * 1.25 / 100) * 100);
 
-        // 30-Sec Shoutout Integration Rate
-        let int30Worth = (avgViews / 1000) * 18 * nicheMultiplier;
-        let minInt30 = Math.max(60, Math.round(int30Worth * 0.85 / 10) * 10);
-        let maxInt30 = Math.max(110, Math.round(int30Worth * 1.25 / 10) * 10);
+        let base1st90 = (effectiveViews / 1000) * 42 * nicheMultiplier * subAuthorityFactor;
+        let minFirst90 = Math.max(350, Math.round(base1st90 * 0.85 / 100) * 100);
+        let maxFirst90 = Math.max(550, Math.round(base1st90 * 1.25 / 100) * 100);
 
-        // YouTube Short Rate
-        let shortsWorth = (avgViews / 1000) * 15 * nicheMultiplier;
-        let minShorts = Math.max(50, Math.round(shortsWorth * 0.85 / 10) * 10);
-        let maxShorts = Math.max(90, Math.round(shortsWorth * 1.25 / 10) * 10);
+        let minBundleFirst = Math.round(minFirst60 * 0.88 / 50) * 50;
+        let maxBundleFirst = Math.round(maxFirst60 * 0.90 / 50) * 50;
 
-        // Community Tab Post Rate
-        let minCommunity = Math.max(35, Math.round(minInt30 * 0.40 / 5) * 5);
-        let maxCommunity = Math.max(65, Math.round(maxInt30 * 0.45 / 5) * 5);
+        // Second 1/2 Placement Base (~30% lower than prime):
+        let minSecond30 = Math.round(minFirst30 * 0.70 / 50) * 50;
+        let maxSecond30 = Math.round(maxFirst30 * 0.70 / 50) * 50;
+
+        let minSecond60 = Math.round(minFirst60 * 0.72 / 50) * 50;
+        let maxSecond60 = Math.round(maxFirst60 * 0.72 / 50) * 50;
+
+        let minSecond90 = Math.round(minFirst90 * 0.72 / 50) * 50;
+        let maxSecond90 = Math.round(maxFirst90 * 0.72 / 50) * 50;
+
+        let minBundleSecond = Math.round(minSecond60 * 0.88 / 50) * 50;
+        let maxBundleSecond = Math.round(maxSecond60 * 0.90 / 50) * 50;
+
+        // Dedicated Video Rate
+        let dedicatedWorth = (avgViews / 1000) * 55 * nicheMultiplier;
+        let minDedicated = Math.max(300, Math.round(dedicatedWorth * 0.85 / 100) * 100);
+        let maxDedicated = Math.max(500, Math.round(dedicatedWorth * 1.30 / 100) * 100);
+
+        // Instagram Cross-Platform Rates
+        let minIgReel = minFirst60;
+        let maxIgReel = maxFirst60;
+        let minIgStory = Math.round(minIgReel * 0.45 / 50) * 50;
+        let maxIgStory = Math.round(maxIgReel * 0.50 / 50) * 50;
+        let minIgBundle = Math.round(minIgReel * 0.88 / 50) * 50;
+        let maxIgBundle = Math.round(maxIgReel * 0.90 / 50) * 50;
+
+        // YouTube Shorts & Community
+        let shortsWorth = (avgViews / 1000) * 16 * nicheMultiplier;
+        let minShorts = Math.max(80, Math.round(shortsWorth * 0.85 / 50) * 50);
+        let maxShorts = Math.max(130, Math.round(shortsWorth * 1.25 / 50) * 50);
+
+        let minCommunity = Math.max(40, Math.round(minFirst30 * 0.25 / 25) * 25);
+        let maxCommunity = Math.max(75, Math.round(maxFirst30 * 0.30 / 25) * 25);
 
         // Update UI Elements
         document.getElementById('resAvatar').innerText = handle.charAt(0).toUpperCase();
         document.getElementById('resName').innerText = profileName;
         document.getElementById('resPlatform').innerText = 'YouTube Channel';
         
-        document.getElementById('resRateHero').innerText = `$${minInt60.toLocaleString()} - $${maxInt60.toLocaleString()}`;
+        document.getElementById('resRateHero').innerText = `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`;
         
-        document.getElementById('resDedicated').innerText = `$${minDedicated.toLocaleString()} - $${maxDedicated.toLocaleString()}`;
-        document.getElementById('resIntegration60').innerText = `$${minInt60.toLocaleString()} - $${maxInt60.toLocaleString()}`;
-        document.getElementById('resIntegration30').innerText = `$${minInt30.toLocaleString()} - $${maxInt30.toLocaleString()}`;
-        document.getElementById('resShortsRate').innerText = `$${minShorts.toLocaleString()} - $${maxShorts.toLocaleString()}`;
+        // Placement 1st 1/3rd
+        if (document.getElementById('resFirst30')) document.getElementById('resFirst30').innerText = `$${minFirst30.toLocaleString()} - $${maxFirst30.toLocaleString()}`;
+        if (document.getElementById('resFirst60')) document.getElementById('resFirst60').innerText = `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`;
+        if (document.getElementById('resFirst90')) document.getElementById('resFirst90').innerText = `$${minFirst90.toLocaleString()} - $${maxFirst90.toLocaleString()}`;
+        if (document.getElementById('resBundleFirst')) document.getElementById('resBundleFirst').innerText = `$${minBundleFirst.toLocaleString()} - $${maxBundleFirst.toLocaleString()} / video`;
+
+        // Placement 2nd 1/2
+        if (document.getElementById('resSecond30')) document.getElementById('resSecond30').innerText = `$${minSecond30.toLocaleString()} - $${maxSecond30.toLocaleString()}`;
+        if (document.getElementById('resSecond60')) document.getElementById('resSecond60').innerText = `$${minSecond60.toLocaleString()} - $${maxSecond60.toLocaleString()}`;
+        if (document.getElementById('resSecond90')) document.getElementById('resSecond90').innerText = `$${minSecond90.toLocaleString()} - $${maxSecond90.toLocaleString()}`;
+        if (document.getElementById('resBundleSecond')) document.getElementById('resBundleSecond').innerText = `$${minBundleSecond.toLocaleString()} - $${maxBundleSecond.toLocaleString()} / video`;
+
+        // Instagram & Extras
+        if (document.getElementById('resIgReel')) document.getElementById('resIgReel').innerText = `$${minIgReel.toLocaleString()} - $${maxIgReel.toLocaleString()}`;
+        if (document.getElementById('resIgStory')) document.getElementById('resIgStory').innerText = `$${minIgStory.toLocaleString()} - $${maxIgStory.toLocaleString()}`;
+        if (document.getElementById('resIgReelBundle')) document.getElementById('resIgReelBundle').innerText = `$${minIgBundle.toLocaleString()} - $${maxIgBundle.toLocaleString()} / reel`;
+
+        if (document.getElementById('resShortsRate')) document.getElementById('resShortsRate').innerText = `$${minShorts.toLocaleString()} - $${maxShorts.toLocaleString()}`;
+        if (document.getElementById('resCommunityPost')) document.getElementById('resCommunityPost').innerText = `$${minCommunity.toLocaleString()} - $${maxCommunity.toLocaleString()}`;
+        if (document.getElementById('resDedicated')) document.getElementById('resDedicated').innerText = `$${minDedicated.toLocaleString()} - $${maxDedicated.toLocaleString()}`;
         
         document.getElementById('resFollowers').innerText = followers.toLocaleString();
         document.getElementById('resAvgViews').innerText = avgViews.toLocaleString();
-        document.getElementById('resCommunityPost').innerText = `$${minCommunity} - $${maxCommunity}`;
+        if (document.getElementById('resViewsLabel')) {
+          document.getElementById('resViewsLabel').innerText = `Avg. Views (Last ${sampleSize} Videos)`;
+        }
 
+        loadingBox.style.display = 'none';
         resultsContainer.style.display = 'block';
       }
     </script>
