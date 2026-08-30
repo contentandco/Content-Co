@@ -484,28 +484,18 @@
 
       <!-- Calculator Card -->
       <section class="calc-card">
-        <!-- Platform Selection -->
-        <div class="platform-tabs">
-          <button type="button" class="tab-btn active" onclick="setPlatform('instagram', this)">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            Instagram
-          </button>
-          <button type="button" class="tab-btn" onclick="setPlatform('youtube', this)">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            YouTube
-          </button>
-          <button type="button" class="tab-btn" onclick="setPlatform('tiktok', this)">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.57-1.34 1.52-1.4 2.52-.08 1.05.34 2.13 1.13 2.83.82.72 1.98.98 3.03.71 1.05-.26 1.96-1.07 2.34-2.1.18-.55.22-1.13.22-1.7V.02z"/></svg>
-            TikTok
-          </button>
+        <!-- YouTube Focus Banner -->
+        <div style="background: #f4f4f5; border: 1px solid var(--border-light); border-radius: 0.75rem; padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; font-weight: 600;">
+          <svg width="20" height="20" fill="#ef4444" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span>YouTube Channel Live Worth Calculator</span>
         </div>
 
         <!-- Social URL Input -->
         <div class="input-group">
-          <label class="label" for="profileUrl">Social Profile Link or Handle</label>
+          <label class="label" for="profileUrl">YouTube Channel Link or @Handle</label>
           <div class="url-input-wrapper">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-            <input type="text" id="profileUrl" class="url-input" placeholder="e.g. instagram.com/creators or @creator" value="" />
+            <input type="text" id="profileUrl" class="url-input" placeholder="e.g. youtube.com/@suhitamin or @mkbhd" value="" />
           </div>
         </div>
 
@@ -522,9 +512,14 @@
             </select>
           </div>
           <div>
-            <label class="label" for="followersOverride">Follower / Subscriber Count (Optional)</label>
-            <input type="number" id="followersOverride" class="number-input" placeholder="Auto-detect or enter e.g. 50000" />
+            <label class="label" for="followersOverride">Subscribers Count (Optional Override)</label>
+            <input type="number" id="followersOverride" class="number-input" placeholder="Live fetch or enter e.g. 50000" />
           </div>
+        </div>
+
+        <!-- Error Warning Box -->
+        <div id="errorBox" style="display: none; background: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; padding: 0.85rem 1.25rem; border-radius: 0.75rem; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.25rem; text-align: center;">
+          ⚠️ Please enter a YouTube channel link or handle (e.g. @channel or youtube.com/@name) to calculate worth.
         </div>
 
         <button type="button" class="btn-calc" onclick="calculateWorth()">
@@ -558,19 +553,43 @@
             <div class="worth-subtitle">Per Dedicated Reel / Video (Based on Fair Market CPM)</div>
           </div>
 
-          <!-- Metric Cards -->
+          <!-- Rates Breakdown Grid -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">📹 Dedicated Video (Full Video)</div>
+              <div id="resDedicated" class="metric-value" style="font-size: 1.35rem; color: #047857;">$500 - $800</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Entire video centered around your brand/product</div>
+            </div>
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">⏱️ 60-Sec Integration (Mid-roll)</div>
+              <div id="resIntegration60" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$250 - $400</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">60s dedicated segment/shoutout inside video</div>
+            </div>
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">⚡ 30-Sec Integration (Short Shoutout)</div>
+              <div id="resIntegration30" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$150 - $260</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Quick 30-second product mention/sponsor spot</div>
+            </div>
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">📱 YouTube Short (Vertical Video)</div>
+              <div id="resShortsRate" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$120 - $220</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Standalone YouTube Short / Vertical reel</div>
+            </div>
+          </div>
+
+          <!-- Channel Vital Stats -->
           <div class="metrics-grid">
             <div class="metric-card">
-              <div class="metric-label">Est. Followers / Subs</div>
-              <div id="resFollowers" class="metric-value">45,000</div>
+              <div class="metric-label">Subscribers</div>
+              <div id="resFollowers" class="metric-value">18,700</div>
             </div>
             <div class="metric-card">
-              <div class="metric-label">Avg. Video Views</div>
-              <div id="resAvgViews" class="metric-value">12,500</div>
+              <div class="metric-label">Avg. Views / Video</div>
+              <div id="resAvgViews" class="metric-value">3,500</div>
             </div>
             <div class="metric-card">
-              <div class="metric-label">Story / Post Rate</div>
-              <div id="resStoryRate" class="metric-value">$90 - $140</div>
+              <div class="metric-label">Community Tab Post</div>
+              <div id="resCommunityPost" class="metric-value">$60 - $100</div>
             </div>
           </div>
 
@@ -594,7 +613,7 @@
     <!-- Logic Script -->
     <script>
       const YT_API_KEY = 'AIzaSyCdsggSnd2SQcFCPrTVnawQ5ZB1_jOk3JI';
-      let currentPlatform = 'instagram';
+      let currentPlatform = 'youtube';
 
       function setPlatform(platform, btnElement) {
         currentPlatform = platform;
@@ -670,19 +689,34 @@
         const rawInput = document.getElementById('profileUrl').value.trim();
         const nicheMultiplier = parseFloat(document.getElementById('nicheSelect').value) || 1.0;
         let followerOverride = parseInt(document.getElementById('followersOverride').value);
+        let reelViewsOverride = parseInt(document.getElementById('avgReelViewsInput')?.value);
         
         const loadingBox = document.getElementById('loadingBox');
         const resultsContainer = document.getElementById('resultsContainer');
+        const errorBox = document.getElementById('errorBox');
+        const profileInput = document.getElementById('profileUrl');
+
+        if (errorBox) errorBox.style.display = 'none';
+
+        if (!rawInput) {
+          loadingBox.style.display = 'none';
+          resultsContainer.style.display = 'none';
+          if (errorBox) {
+            errorBox.style.display = 'block';
+          }
+          profileInput.focus();
+          return;
+        }
         
         loadingBox.style.display = 'block';
         resultsContainer.style.display = 'none';
 
         // Extract clean handle from URL or raw text
-        let handle = rawInput.replace(/https?:\/\/(www\.)?/, '').replace(/(instagram\.com|youtube\.com|tiktok\.com)\/@?/, '').replace(/[\/@]/g, '');
+        let handle = rawInput.replace(/https?:\/\/(www\.)?/, '').replace(/(instagram\.com|youtube\.com)\/@?/, '').replace(/[\/@]/g, '');
         if (!handle) handle = 'creator';
 
         let followers = followerOverride;
-        let avgViews = 0;
+        let avgViews = (currentPlatform === 'instagram' && reelViewsOverride) ? reelViewsOverride : 0;
         let profileName = '@' + handle;
 
         // Fetch live API data if YouTube platform is selected
@@ -691,50 +725,63 @@
           if (liveData) {
             profileName = liveData.title + ` (@${handle})`;
             if (!followers || isNaN(followers)) followers = liveData.subscribers;
-            avgViews = liveData.avgViews;
+            if (!avgViews) avgViews = liveData.avgViews;
           }
         }
 
-        // Fallback calculations if not provided or overridden
+        // Fallback calculations if metrics are not provided or overridden
         if (!followers || isNaN(followers)) {
           let hash = 0;
           for (let i = 0; i < handle.length; i++) hash = handle.charCodeAt(i) + ((hash << 5) - hash);
           let positiveHash = Math.abs(hash);
-          followers = 12000 + (positiveHash % 35000);
+          followers = 15000 + (positiveHash % 40000);
         }
 
-        if (!avgViews) {
-          avgViews = Math.floor(followers * 0.18);
+        if (!avgViews || isNaN(avgViews)) {
+          avgViews = Math.floor(followers * 0.22);
         }
 
         loadingBox.style.display = 'none';
 
-        // Base CPM rates per 1k views per platform
-        let baseCPM = 20;
-        if (currentPlatform === 'instagram') baseCPM = 22;
-        if (currentPlatform === 'youtube') baseCPM = 35;
-        if (currentPlatform === 'tiktok') baseCPM = 18;
+        // Dedicated Video Rate (Entire video dedicated to sponsor)
+        let dedicatedWorth = (avgViews / 1000) * 45 * nicheMultiplier;
+        let minDedicated = Math.max(150, Math.round(dedicatedWorth * 0.85 / 10) * 10);
+        let maxDedicated = Math.max(250, Math.round(dedicatedWorth * 1.30 / 10) * 10);
 
-        // Video Rate Calculation based on CPM and Avg Views
-        let rawVideoWorth = (avgViews / 1000) * baseCPM * nicheMultiplier;
-        let minVideoRate = Math.round(rawVideoWorth * 0.85 / 10) * 10;
-        let maxVideoRate = Math.round(rawVideoWorth * 1.25 / 10) * 10;
+        // 60-Sec Mid-roll Integration Rate
+        let int60Worth = (avgViews / 1000) * 28 * nicheMultiplier;
+        let minInt60 = Math.max(90, Math.round(int60Worth * 0.85 / 10) * 10);
+        let maxInt60 = Math.max(160, Math.round(int60Worth * 1.25 / 10) * 10);
 
-        if (minVideoRate < 80) { minVideoRate = 80; maxVideoRate = 150; }
+        // 30-Sec Shoutout Integration Rate
+        let int30Worth = (avgViews / 1000) * 18 * nicheMultiplier;
+        let minInt30 = Math.max(60, Math.round(int30Worth * 0.85 / 10) * 10);
+        let maxInt30 = Math.max(110, Math.round(int30Worth * 1.25 / 10) * 10);
 
-        // Story / Post Rate Calculation
-        let minStoryRate = Math.round(minVideoRate * 0.25 / 5) * 5;
-        let maxStoryRate = Math.round(maxVideoRate * 0.30 / 5) * 5;
+        // YouTube Short Rate
+        let shortsWorth = (avgViews / 1000) * 15 * nicheMultiplier;
+        let minShorts = Math.max(50, Math.round(shortsWorth * 0.85 / 10) * 10);
+        let maxShorts = Math.max(90, Math.round(shortsWorth * 1.25 / 10) * 10);
 
-        // Update UI
+        // Community Tab Post Rate
+        let minCommunity = Math.max(35, Math.round(minInt30 * 0.40 / 5) * 5);
+        let maxCommunity = Math.max(65, Math.round(maxInt30 * 0.45 / 5) * 5);
+
+        // Update UI Elements
         document.getElementById('resAvatar').innerText = handle.charAt(0).toUpperCase();
         document.getElementById('resName').innerText = profileName;
-        document.getElementById('resPlatform').innerText = currentPlatform.charAt(0).toUpperCase() + currentPlatform.slice(1) + ' Creator';
+        document.getElementById('resPlatform').innerText = 'YouTube Channel';
         
-        document.getElementById('resRateHero').innerText = `$${minVideoRate.toLocaleString()} - $${maxVideoRate.toLocaleString()}`;
+        document.getElementById('resRateHero').innerText = `$${minInt60.toLocaleString()} - $${maxInt60.toLocaleString()}`;
+        
+        document.getElementById('resDedicated').innerText = `$${minDedicated.toLocaleString()} - $${maxDedicated.toLocaleString()}`;
+        document.getElementById('resIntegration60').innerText = `$${minInt60.toLocaleString()} - $${maxInt60.toLocaleString()}`;
+        document.getElementById('resIntegration30').innerText = `$${minInt30.toLocaleString()} - $${maxInt30.toLocaleString()}`;
+        document.getElementById('resShortsRate').innerText = `$${minShorts.toLocaleString()} - $${maxShorts.toLocaleString()}`;
+        
         document.getElementById('resFollowers').innerText = followers.toLocaleString();
         document.getElementById('resAvgViews').innerText = avgViews.toLocaleString();
-        document.getElementById('resStoryRate').innerText = `$${minStoryRate} - $${maxStoryRate}`;
+        document.getElementById('resCommunityPost').innerText = `$${minCommunity} - $${maxCommunity}`;
 
         resultsContainer.style.display = 'block';
       }
