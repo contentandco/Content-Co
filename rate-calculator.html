@@ -786,8 +786,10 @@
         loadingBox.style.display = 'block';
         resultsContainer.style.display = 'none';
 
-        // Extract clean handle from URL or raw text
-        let handle = rawInput.replace(/https?:\/\/(www\.)?/, '').replace(/(instagram\.com|youtube\.com)\/@?/, '').replace(/[\/@]/g, '');
+        // Extract clean handle from URL or raw text (strips out /videos, /featured, /shorts, trailing slashes, etc.)
+        let cleanInput = rawInput.split('?')[0].split('#')[0];
+        cleanInput = cleanInput.replace(/\/videos\/?$/, '').replace(/\/featured\/?$/, '').replace(/\/shorts\/?$/, '').replace(/\/community\/?$/, '').replace(/\/$/, '');
+        let handle = cleanInput.replace(/https?:\/\/(www\.)?/, '').replace(/(instagram\.com|youtube\.com|tiktok\.com)\/@?/, '').replace(/^@/, '');
         if (!handle) handle = 'creator';
 
         const sampleSize = parseInt(document.getElementById('sampleSizeSelect')?.value) || 10;
