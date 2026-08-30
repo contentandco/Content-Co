@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="HTML Sitemap for Content &amp; Co. Directory of all main website pages, case studies, and influencer marketing blog insights." />
+    <meta name="theme-color" content="#10b981" />
+    <title>Sitemap - Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="assets/Google%20search.png" type="image/png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .center-glow {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Header & Footer ─── */
+      .map-header, .map-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+      @media (min-width: 40rem) { .map-header, .map-footer { padding: 1.25rem 2.5rem; } }
+
+      .map-header-left { display: flex; align-items: center; gap: 0.75rem; }
+      .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+      
+      .map-header-label, .map-footer-label, .map-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+      .map-footer-links a { color: var(--text-muted); text-decoration: underline; }
+
+      /* ─── Hero Header ─── */
+      .map-hero {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+      }
+      .map-instrument-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--accent-dark);
+      }
+      .map-divider {
+        display: block;
+        width: 1px;
+        height: 2.25rem;
+        background: var(--accent);
+        margin: 1.25rem auto;
+      }
+      .map-heading {
+        font-family: var(--font-serif);
+        font-size: clamp(2.5rem, 7vw, 4.5rem);
+        line-height: 0.95;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.25rem;
+      }
+      .map-subheading {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+        text-wrap: balance;
+        margin-bottom: 2rem;
+      }
+
+      /* ─── Sitemap Container ─── */
+      .sitemap-container {
+        position: relative;
+        z-index: 10;
+        max-width: 960px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 1.5rem 5rem 1.5rem;
+      }
+
+      .sitemap-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      @media (min-width: 45rem) {
+        .sitemap-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .sitemap-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        padding: 2.25rem;
+        box-shadow: 0 10px 30px -15px rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sitemap-card.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .sitemap-card h2 {
+        font-family: var(--font-serif);
+        font-size: 1.85rem;
+        margin-bottom: 1.5rem;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .sitemap-card h2::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .sitemap-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .sitemap-link-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .sitemap-link {
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .sitemap-link:hover {
+        color: var(--accent-dark);
+      }
+
+      .sitemap-link span {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+      }
+
+      .sitemap-desc {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* ─── Animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-fade-up { opacity: 0; animation: fade-up 0.8s ease-out forwards; }
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+      .anim-delay-3 { animation-delay: 0.45s; }
+      .anim-delay-4 { animation-delay: 0.65s; }
+    </style>
+  </head>
+  <body>
+    <main class="map-page">
+      <div class="map-bg-nature" aria-hidden="true"></div>
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <header class="map-header">
+        <div class="map-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="map-header-label">
+            <a href="index.html" style="color: inherit; text-decoration: none;">Content &amp; Co</a> / Sitemap
+          </span>
+        </div>
+      </header>
+
+      <div class="map-hero">
+        <span class="map-instrument-label anim-fade-up anim-delay-1">Directory structure</span>
+        <span class="map-divider anim-fade-up anim-delay-2" aria-hidden="true"></span>
+        <h1 class="map-heading anim-fade-up anim-delay-2">Website Sitemap</h1>
+        <p class="map-subheading anim-fade-up anim-delay-3">
+          Explore all pages, client success case studies, and influencer strategy guides on our website.
+        </p>
+      </div>
+
+      <div class="sitemap-container anim-fade-up anim-delay-4">
+        <div class="sitemap-grid">
+          
+          <!-- Section 1: Main Pages -->
+          <div class="sitemap-card">
+            <h2>Website Navigation</h2>
+            <ul class="sitemap-links">
+              <li class="sitemap-link-item">
+                <a href="index.html" class="sitemap-link">Homepage</a>
+                <span class="sitemap-desc">Find handpicked creators built for your brand campaigns.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="creators.html" class="sitemap-link">Our Roster</a>
+                <span class="sitemap-desc">Browse our curated selection of high-converting creators.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="contact.html" class="sitemap-link">Contact &amp; Request</a>
+                <span class="sitemap-desc">Get a custom creator roster drafted for your campaign objectives.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="blog.html" class="sitemap-link">Creator Insights Blog</a>
+                <span class="sitemap-desc">The homepage of our blog showcasing all insights and updates.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Section 2: Case Studies & Legal -->
+          <div class="sitemap-card">
+            <h2>Campaign Success &amp; Terms</h2>
+            <ul class="sitemap-links">
+              <li class="sitemap-link-item">
+                <a href="case-study-discovercars-challenge.html" class="sitemap-link">Discover Cars Challenge <span>Case Study</span></a>
+                <span class="sitemap-desc">How we generated video reviews and app traffic for a major brand.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="case-study-esim-travel-story.html" class="sitemap-link">eSIM Travel Story <span>Case Study</span></a>
+                <span class="sitemap-desc">Securing organic influencer integrations for international telecom.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="creator-agreement.html" class="sitemap-link">Creator Agreement</a>
+                <span class="sitemap-desc">Standard legal terms for creators joining the Content &amp; Co roster.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="privacy.html" class="sitemap-link">Privacy Policy</a>
+                <span class="sitemap-desc">How we protect your user data and respect privacy.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="terms.html" class="sitemap-link">Terms of Service</a>
+                <span class="sitemap-desc">Rules and conditions governing the use of contentco.info.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Section 3: Blog Posts -->
+          <div class="sitemap-card full-width">
+            <h2>Influencer Marketing &amp; Creator Guides</h2>
+            <ul class="sitemap-links">
+              <li class="sitemap-link-item">
+                <a href="blog/how-to-get-your-first-brand-sponsorship.html" class="sitemap-link">How to Get Your First Brand Sponsorship as a Creator <span>Creators</span></a>
+                <span class="sitemap-desc">Build your media kit, craft high-converting pitches, and land initial deals.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="blog/how-influencer-brand-trips-work.html" class="sitemap-link">How Influencer Brand Trips Work (And Why Travel Brands Use Them) <span>Brands</span></a>
+                <span class="sitemap-desc">Designing, executing, and measuring travel experiences with creators.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="blog/why-your-travel-influencer-campaign-isnt-working.html" class="sitemap-link">Why Your Travel Influencer Campaign Isn't Working <span>Brands</span></a>
+                <span class="sitemap-desc">Avoid common execution pitfalls and structure campaigns correctly.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="blog/travel-sponsorship-red-flags.html" class="sitemap-link">Travel Sponsorship Red Flags: Deals Creators Should Think Twice About <span>Creators</span></a>
+                <span class="sitemap-desc">What terms and warning signs to check before boarding a sponsored trip.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="blog/how-to-find-the-right-influencers-for-your-brand.html" class="sitemap-link">How to Find the Right Influencers for Your Brand <span>Brands</span></a>
+                <span class="sitemap-desc">Ditching raw follower numbers and prioritizing actual customer alignment.</span>
+              </li>
+              <li class="sitemap-link-item">
+                <a href="blog/how-to-choose-influencer-platform.html" class="sitemap-link">How to Choose the Right Influencer Marketing Platform <span>Brands</span></a>
+                <span class="sitemap-desc">Find software that fits your current bottle necks, workflow, and goals.</span>
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+
+      <footer class="map-footer">
+        <span class="map-footer-label anim-fade-up anim-delay-2">Content &amp; Co</span>
+        <span class="map-footer-links anim-fade-up anim-delay-2">
+          <a href="index.html">Home</a> · <a href="privacy.html">Privacy</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
