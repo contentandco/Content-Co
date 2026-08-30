@@ -367,42 +367,35 @@
       }
 
       .worth-hero-card {
-        background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
-        color: #ffffff;
+        background: #fafaf9;
+        border: 1px solid var(--border-light);
         border-radius: 1.25rem;
-        padding: 2rem;
+        padding: 2.25rem 2rem;
         text-align: center;
         margin-bottom: 2rem;
-        position: relative;
-        overflow: hidden;
-      }
-      .worth-hero-card::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-        pointer-events: none;
       }
       .worth-hero-title {
-        font-size: 0.9rem;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: var(--text-muted);
         text-transform: uppercase;
-        letter-spacing: 1px;
-        opacity: 0.85;
-        margin-bottom: 0.5rem;
+        letter-spacing: 0.12em;
+        margin-bottom: 0.75rem;
       }
       .worth-number {
-        font-family: var(--font-mono);
-        font-size: 2.75rem;
-        font-weight: 700;
+        font-family: var(--font-sans);
+        font-size: 3rem;
+        font-weight: 400;
         letter-spacing: -1px;
+        color: var(--text);
         margin-bottom: 0.5rem;
+        line-height: 1.1;
       }
       .worth-subtitle {
+        color: var(--text-muted);
         font-size: 0.88rem;
-        opacity: 0.9;
+        font-weight: 400;
       }
 
       /* Detailed Cards Grid */
@@ -420,8 +413,8 @@
         text-align: center;
       }
       .metric-value {
-        font-family: var(--font-mono);
-        font-weight: 700;
+        font-family: var(--font-sans);
+        font-weight: 400;
         font-size: 1.25rem;
         color: var(--text);
         margin-top: 0.25rem;
@@ -429,7 +422,7 @@
       .metric-label {
         font-size: 0.8rem;
         color: var(--text-muted);
-        font-weight: 500;
+        font-weight: 400;
       }
 
       /* CTA Box inside Calculator */
@@ -444,7 +437,7 @@
       }
       .calc-cta-text h4 {
         font-size: 1rem;
-        font-weight: 700;
+        font-weight: 400;
         margin-bottom: 0.25rem;
       }
       .calc-cta-text p {
@@ -452,18 +445,20 @@
         color: var(--text-muted);
       }
       .btn-cta {
-        background: var(--text);
-        color: #ffffff;
+        background: var(--accent);
+        color: var(--text);
         text-decoration: none;
         padding: 0.75rem 1.25rem;
         border-radius: 0.75rem;
         font-size: 0.9rem;
-        font-weight: 600;
+        font-weight: 400;
         white-space: nowrap;
-        transition: background 0.2s;
+        transition: background 0.2s, transform 0.1s;
       }
       .btn-cta:hover {
-        background: #27272a;
+        background: #059669;
+        color: #ffffff;
+        transform: translateY(-1px);
       }
 
       /* Footer */
@@ -508,9 +503,9 @@
     <main class="main-container">
       <header class="hero-header">
         <div class="badge">
-          ✨ Free AI Tool for Brands &amp; Creators
+          ✨ Free Sponsorship Intelligence Tool
         </div>
-        <h1 class="hero-title">Creator Rate &amp; Worth Calculator</h1>
+        <h1 class="hero-title">YouTube Sponsorship Rate Calculator</h1>
         <p class="hero-subtitle">
           Paste any social profile link or handle to estimate fair market rate for sponsored videos, stories, and posts instantly.
         </p>
@@ -521,7 +516,7 @@
         <!-- YouTube Focus Banner -->
         <div style="background: #f4f4f5; border: 1px solid var(--border-light); border-radius: 0.75rem; padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; font-weight: 400;">
           <svg width="20" height="20" fill="#ef4444" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          <span>YouTube Channel Live Worth Calculator</span>
+          <span>YouTube Sponsorship Rate Calculator</span>
         </div>
 
         <!-- Social URL Input -->
@@ -557,7 +552,7 @@
 
         <!-- Error Warning Box -->
         <div id="errorBox" style="display: none; background: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; padding: 0.85rem 1.25rem; border-radius: 0.75rem; font-size: 0.9rem; font-weight: 400; margin-bottom: 1.25rem; text-align: center;">
-          ⚠️ Please enter a YouTube channel link or handle (e.g. @channel or youtube.com/@name) to calculate worth.
+          ⚠️ Please enter a YouTube channel link or handle (e.g. @channel or youtube.com/@name) to calculate sponsorship rates.
         </div>
 
         <button type="button" class="btn-calc" onclick="calculateWorth()">
@@ -598,9 +593,9 @@
               <div id="resFirst30" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$1,200 - $1,800</div>
               <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Quick 30s product mention in video</div>
             </div>
-            <div class="metric-card" style="text-align: left; padding: 1.25rem; border-left: 3px solid #10b981;">
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
               <div class="metric-label">⏱️ 60-Second Integration (Standard)</div>
-              <div id="resFirst60" class="metric-value" style="font-size: 1.35rem; color: #047857;">$1,800 - $2,600</div>
+              <div id="resFirst60" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$1,800 - $2,600</div>
               <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Full 60s sponsor segment inside video</div>
             </div>
             <div class="metric-card" style="text-align: left; padding: 1.25rem;">
