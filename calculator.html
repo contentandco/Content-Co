@@ -3,18 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Free Creator Rate & Earnings Calculator by Content & Co. Calculate how much a social media creator is worth per video, post, or story based on public metrics and engagement." />
-    <meta name="keywords" content="creator rate calculator, influencer rate calculator, instagram reel price calculator, youtube sponsored video earnings, tiktok creator worth" />
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Free YouTube Channel Rate & Worth Calculator by Content & Co. Estimate fair market rates for sponsored 30s, 60s, 90s video integrations, dedicated videos, and Shorts using live YouTube data." />
+    <meta name="keywords" content="youtube sponsor rate calculator, how much to charge for youtube sponsorship, youtube cpm calculator, sponsored video price calculator, influencer rate calculator" />
     <meta name="author" content="Content & Co" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#10b981" />
 
-    <!-- Open Graph -->
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://contentco.info/calculator.html" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://contentco.info/calculator.html" />
-    <meta property="og:title" content="Free Creator Rate & Worth Calculator | Content & Co" />
-    <meta property="og:description" content="Check how much any creator or profile is worth for sponsored videos, stories, and posts." />
+    <meta property="og:title" content="YouTube Channel Rate & Worth Calculator — Content & Co" />
+    <meta property="og:description" content="Estimate fair market rates for sponsored 30s, 60s, 90s video integrations & dedicated videos." />
     <meta property="og:image" content="https://contentco.info/assets/brand_share_preview.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="YouTube Channel Rate Calculator — Content & Co" />
+    <meta name="twitter:description" content="Calculate fair market rates for YouTube sponsorships using live views and subscriber data." />
+    <meta name="twitter:image" content="https://contentco.info/assets/brand_share_preview.png" />
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "YouTube Creator Rate Calculator",
+      "url": "https://contentco.info/calculator.html",
+      "description": "Free tool for brands and creators to calculate estimated sponsored video rates based on YouTube channel analytics.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 
     <title>Free Creator Rate &amp; Worth Calculator — Content &amp; Co</title>
 
@@ -447,6 +475,12 @@
       }
 
       @media (max-width: 768px) {
+        .nav { padding: 1rem 1.25rem; }
+        .nav-logo img { height: 26px; }
+        .logo-text { font-size: 1rem; }
+        .nav-links { gap: 0.75rem; }
+        .nav-creator-link { display: none; } /* Hide extra link on mobile so header stays clean */
+        .btn-nav { padding: 0.4rem 0.85rem; font-size: 0.85rem; }
         .hero-title { font-size: 2.25rem; }
         .options-grid { grid-template-columns: 1fr; }
         .metrics-grid { grid-template-columns: 1fr; }
@@ -455,16 +489,15 @@
       }
     </style>
   </head>
-  <body>
-    <!-- Navbar -->
+    <!-- Logo Navbar -->
     <nav class="nav">
       <a href="index.html" class="nav-logo">
         <img src="logo.svg" alt="Content & Co Logo" />
-        <span>Content &amp; Co</span>
+        <span class="logo-text">Content &amp; Co</span>
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="creators.html">Creators</a>
+        <a href="creators.html" class="nav-creator-link">Creators</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html" class="btn-nav">Get Started</a>
       </div>
@@ -557,87 +590,53 @@
             <div class="worth-subtitle">Per Dedicated Reel / Video (Based on Fair Market CPM)</div>
           </div>
 
-          <!-- Rates Breakdown Grid: Section 1 - Placement Pricing -->
-          <div style="margin-bottom: 1.5rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">🎯 Video Integration Rates (By Placement)</h3>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-              
-              <!-- First 1/3rd Placement -->
-              <div class="metric-card" style="text-align: left; padding: 1.25rem; border-left: 4px solid #10b981;">
-                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; color: #047857;">🥇 First 1/3rd of Video (Prime Placement)</div>
-                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
-                  <div><strong>30s Integration:</strong> <span id="resFirst30" style="font-family: var(--font-mono); font-weight: 700;">$3,200 - $4,500</span></div>
-                  <div><strong>60s Integration:</strong> <span id="resFirst60" style="font-family: var(--font-mono); font-weight: 700;">$4,500 - $6,000</span></div>
-                  <div><strong>90s Integration:</strong> <span id="resFirst90" style="font-family: var(--font-mono); font-weight: 700;">$5,800 - $7,500</span></div>
-                  <div style="font-size: 0.78rem; color: #047857; margin-top: 0.25rem; font-weight: 600;">📦 Multi-Deal (3+ Videos): <span id="resBundleFirst">$4,000 - $5,500 / video</span></div>
-                </div>
-              </div>
-
-              <!-- Second 1/2 Placement -->
-              <div class="metric-card" style="text-align: left; padding: 1.25rem; border-left: 4px solid #6366f1;">
-                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; color: #4338ca;">🥈 Second 1/2 of Video (Mid/End Placement)</div>
-                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
-                  <div><strong>30s Integration:</strong> <span id="resSecond30" style="font-family: var(--font-mono); font-weight: 700;">$2,200 - $3,000</span></div>
-                  <div><strong>60s Integration:</strong> <span id="resSecond60" style="font-family: var(--font-mono); font-weight: 700;">$3,200 - $4,500</span></div>
-                  <div><strong>90s Integration:</strong> <span id="resSecond90" style="font-family: var(--font-mono); font-weight: 700;">$4,800 - $6,500</span></div>
-                  <div style="font-size: 0.78rem; color: #4338ca; margin-top: 0.25rem; font-weight: 600;">📦 Multi-Deal (3+ Videos): <span id="resBundleSecond">$2,800 - $4,000 / video</span></div>
-                </div>
-              </div>
-
+          <!-- Clean Rates Breakdown Grid -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">⚡ 30-Second Integration</div>
+              <div id="resFirst30" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$1,200 - $1,800</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Quick 30s product mention in video</div>
             </div>
-          </div>
-
-          <!-- Rates Breakdown Grid: Section 2 - Cross-Platform Extras -->
-          <div style="margin-bottom: 1.5rem;">
-            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem;">📲 Instagram &amp; Shorts Deliverables</h3>
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-              
-              <!-- Instagram Rates -->
-              <div class="metric-card" style="text-align: left; padding: 1.25rem;">
-                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem;">📸 Instagram Rates</div>
-                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
-                  <div><strong>1x Instagram Reel:</strong> <span id="resIgReel" style="font-family: var(--font-mono); font-weight: 700;">$4,500 - $6,000</span></div>
-                  <div><strong>1x Instagram Story:</strong> <span id="resIgStory" style="font-family: var(--font-mono); font-weight: 700;">$2,000 - $3,000</span></div>
-                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;">Multi-Reel (3+): <span id="resIgReelBundle" style="font-weight: 600;">$4,000 - $5,500 / reel</span></div>
-                </div>
-              </div>
-
-              <!-- Shorts & Community -->
-              <div class="metric-card" style="text-align: left; padding: 1.25rem;">
-                <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem;">📱 Shorts &amp; Community Tab</div>
-                <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9rem;">
-                  <div><strong>1x YouTube Short:</strong> <span id="resShortsRate" style="font-family: var(--font-mono); font-weight: 700;">$1,800 - $2,800</span></div>
-                  <div><strong>1x Community Post:</strong> <span id="resCommunityPost" style="font-family: var(--font-mono); font-weight: 700;">$800 - $1,400</span></div>
-                  <div><strong>Full Dedicated Video:</strong> <span id="resDedicated" style="font-family: var(--font-mono); font-weight: 700;">$9,000 - $14,000</span></div>
-                </div>
-              </div>
-
+            <div class="metric-card" style="text-align: left; padding: 1.25rem; border-left: 3px solid #10b981;">
+              <div class="metric-label">⏱️ 60-Second Integration (Standard)</div>
+              <div id="resFirst60" class="metric-value" style="font-size: 1.35rem; color: #047857;">$1,800 - $2,600</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Full 60s sponsor segment inside video</div>
+            </div>
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">📽️ 90-Second Integration</div>
+              <div id="resFirst90" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$2,400 - $3,500</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Extended 90s feature / deep dive</div>
+            </div>
+            <div class="metric-card" style="text-align: left; padding: 1.25rem;">
+              <div class="metric-label">📱 YouTube Short</div>
+              <div id="resShortsRate" class="metric-value" style="font-size: 1.35rem; color: var(--text);">$800 - $1,200</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">1x Standalone vertical YouTube Short</div>
             </div>
           </div>
 
           <!-- Channel Vital Stats -->
-          <div class="metrics-grid">
+          <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr);">
             <div class="metric-card">
               <div class="metric-label">Subscribers</div>
               <div id="resFollowers" class="metric-value">18,700</div>
             </div>
             <div class="metric-card">
-              <div id="resViewsLabel" class="metric-label">Avg. Views (Sample Size)</div>
+              <div id="resViewsLabel" class="metric-label">Avg. Views / Video</div>
               <div id="resAvgViews" class="metric-value">3,500</div>
             </div>
             <div class="metric-card">
-              <div class="metric-label">Community Tab Post</div>
-              <div id="resCommunityPost" class="metric-value">$60 - $100</div>
+              <div class="metric-label">Full Dedicated Video</div>
+              <div id="resDedicated" class="metric-value">$3,500 - $5,500</div>
             </div>
           </div>
 
-          <!-- Call to action lead gen -->
+          <!-- Call to action lead gen (Brand Focused) -->
           <div class="calc-cta">
             <div class="calc-cta-text">
-              <h4>Want Content &amp; Co to manage your brand deals?</h4>
-              <p>Apply to join our roster of handpicked creators for brand partnerships.</p>
+              <h4>Ready to launch a campaign with handpicked creators?</h4>
+              <p>Get a custom creator roster and campaign strategy built for your brand.</p>
             </div>
-            <a href="creators.html#join-form" class="btn-cta">Join Creator Roster</a>
+            <a href="contact.html" class="btn-cta">Request Creator Roster</a>
           </div>
         </div>
       </section>
@@ -787,62 +786,35 @@
           avgViews = Math.floor(followers * 0.22);
         }
 
-        // Calculate Effective Valuation incorporating both View CPM + Subscriber Authority Weight
-        // High subscriber channels (500k-1M+) command authority base pricing even if view count fluctuates
-        let subAuthorityFactor = Math.max(1.0, Math.log10(Math.max(followers, 10000)) / 4.5);
-        let effectiveViews = Math.max(avgViews, Math.round(followers * 0.12));
+        // Balanced YouTube Valuation (CPM + Reach Weight)
+        let effectiveViews = Math.max(avgViews, Math.round(followers * 0.15));
 
-        // First 1/3rd Placement Base (Prime spot): ~$28-$35 CPM per 60s
-        let base1st30 = (effectiveViews / 1000) * 22 * nicheMultiplier * subAuthorityFactor;
-        let minFirst30 = Math.max(150, Math.round(base1st30 * 0.85 / 100) * 100);
-        let maxFirst30 = Math.max(250, Math.round(base1st30 * 1.25 / 100) * 100);
+        // 30-Sec Integration Rate
+        let base30 = (effectiveViews / 1000) * 18 * nicheMultiplier;
+        let min30 = Math.max(100, Math.round(base30 * 0.80 / 50) * 50);
+        let max30 = Math.max(150, Math.round(base30 * 1.25 / 50) * 50);
 
-        let base1st60 = (effectiveViews / 1000) * 32 * nicheMultiplier * subAuthorityFactor;
-        let minFirst60 = Math.max(250, Math.round(base1st60 * 0.85 / 100) * 100);
-        let maxFirst60 = Math.max(400, Math.round(base1st60 * 1.25 / 100) * 100);
+        // 60-Sec Integration Rate (Standard)
+        let base60 = (effectiveViews / 1000) * 26 * nicheMultiplier;
+        let min60 = Math.max(150, Math.round(base60 * 0.80 / 50) * 50);
+        let max60 = Math.max(250, Math.round(base60 * 1.25 / 50) * 50);
 
-        let base1st90 = (effectiveViews / 1000) * 42 * nicheMultiplier * subAuthorityFactor;
-        let minFirst90 = Math.max(350, Math.round(base1st90 * 0.85 / 100) * 100);
-        let maxFirst90 = Math.max(550, Math.round(base1st90 * 1.25 / 100) * 100);
+        // 90-Sec Integration Rate
+        let base90 = (effectiveViews / 1000) * 34 * nicheMultiplier;
+        let min90 = Math.max(200, Math.round(base90 * 0.80 / 50) * 50);
+        let max90 = Math.max(350, Math.round(base90 * 1.25 / 50) * 50);
 
-        let minBundleFirst = Math.round(minFirst60 * 0.88 / 50) * 50;
-        let maxBundleFirst = Math.round(maxFirst60 * 0.90 / 50) * 50;
+        // YouTube Short Rate
+        let baseShorts = (effectiveViews / 1000) * 12 * nicheMultiplier;
+        let minShorts = Math.max(60, Math.round(baseShorts * 0.80 / 50) * 50);
+        let maxShorts = Math.max(100, Math.round(baseShorts * 1.25 / 50) * 50);
 
-        // Second 1/2 Placement Base (~30% lower than prime):
-        let minSecond30 = Math.round(minFirst30 * 0.70 / 50) * 50;
-        let maxSecond30 = Math.round(maxFirst30 * 0.70 / 50) * 50;
+        // Full Dedicated Video Rate
+        let baseDedicated = (effectiveViews / 1000) * 50 * nicheMultiplier;
+        let minDedicated = Math.max(300, Math.round(baseDedicated * 0.80 / 100) * 100);
+        let maxDedicated = Math.max(500, Math.round(baseDedicated * 1.30 / 100) * 100);
 
-        let minSecond60 = Math.round(minFirst60 * 0.72 / 50) * 50;
-        let maxSecond60 = Math.round(maxFirst60 * 0.72 / 50) * 50;
-
-        let minSecond90 = Math.round(minFirst90 * 0.72 / 50) * 50;
-        let maxSecond90 = Math.round(maxFirst90 * 0.72 / 50) * 50;
-
-        let minBundleSecond = Math.round(minSecond60 * 0.88 / 50) * 50;
-        let maxBundleSecond = Math.round(maxSecond60 * 0.90 / 50) * 50;
-
-        // Dedicated Video Rate
-        let dedicatedWorth = (avgViews / 1000) * 55 * nicheMultiplier;
-        let minDedicated = Math.max(300, Math.round(dedicatedWorth * 0.85 / 100) * 100);
-        let maxDedicated = Math.max(500, Math.round(dedicatedWorth * 1.30 / 100) * 100);
-
-        // Instagram Cross-Platform Rates
-        let minIgReel = minFirst60;
-        let maxIgReel = maxFirst60;
-        let minIgStory = Math.round(minIgReel * 0.45 / 50) * 50;
-        let maxIgStory = Math.round(maxIgReel * 0.50 / 50) * 50;
-        let minIgBundle = Math.round(minIgReel * 0.88 / 50) * 50;
-        let maxIgBundle = Math.round(maxIgReel * 0.90 / 50) * 50;
-
-        // YouTube Shorts & Community
-        let shortsWorth = (avgViews / 1000) * 16 * nicheMultiplier;
-        let minShorts = Math.max(80, Math.round(shortsWorth * 0.85 / 50) * 50);
-        let maxShorts = Math.max(130, Math.round(shortsWorth * 1.25 / 50) * 50);
-
-        let minCommunity = Math.max(40, Math.round(minFirst30 * 0.25 / 25) * 25);
-        let maxCommunity = Math.max(75, Math.round(maxFirst30 * 0.30 / 25) * 25);
-
-        // Update UI Elements safely with null checks
+        // Update UI Elements safely
         const setElText = (id, val) => {
           const el = document.getElementById(id);
           if (el) el.innerText = val;
@@ -851,27 +823,12 @@
         setElText('resAvatar', handle.charAt(0).toUpperCase());
         setElText('resName', profileName);
         setElText('resPlatform', 'YouTube Channel');
-        setElText('resRateHero', `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`);
+        setElText('resRateHero', `$${min60.toLocaleString()} - $${max60.toLocaleString()}`);
         
-        // Placement 1st 1/3rd
-        setElText('resFirst30', `$${minFirst30.toLocaleString()} - $${maxFirst30.toLocaleString()}`);
-        setElText('resFirst60', `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`);
-        setElText('resFirst90', `$${minFirst90.toLocaleString()} - $${maxFirst90.toLocaleString()}`);
-        setElText('resBundleFirst', `$${minBundleFirst.toLocaleString()} - $${maxBundleFirst.toLocaleString()} / video`);
-
-        // Placement 2nd 1/2
-        setElText('resSecond30', `$${minSecond30.toLocaleString()} - $${maxSecond30.toLocaleString()}`);
-        setElText('resSecond60', `$${minSecond60.toLocaleString()} - $${maxSecond60.toLocaleString()}`);
-        setElText('resSecond90', `$${minSecond90.toLocaleString()} - $${maxSecond90.toLocaleString()}`);
-        setElText('resBundleSecond', `$${minBundleSecond.toLocaleString()} - $${maxBundleSecond.toLocaleString()} / video`);
-
-        // Instagram & Extras
-        setElText('resIgReel', `$${minIgReel.toLocaleString()} - $${maxIgReel.toLocaleString()}`);
-        setElText('resIgStory', `$${minIgStory.toLocaleString()} - $${maxIgStory.toLocaleString()}`);
-        setElText('resIgReelBundle', `$${minIgBundle.toLocaleString()} - $${maxIgBundle.toLocaleString()} / reel`);
-
+        setElText('resFirst30', `$${min30.toLocaleString()} - $${max30.toLocaleString()}`);
+        setElText('resFirst60', `$${min60.toLocaleString()} - $${max60.toLocaleString()}`);
+        setElText('resFirst90', `$${min90.toLocaleString()} - $${max90.toLocaleString()}`);
         setElText('resShortsRate', `$${minShorts.toLocaleString()} - $${maxShorts.toLocaleString()}`);
-        setElText('resCommunityPost', `$${minCommunity.toLocaleString()} - $${maxCommunity.toLocaleString()}`);
         setElText('resDedicated', `$${minDedicated.toLocaleString()} - $${maxDedicated.toLocaleString()}`);
         
         setElText('resFollowers', followers.toLocaleString());
