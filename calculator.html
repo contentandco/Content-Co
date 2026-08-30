@@ -763,11 +763,15 @@
 
         // Fetch live API data if YouTube platform is selected
         if (currentPlatform === 'youtube' && YT_API_KEY) {
-          const liveData = await fetchYouTubeData(handle, sampleSize);
-          if (liveData) {
-            profileName = liveData.title + ` (@${handle})`;
-            if (!followers || isNaN(followers)) followers = liveData.subscribers;
-            if (!avgViews) avgViews = liveData.avgViews;
+          try {
+            const liveData = await fetchYouTubeData(handle, sampleSize);
+            if (liveData) {
+              profileName = liveData.title + ` (@${handle})`;
+              if (!followers || isNaN(followers)) followers = liveData.subscribers;
+              if (!avgViews) avgViews = liveData.avgViews;
+            }
+          } catch(err) {
+            console.warn('API fetch warning:', err);
           }
         }
 
@@ -838,39 +842,41 @@
         let minCommunity = Math.max(40, Math.round(minFirst30 * 0.25 / 25) * 25);
         let maxCommunity = Math.max(75, Math.round(maxFirst30 * 0.30 / 25) * 25);
 
-        // Update UI Elements
-        document.getElementById('resAvatar').innerText = handle.charAt(0).toUpperCase();
-        document.getElementById('resName').innerText = profileName;
-        document.getElementById('resPlatform').innerText = 'YouTube Channel';
-        
-        document.getElementById('resRateHero').innerText = `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`;
+        // Update UI Elements safely with null checks
+        const setElText = (id, val) => {
+          const el = document.getElementById(id);
+          if (el) el.innerText = val;
+        };
+
+        setElText('resAvatar', handle.charAt(0).toUpperCase());
+        setElText('resName', profileName);
+        setElText('resPlatform', 'YouTube Channel');
+        setElText('resRateHero', `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`);
         
         // Placement 1st 1/3rd
-        if (document.getElementById('resFirst30')) document.getElementById('resFirst30').innerText = `$${minFirst30.toLocaleString()} - $${maxFirst30.toLocaleString()}`;
-        if (document.getElementById('resFirst60')) document.getElementById('resFirst60').innerText = `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`;
-        if (document.getElementById('resFirst90')) document.getElementById('resFirst90').innerText = `$${minFirst90.toLocaleString()} - $${maxFirst90.toLocaleString()}`;
-        if (document.getElementById('resBundleFirst')) document.getElementById('resBundleFirst').innerText = `$${minBundleFirst.toLocaleString()} - $${maxBundleFirst.toLocaleString()} / video`;
+        setElText('resFirst30', `$${minFirst30.toLocaleString()} - $${maxFirst30.toLocaleString()}`);
+        setElText('resFirst60', `$${minFirst60.toLocaleString()} - $${maxFirst60.toLocaleString()}`);
+        setElText('resFirst90', `$${minFirst90.toLocaleString()} - $${maxFirst90.toLocaleString()}`);
+        setElText('resBundleFirst', `$${minBundleFirst.toLocaleString()} - $${maxBundleFirst.toLocaleString()} / video`);
 
         // Placement 2nd 1/2
-        if (document.getElementById('resSecond30')) document.getElementById('resSecond30').innerText = `$${minSecond30.toLocaleString()} - $${maxSecond30.toLocaleString()}`;
-        if (document.getElementById('resSecond60')) document.getElementById('resSecond60').innerText = `$${minSecond60.toLocaleString()} - $${maxSecond60.toLocaleString()}`;
-        if (document.getElementById('resSecond90')) document.getElementById('resSecond90').innerText = `$${minSecond90.toLocaleString()} - $${maxSecond90.toLocaleString()}`;
-        if (document.getElementById('resBundleSecond')) document.getElementById('resBundleSecond').innerText = `$${minBundleSecond.toLocaleString()} - $${maxBundleSecond.toLocaleString()} / video`;
+        setElText('resSecond30', `$${minSecond30.toLocaleString()} - $${maxSecond30.toLocaleString()}`);
+        setElText('resSecond60', `$${minSecond60.toLocaleString()} - $${maxSecond60.toLocaleString()}`);
+        setElText('resSecond90', `$${minSecond90.toLocaleString()} - $${maxSecond90.toLocaleString()}`);
+        setElText('resBundleSecond', `$${minBundleSecond.toLocaleString()} - $${maxBundleSecond.toLocaleString()} / video`);
 
         // Instagram & Extras
-        if (document.getElementById('resIgReel')) document.getElementById('resIgReel').innerText = `$${minIgReel.toLocaleString()} - $${maxIgReel.toLocaleString()}`;
-        if (document.getElementById('resIgStory')) document.getElementById('resIgStory').innerText = `$${minIgStory.toLocaleString()} - $${maxIgStory.toLocaleString()}`;
-        if (document.getElementById('resIgReelBundle')) document.getElementById('resIgReelBundle').innerText = `$${minIgBundle.toLocaleString()} - $${maxIgBundle.toLocaleString()} / reel`;
+        setElText('resIgReel', `$${minIgReel.toLocaleString()} - $${maxIgReel.toLocaleString()}`);
+        setElText('resIgStory', `$${minIgStory.toLocaleString()} - $${maxIgStory.toLocaleString()}`);
+        setElText('resIgReelBundle', `$${minIgBundle.toLocaleString()} - $${maxIgBundle.toLocaleString()} / reel`);
 
-        if (document.getElementById('resShortsRate')) document.getElementById('resShortsRate').innerText = `$${minShorts.toLocaleString()} - $${maxShorts.toLocaleString()}`;
-        if (document.getElementById('resCommunityPost')) document.getElementById('resCommunityPost').innerText = `$${minCommunity.toLocaleString()} - $${maxCommunity.toLocaleString()}`;
-        if (document.getElementById('resDedicated')) document.getElementById('resDedicated').innerText = `$${minDedicated.toLocaleString()} - $${maxDedicated.toLocaleString()}`;
+        setElText('resShortsRate', `$${minShorts.toLocaleString()} - $${maxShorts.toLocaleString()}`);
+        setElText('resCommunityPost', `$${minCommunity.toLocaleString()} - $${maxCommunity.toLocaleString()}`);
+        setElText('resDedicated', `$${minDedicated.toLocaleString()} - $${maxDedicated.toLocaleString()}`);
         
-        document.getElementById('resFollowers').innerText = followers.toLocaleString();
-        document.getElementById('resAvgViews').innerText = avgViews.toLocaleString();
-        if (document.getElementById('resViewsLabel')) {
-          document.getElementById('resViewsLabel').innerText = `Avg. Views (Last ${sampleSize} Videos)`;
-        }
+        setElText('resFollowers', followers.toLocaleString());
+        setElText('resAvgViews', avgViews.toLocaleString());
+        setElText('resViewsLabel', `Avg. Views (Last ${sampleSize} Videos)`);
 
         loadingBox.style.display = 'none';
         resultsContainer.style.display = 'block';
