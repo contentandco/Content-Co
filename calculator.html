@@ -726,9 +726,9 @@
       }
 
       async function calculateWorth() {
-        const rawInput = document.getElementById('profileUrl').value.trim();
-        const nicheMultiplier = parseFloat(document.getElementById('nicheSelect').value) || 1.0;
-        let followerOverride = parseInt(document.getElementById('followersOverride').value);
+        const rawInput = document.getElementById('profileUrl') ? document.getElementById('profileUrl').value.trim() : '';
+        const nicheMultiplier = parseFloat(document.getElementById('nicheSelect')?.value) || 1.0;
+        let followerOverride = parseInt(document.getElementById('followersOverride')?.value);
         let reelViewsOverride = parseInt(document.getElementById('avgReelViewsInput')?.value);
         
         const loadingBox = document.getElementById('loadingBox');
