@@ -243,15 +243,16 @@
       }
 
       .map-nav-link {
-        font-family: var(--font-mono);
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: normal;
         color: var(--text-muted);
         text-decoration: none;
-        padding: 0.4rem 0.75rem;
+        padding: 0.4rem 0.85rem;
         border-radius: 100px;
-        background: rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.75);
         border: 1px solid var(--border-light);
         backdrop-filter: blur(4px);
         transition: all 0.2s ease;
@@ -271,6 +272,22 @@
         border-color: rgba(16, 185, 129, 0.4);
       }
 
+      .map-nav-cta {
+        background: var(--text) !important;
+        color: #ffffff !important;
+        border-color: var(--text) !important;
+        padding: 0.5rem 1.15rem !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+      }
+
+      .map-nav-cta:hover {
+        background: #047857 !important;
+        color: #ffffff !important;
+        border-color: #047857 !important;
+        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25) !important;
+      }
+
       .map-header-status {
         font-family: var(--font-mono);
         font-size: 10px;
@@ -287,22 +304,26 @@
 
       @media (max-width: 40rem) {
         .map-header {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.85rem;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
           padding: 1rem 1.25rem;
         }
 
         .map-header-nav {
-          width: 100%;
-          overflow-x: auto;
-          padding-bottom: 0.25rem;
-          -webkit-overflow-scrolling: touch;
+          width: auto;
+          overflow-x: visible;
+          padding-bottom: 0;
+          gap: 0.4rem;
+        }
+
+        .map-header-nav a:not(.map-nav-cta) {
+          padding: 0.35rem 0.65rem;
+          font-size: 9.5px;
         }
 
         .map-header-label {
-          font-size: 9.5px;
-          letter-spacing: 0.16em;
+          font-size: 1.05rem !important;
         }
       }
 
@@ -765,11 +786,10 @@
       }
 
       .concept-box-title {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        color: #52525b;
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
         margin-bottom: 0.5rem;
         display: flex;
         align-items: center;
@@ -819,43 +839,102 @@
       .map-footer {
         position: relative;
         z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.5rem 1.5rem;
-        border-top: 1px solid rgba(212, 212, 216, 0.4);
+        border-top: 1px solid rgba(212, 212, 216, 0.5);
         background: var(--bg);
+        padding: 3rem 1.5rem 2rem;
       }
 
       @media (min-width: 40rem) {
-        .map-footer { padding: 1.5rem 2.5rem; }
+        .map-footer { padding: 4rem 2.5rem 2.5rem; }
       }
 
-      .map-footer-label {
-        font-family: var(--font-mono);
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.22em;
-        color: var(--text-muted);
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto 3rem;
       }
 
-      .map-footer-links {
-        font-family: var(--font-mono);
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        color: var(--text-muted);
+      @media (min-width: 48rem) {
+        .footer-grid {
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+          gap: 3rem;
+        }
       }
 
-      .map-footer-links a {
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .footer-logo-title {
+        font-family: var(--font-serif);
+        font-size: 1.4rem;
+        color: var(--text);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .footer-brand-desc {
         color: var(--text-muted);
-        text-decoration: underline;
-        text-underline-offset: 2px;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: 340px;
+      }
+
+      .footer-col-title {
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        opacity: 0.7;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+
+      .footer-links-list a {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        text-decoration: none;
         transition: color 0.2s ease;
       }
 
-      .map-footer-links a:hover {
-        color: var(--text);
+      .footer-links-list a:hover {
+        color: #047857;
+      }
+
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(212, 212, 216, 0.4);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      @media (min-width: 40rem) {
+        .footer-bottom { flex-direction: row; }
+      }
+
+      .map-footer-label {
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        text-transform: none;
+        letter-spacing: normal;
+        color: var(--text-muted);
       }
 
       /* ─── Entrance animations ─── */
@@ -932,15 +1011,19 @@
       <!-- Header -->
       <header class="map-header">
         <div class="map-header-left anim-fade-up anim-delay-1">
-          <span class="status-dot"></span>
-          <span class="map-header-label">Content &amp; Co / Creator Partnerships</span>
+          <a href="index.html" style="display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--text);">
+            <img src="logo.svg" alt="Content & Co Logo" style="height: 28px; width: auto;" />
+            <span class="map-header-label" style="font-family: var(--font-serif); font-size: 1.25rem; text-transform: none; letter-spacing: -0.01em; font-weight: 600; color: var(--text);">Content &amp; Co</span>
+          </a>
         </div>
         <div class="map-header-nav anim-fade-up anim-delay-2">
-          <a href="#campaign-concepts" class="map-nav-link">Campaign Concepts</a>
+          <a href="creators.html" class="map-nav-link">Creators</a>
+          <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
           <a href="calculator.html" class="map-nav-link">Tools</a>
-          <a href="creators.html" class="map-nav-link">For Creators</a>
+          <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
           <a href="blog.html" target="_blank" rel="noopener noreferrer" class="map-nav-link">Blog</a>
-          <span class="map-header-status">Status: Matching Creators</span>
+          <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
+          <a href="contact.html" class="map-nav-link map-nav-cta">Contact</a>
         </div>
       </header>
 
@@ -954,7 +1037,7 @@
         </p>
         <div class="map-cta-wrap anim-fade-up anim-delay-4">
           <div class="map-cta-group">
-            <a href="contact.html" class="map-cta" id="cta-run-map">
+            <a href="request-roster.html" class="map-cta" id="cta-run-map">
               Request My Creator Roster
               <svg class="map-cta-arrow" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 8 8.22 4.28a.75.75 0 0 1 0-1.06Z"></path>
@@ -1044,69 +1127,13 @@
           </div>
         </div>
 
-        <div class="concept-card anim-fade-up anim-delay-2">
-          <div class="concept-card-top">
-            <div class="concept-status-pill">
-              <span class="status-dot" style="width: 6px; height: 6px;"></span>
-              Concept Ready to Test
-            </div>
-            <div class="concept-card-meta">
-              <span>Category: Travel / Car Rental</span>
-              <span>Format: Creative Spontaneity</span>
-            </div>
-          </div>
+        <!-- See More Campaign Concepts Action -->
+        <div style="text-align: center; margin-top: 1.5rem; margin-bottom: 3.5rem;">
+          <a href="campaign-concepts.html" class="map-cta map-cta-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+            View All Campaign Concepts &rarr;
+          </a>
+        </div>
 
-          <div class="concept-card-body">
-            <span class="concept-subtitle">Campaign Experiment Specimen 02</span>
-            <h3 class="concept-main-title">I Let the Car Decide Where I Go</h3>
-            
-            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">
-              Most car rental sponsorships are dry reviews. We structured a challenge concept for DiscoverCars.com where comparing vehicle conditions actually decides the destination.
-            </p>
-
-            <div class="concept-hook-quote">
-              “I Let My Rental Car Decide My Entire Trip”
-            </div>
-
-            <div class="concept-grid">
-              <div class="concept-box">
-                <div class="concept-box-title">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                  The Standard Problem
-                </div>
-                <p>Renting a car isn't the exciting part; the road trip is. Audiences skip generic sponsorships because they don't care about comparing mileage or conditions on spreadsheets.</p>
-              </div>
-
-              <div class="concept-box">
-                <div class="concept-box-title">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  Our Strategic Angle
-                </div>
-                <p>A spontaneous journey built around constraints. The creator uses DiscoverCars.com to compare offers within a budget. The vehicle selected decides the road trip direction.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="concept-card-footer">
-            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
-              Includes: Real Tradeoffs · Decision Science · Multi-Format Hooks
-            </span>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              <button class="concept-read-btn" id="open-discovercars-modal">
-                Read Breakdown (Modal)
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 8 8.22 4.28a.75.75 0 0 1 0-1.06Z"></path>
-                  <path d="M12.5 8H3.75a.75.75 0 0 1 0-1.5h8.75a.75.75 0 0 1 0 1.5Z"></path>
-                </svg>
-              </button>
-              <a href="case-study-discovercars-challenge.html" class="concept-read-btn" style="background: #ffffff; color: var(--text); border: 1px solid var(--border-light); text-decoration: none;">
-                Open Full Page
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                </svg>
-              </a>
-            </div>
-          </div>
         <!-- Free Tools Showcase Section -->
         <div class="concept-card anim-fade-up anim-delay-2" style="margin-top: 3rem; margin-bottom: 2.5rem; background: linear-gradient(135deg, #ffffff 0%, #f4f4f5 100%); border: 1.5px solid rgba(16, 185, 129, 0.3);">
           <div class="concept-card-top" style="background: rgba(16, 185, 129, 0.06);">
@@ -1128,9 +1155,9 @@
             </p>
 
             <div style="margin-top: 1.5rem;">
-              <a href="calculator.html" class="map-cta" style="display: inline-flex; text-decoration: none;">
+              <a href="calculator.html" class="concept-read-btn" style="text-decoration: none;">
                 Open Rate Calculator
-                <svg class="map-cta-arrow" viewBox="0 0 16 16" fill="currentColor">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
                   <path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 8 8.22 4.28a.75.75 0 0 1 0-1.06Z"></path>
                   <path d="M12.5 8H3.75a.75.75 0 0 1 0-1.5h8.75a.75.75 0 0 1 0 1.5Z"></path>
                 </svg>
@@ -1142,10 +1169,55 @@
 
       <!-- Footer -->
       <footer class="map-footer">
-        <span class="map-footer-label anim-fade-up anim-delay-4">Content &amp; Co · Creator Partnerships</span>
-        <span class="map-footer-links anim-fade-up anim-delay-5">
-          <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms</a>
-        </span>
+        <div class="footer-grid">
+          <!-- Brand Column -->
+          <div class="footer-brand">
+            <div class="footer-logo-title">
+              <img src="logo.svg" alt="Content & Co Logo" style="height: 28px; width: auto;" />
+              Content &amp; Co
+            </div>
+            <p class="footer-brand-desc">
+              Creator partnerships, roster curation, and campaign concepts built for modern brands.
+            </p>
+          </div>
+
+          <!-- Navigation Column -->
+          <div>
+            <div class="footer-col-title">Navigation</div>
+            <ul class="footer-links-list">
+              <li><a href="campaign-concepts.html">Campaign Concepts</a></li>
+              <li><a href="request-roster.html">Request Creator Roster</a></li>
+              <li><a href="creators.html">Join Creator Network</a></li>
+            </ul>
+          </div>
+
+          <!-- Tools & Resources Column -->
+          <div>
+            <div class="footer-col-title">Tools &amp; Resources</div>
+            <ul class="footer-links-list">
+              <li><a href="calculator.html">YouTube Rate Calculator</a></li>
+              <li><a href="blog.html">Creator Marketing Blog</a></li>
+              <li><a href="blog/how-to-choose-influencer-platform.html">Platform Selection Guide</a></li>
+              <li><a href="sitemap.html">HTML Sitemap</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal Column -->
+          <div>
+            <div class="footer-col-title">Legal</div>
+            <ul class="footer-links-list">
+              <li><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><a href="terms.html" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
+              <li><a href="creator-agreement.html" target="_blank" rel="noopener noreferrer">Creator Agreement</a></li>
+              <li><a href="contact.html">Contact Agency</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span class="map-footer-label">Content &amp; Co · Creator Partnerships &copy; 2026</span>
+          <span style="font-family: var(--font-sans); font-size: 0.8rem; color: var(--text-muted);">Handpicked Creator Rosters</span>
+        </div>
       </footer>
 
     </main>
@@ -1275,8 +1347,8 @@
             <strong>Phase 3:</strong> Once we know which angle converts, replicate across creators and destinations.</p>
 
             <div style="margin-top: 2.5rem; text-align: center;">
-              <a href="contact.html?ref=esim_concept_modal" class="map-cta" style="display: inline-flex;">
-                Partner With Us on This Concept
+              <a href="request-roster.html?ref=esim_concept_modal" class="map-cta" style="display: inline-flex;">
+                Request Your Creator Roster &rarr;
               </a>
             </div>
           </div>
@@ -1333,8 +1405,8 @@
             <p>We hook the audience with: <em>“I have no idea where I'm going today. The car I rent decides.”</em> The viewer learns about comparison tools, reviews, fuel policies, and conditions as the creator walks through choices live on-screen.</p>
 
             <div style="margin-top: 2.5rem; text-align: center;">
-              <a href="contact.html?ref=discovercars_concept_modal" class="map-cta" style="display: inline-flex;">
-                Partner With Us on This Concept
+              <a href="request-roster.html?ref=discovercars_concept_modal" class="map-cta" style="display: inline-flex;">
+                Request Your Creator Roster &rarr;
               </a>
             </div>
           </div>

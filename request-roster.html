@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Request your Creator Roster from Content & Co. Get handpicked creators that match your brand, audience, and campaign goals." />
+    <meta name="keywords" content="creator roster request, influencer marketing request, brand partnership form, content creator matching, campaign consultation" />
+    <meta name="author" content="Content & Co" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#10b981" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://contentco.info/contact.html" />
+    <meta property="og:title" content="Request Creator Roster - Content & Co | Creator Partnerships" />
+    <meta property="og:description" content="Request your Creator Roster from Content & Co. Get handpicked creators that match your brand." />
+    <meta property="og:image" content="https://contentco.info/assets/logo.png" />
+    <meta property="og:image:alt" content="Content & Co - Creator Roster Request" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Request Creator Roster - Content & Co | Creator Partnerships" />
+    <meta name="twitter:description" content="Request your Creator Roster from Content & Co. Get handpicked creators that match your brand." />
+    <meta name="twitter:image" content="https://contentco.info/assets/logo.png" />
+    <meta name="twitter:image:alt" content="Content & Co - Creator Roster Request" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://contentco.info/contact.html" />
+    
+    <!-- Page Title -->
+    <title>Request Creator Roster - Content &amp; Co | Creator Partnerships</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/Google%20search.png" type="image/png" />
+    <link rel="apple-touch-icon" href="Favicon.webp" />
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Preload WebP background image with low priority -->
+    <link rel="preload" href="Background nature.webp" as="image" fetchpriority="low" type="image/webp">
+    
+    <!-- Structured Data for Contact Page -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Creator Roster Request Form",
+      "description": "Request form for getting a custom creator roster from Content & Co",
+      "url": "https://contentco.info/contact.html",
+      "mainEntity": {
+        "@type": "WebPageElement",
+        "name": "Creator Roster Request Form",
+        "description": "Fill out this form to request a custom creator roster for your brand campaign"
+      }
+    }
+    </script>
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+        --card-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.25);
+        --input-bg: #ffffff;
+        --input-border: rgba(212, 212, 216, 0.8);
+        --input-focus: var(--accent);
+        --input-error: #ef4444;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      /* ─── Main layout ─── */
+      .chamber-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        overflow: hidden;
+        background:
+          radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      /* Nature Background */
+      .chamber-bg-nature {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        /* Fallback solid color first */
+        background-color: rgba(0, 102, 255, 0.15);
+        /* Modern WebP with SVG fallback */
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('Background nature.webp');
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), -webkit-image-set(url('Background nature.webp') 1x, url('Back ground Nature.svg') 1x);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), image-set(url('Background nature.webp') 1x, url('Back ground Nature.svg') 1x);
+        background-size: cover;
+        background-position: center;
+        opacity: 0.35;
+        pointer-events: none;
+        will-change: transform; /* Optimize rendering performance */
+      }
+
+      /* Center radial glow */
+      .center-glow {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* Corner brackets */
+      .corner-brackets {
+        position: absolute;
+        inset: 1rem;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .corner-brackets span {
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .corner-brackets .tl { top: 0; left: 0; border-left: 1px solid var(--border-light); border-top: 1px solid var(--border-light); }
+      .corner-brackets .tr { top: 0; right: 0; border-right: 1px solid var(--border-light); border-top: 1px solid var(--border-light); }
+      .corner-brackets .bl { bottom: 0; left: 0; border-left: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+      .corner-brackets .br { bottom: 0; right: 0; border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+
+      @media (min-width: 24rem) {
+        .corner-brackets { inset: 1.5rem; }
+      }
+
+      /* ─── Header ─── */
+      .chamber-header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .chamber-header { padding: 1.25rem 2.5rem; }
+      }
+
+      .chamber-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent-glow);
+        animation: pulse-dot 2.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse-dot {
+        0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+        50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 4px var(--accent); }
+      }
+
+      .chamber-header-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #52525b;
+      }
+
+      .chamber-header-status {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+        display: none;
+      }
+
+      @media (min-width: 40rem) {
+        .chamber-header-status { display: inline; }
+      }
+
+      /* ─── Main Content ─── */
+      .chamber-main {
+        position: relative;
+        z-index: 10;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .chamber-main {
+          padding: 3rem 2rem;
+        }
+      }
+
+      .chamber-title-wrap {
+        text-align: center;
+        max-width: 42rem;
+        margin-bottom: 3rem;
+      }
+
+      .chamber-instrument-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--accent);
+      }
+
+      .chamber-divider {
+        display: block;
+        margin-top: 1.25rem;
+        width: 3rem;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.5), transparent);
+      }
+
+      .chamber-heading {
+        margin-top: 1.75rem;
+        font-family: var(--font-serif);
+        font-size: clamp(2.75rem, 10vw, 4rem);
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+        color: var(--text);
+      }
+
+      .chamber-subheading {
+        margin-top: 1.5rem;
+        max-width: 46ch;
+        font-family: var(--font-sans);
+        font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+        font-weight: 400;
+        line-height: 1.7;
+        color: #52525b;
+        text-wrap: pretty;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* ─── Form Container ─── */
+      .chamber-form-container {
+        width: 100%;
+        max-width: 36rem;
+        margin: 0 auto;
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 2.5rem;
+        box-shadow: var(--card-shadow);
+        border: 1px solid rgba(9, 9, 11, 0.05);
+      }
+
+      @media (min-width: 40rem) {
+        .chamber-form-container {
+          padding: 3rem;
+        }
+      }
+
+      /* Form Progress Indicators */
+      .form-progress {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .progress-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .progress-label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+      }
+
+      .progress-status {
+        font-family: var(--font-serif);
+        font-size: 1.125rem;
+        font-style: italic;
+        color: var(--text);
+        padding-bottom: 0.25rem;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      /* Form Styles */
+      .chamber-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .field-label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+      }
+
+      .field-label.required::after {
+        content: " *";
+        color: var(--accent);
+      }
+
+      .field {
+        position: relative;
+      }
+
+      .field input,
+      .field textarea,
+      .field select {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        font-family: var(--font-sans);
+        font-size: 0.9375rem;
+        color: var(--text);
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        outline: none;
+      }
+
+      .field input:focus,
+      .field textarea:focus,
+      .field select:focus {
+        border-color: var(--input-focus);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      }
+
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: var(--text-faint);
+      }
+
+      .field textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      /* Checkbox Group */
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9375rem;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .checkbox-label input[type="checkbox"] {
+        width: 1rem;
+        height: 1rem;
+        accent-color: var(--accent);
+      }
+
+      /* Submit Button */
+      .submit-button {
+        margin-top: 1rem;
+        padding: 1rem 1.75rem;
+        background: var(--accent);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 22px 45px -20px rgba(16, 185, 129, 0.75);
+        border: 1px solid var(--accent);
+      }
+
+      .submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 26px 50px -18px rgba(16, 185, 129, 0.85);
+      }
+
+      .submit-button:active {
+        transform: translateY(0);
+      }
+
+      .submit-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Form Messages */
+      .form-messages {
+        margin-top: 1.5rem;
+      }
+
+      .form-success {
+        padding: 1rem;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 6px;
+        color: var(--accent);
+        font-size: 0.9375rem;
+        display: none;
+      }
+
+      .form-error {
+        padding: 1rem;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 6px;
+        color: var(--input-error);
+        font-size: 0.9375rem;
+        display: none;
+      }
+
+      /* Footer */
+      .chamber-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .chamber-footer { padding: 1.25rem 2.5rem; }
+      }
+
+      .chamber-footer-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+
+      .chamber-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--text-muted);
+      }
+
+      .chamber-footer-links a {
+        color: var(--text-muted);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+      }
+
+      .chamber-footer-links a:hover {
+        color: var(--text);
+      }
+
+      /* Animations */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .anim-fade-up {
+        opacity: 0;
+        animation: fade-up 0.8s ease-out forwards;
+      }
+
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+      .anim-delay-3 { animation-delay: 0.45s; }
+      .anim-delay-4 { animation-delay: 0.65s; }
+      .anim-delay-5 { animation-delay: 0.85s; }
+
+      .anim-fade-in {
+        opacity: 0;
+        animation: fade-in 1s ease-out forwards;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-fade-up,
+        .anim-fade-in {
+          opacity: 1;
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="chamber-page">
+      <!-- Nature Background -->
+      <div class="chamber-bg-nature" aria-hidden="true"></div>
+
+      <!-- Center radial glow -->
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <!-- Corner brackets -->
+      <div class="corner-brackets" aria-hidden="true">
+        <span class="tl"></span>
+        <span class="tr"></span>
+        <span class="bl"></span>
+        <span class="br"></span>
+      </div>
+
+      <!-- Header -->
+      <header class="chamber-header">
+        <div class="chamber-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="chamber-header-label">Content &amp; Co / Creator Partnerships</span>
+        </div>
+        <span class="chamber-header-status anim-fade-up anim-delay-2" id="header-status">Status: Accepting Requests</span>
+      </header>
+
+      <!-- Main Content -->
+      <div class="chamber-main">
+        <div class="chamber-title-wrap">
+          <span class="chamber-instrument-label anim-fade-up anim-delay-1" id="instrument-label">Creator Roster Request · No. 02</span>
+          <span class="chamber-divider anim-fade-up anim-delay-2" aria-hidden="true"></span>
+          <h1 class="chamber-heading anim-fade-up anim-delay-2">Request Your Creator Roster</h1>
+          <p class="chamber-subheading anim-fade-up anim-delay-3">
+            Tell us about your brand and campaign. We'll review your request and recommend creators that fit your goals.
+          </p>
+        </div>
+
+        <div class="chamber-form-container anim-fade-up anim-delay-3">
+          <!-- Form Progress Indicators -->
+          <div class="form-progress">
+            <div class="progress-item">
+              <span class="progress-label">REQUEST</span>
+              <span class="progress-status" id="request-status">Received</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label">REVIEW</span>
+              <span class="progress-status" id="review-status">In Progress</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label">MATCHING</span>
+              <span class="progress-status" id="matching-status">Researching Creators</span>
+            </div>
+            <div class="progress-item">
+              <span class="progress-label">STATUS</span>
+              <span class="progress-status" id="status-status">We'll Contact You Soon</span>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <form 
+            class="chamber-form" 
+            id="roster-form"
+            action="https://formsubmit.co/ajax/tafiqul@contentco.info" 
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="New Creator Roster Request - Content & Co" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" style="display: none;" />
+            <input type="hidden" name="_replyto" value="" />
+            <input type="hidden" name="campaign_source" id="campaign-source-input" value="direct" />
+
+            <div class="form-messages">
+              <div class="form-success" id="form-success" style="display: none;">
+                <div style="margin-bottom: 1rem;"><strong>Your brand is now in our review queue.</strong></div>
+                <div style="font-size: 0.875rem; color: var(--text-muted);">
+                  We'll review your campaign, research potential creator matches, and get back to you within 48 hours.
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--accent); font-size: 1.25rem;">✓</span>
+                    <span>REQUEST - Received ✓</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--accent); font-size: 1.25rem;">→</span>
+                    <span>REVIEW - In Progress</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--accent); font-size: 1.25rem;">→</span>
+                    <span>MATCHING - Researching Creators</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: var(--accent); font-size: 1.25rem;">→</span>
+                    <span>STATUS - We'll Contact You Soon</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-error" id="form-error" style="display: none;">
+                Something went wrong. Please try again or email <a href="mailto:tafiqul@contentco.info">tafiqul@contentco.info</a>.
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="full-name">Full name *</label>
+              <div class="field">
+                <input 
+                  type="text" 
+                  id="full-name" 
+                  name="name" 
+                  placeholder="Jane Smith" 
+                  required 
+                  autocomplete="name"
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="company-name">Company Name *</label>
+              <div class="field">
+                <input 
+                  type="text" 
+                  id="company-name" 
+                  name="company" 
+                  placeholder="Your company or brand"
+                  required
+                  autocomplete="organization"
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="company-website">Company website *</label>
+              <div class="field">
+                <input 
+                  type="url" 
+                  id="company-website" 
+                  name="website" 
+                  placeholder="https://yourcompany.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="email">Email address *</label>
+              <div class="field">
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="your@email.com" 
+                  required
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="campaign-goal">CAMPAIGN GOAL *</label>
+              <div class="field">
+                <select id="campaign-goal" name="campaign_goal" required>
+                  <option value="" selected disabled>Your campaign goals*</option>
+                  <option value="brand_awareness">Build brand awareness</option>
+                  <option value="product_launch">Support launch of the new product</option>
+                  <option value="sales_boost">Boost product/brand sales</option>
+                  <option value="user_acquisition">User acquisition</option>
+                  <option value="talent_roster">I want to get your exclusive roster of talents</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="target-audience">TARGET AUDIENCE</label>
+              <div class="field">
+                <input 
+                  type="text" 
+                  id="target-audience" 
+                  name="target_audience" 
+                  placeholder="Who are you trying to reach?"
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="budget-range">WHAT IS YOUR BUDGET RANGE?</label>
+              <div class="field">
+                <select id="budget-range" name="budget_range">
+                  <option value="" selected disabled>Select a range</option>
+                  <option value="under_5k">Under $5,000</option>
+                  <option value="5k_10k">$5,000–10,000</option>
+                  <option value="10k_25k">$10,000–25,000</option>
+                  <option value="over_25k">$25,000+</option>
+                  <option value="not_sure">Not Sure</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">PREFERRED PLATFORMS</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="platforms[]" value="youtube" />
+                  YouTube
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="platforms[]" value="instagram" />
+                  Instagram
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="platforms[]" value="other" />
+                  Other
+                </label>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="campaign-details">CAMPAIGN DETAILS</label>
+              <div class="field">
+                <textarea 
+                  id="campaign-details" 
+                  name="campaign_details" 
+                  placeholder="Share your timeline, target countries, creator preferences, or anything else that will help us recommend the right creators."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="contact_consent" required />
+                I agree to be contacted by Content & Co regarding my creator roster request.
+              </label>
+            </div>
+
+            <button type="submit" class="submit-button">
+              Submit Roster Request
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="chamber-footer">
+        <span class="chamber-footer-label anim-fade-up anim-delay-4">Content &amp; Co · Creator Partnerships</span>
+        <span class="chamber-footer-links anim-fade-up anim-delay-5">
+          <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="terms.html" target="_blank" rel="noopener noreferrer">Terms</a>
+        </span>
+      </footer>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('roster-form');
+        const successMessage = document.getElementById('form-success');
+        const errorMessage = document.getElementById('form-error');
+        const submitButton = form.querySelector('button[type="submit"]');
+        
+        // Parse URL ref parameter to track source
+        const urlParams = new URLSearchParams(window.location.search);
+        const refParam = urlParams.get('ref');
+        const campaignSourceInput = document.getElementById('campaign-source-input');
+        if (refParam && campaignSourceInput) {
+          campaignSourceInput.value = refParam;
+        }
+        
+        // Progress indicator elements
+        const requestStatus = document.getElementById('request-status');
+        const reviewStatus = document.getElementById('review-status');
+        const matchingStatus = document.getElementById('matching-status');
+        const statusStatus = document.getElementById('status-status');
+        
+        // Form elements for live updates
+        const companyName = document.getElementById('company-name');
+        
+        // Update progress indicators based on form completion
+        function updateProgressIndicators() {
+          // Only update REQUEST to show completion status
+          const requiredFields = form.querySelectorAll('[required]');
+          const filledFields = Array.from(requiredFields).filter(field => field.value.trim());
+          const completionPercentage = Math.round((filledFields.length / requiredFields.length) * 100);
+          
+          if (completionPercentage === 100) {
+            requestStatus.textContent = 'Ready to Submit';
+            requestStatus.style.color = 'var(--accent)';
+          } else {
+            requestStatus.textContent = 'Received';
+            requestStatus.style.color = '';
+          }
+        }
+        
+        // Add event listeners for form completion updates
+        const requiredFields = form.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+          field.addEventListener('input', updateProgressIndicators);
+        });
+        
+        // Update _replyto field when email is entered
+        const emailField = document.getElementById('email');
+        const replyToField = document.querySelector('input[name="_replyto"]');
+        
+        emailField.addEventListener('input', function() {
+          replyToField.value = this.value;
+        });
+        
+        // Initialize progress indicators
+        updateProgressIndicators();
+
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          // Check honeypot field
+          const honey = form.querySelector('input[name="_honey"]');
+          if (honey?.value) return;
+          
+          submitButton.disabled = true;
+          submitButton.textContent = 'Submitting...';
+
+          const formData = new FormData(form);
+          
+          try {
+            console.log('Submitting form to:', form.action);
+            
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: { Accept: 'application/json' }
+            });
+
+            console.log('Response status:', response.status);
+            console.log('Response ok:', response.ok);
+            
+            const data = await response.json().catch(() => ({}));
+            
+            if (response.ok) {
+              successMessage.style.display = 'block';
+              errorMessage.style.display = 'none';
+              
+              // Update header status and instrument label after submission
+              const headerStatus = document.getElementById('header-status');
+              const instrumentLabel = document.getElementById('instrument-label');
+              if (headerStatus) headerStatus.textContent = 'Status: Reviewing Request';
+              if (instrumentLabel) instrumentLabel.textContent = 'Request Received · No. 03';
+              
+              // Update page title and heading after submission
+              const pageHeading = document.querySelector('.chamber-heading');
+              const pageSubheading = document.querySelector('.chamber-subheading');
+              if (pageHeading) pageHeading.textContent = 'Creator Roster Request Received';
+              if (pageSubheading) pageSubheading.textContent = 'Thanks for reaching out. We\'re now reviewing your campaign and will email you shortly to confirm your request or ask any questions we may have.';
+              
+              // Update status indicators after successful submission
+              requestStatus.textContent = 'Received ✓';
+              requestStatus.style.color = 'var(--accent)';
+              reviewStatus.textContent = 'In Progress';
+              matchingStatus.textContent = 'Researching Creators';
+              statusStatus.textContent = "We'll Contact You Soon";
+              
+              // Hide form after successful submission
+              form.style.display = 'none';
+              form.reset();
+            } else {
+              console.error('Server response:', data);
+              throw new Error(data.message || `Form submission failed with status: ${response.status}`);
+            }
+          } catch (error) {
+            console.error('Form submission error:', error);
+            errorMessage.style.display = 'block';
+            errorMessage.innerHTML = `Something went wrong. Please try again or email <a href="mailto:tafiqul@contentco.info">tafiqul@contentco.info</a>. Error: ${error.message}`;
+            successMessage.style.display = 'none';
+          } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit Roster Request';
+            
+            // Scroll to messages
+            setTimeout(() => {
+              (successMessage.style.display === 'block' ? successMessage : errorMessage).scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

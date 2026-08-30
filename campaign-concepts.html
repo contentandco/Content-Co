@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explore Content & Co Campaign Concepts — Creator-led campaign blueprints designed to test high-converting stories before scaling." />
+    <meta name="theme-color" content="#10b981" />
+    <title>Campaign Concepts - Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="assets/Google%20search.png" type="image/png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.12;
+        pointer-events: none;
+      }
+
+      .map-header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .map-header { padding: 1.25rem 2.5rem; }
+      }
+
+      .map-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 12px var(--accent-glow);
+      }
+
+      .map-header-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: #52525b;
+      }
+
+      .map-header-nav {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .map-nav-link {
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: normal;
+        color: var(--text-muted);
+        text-decoration: none;
+        padding: 0.4rem 0.85rem;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid var(--border-light);
+        backdrop-filter: blur(4px);
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+
+      .map-nav-link:hover {
+        color: var(--text);
+        border-color: var(--accent);
+        background: #ffffff;
+      }
+
+      .main-container {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        width: 100%;
+        margin: 2rem auto 4rem;
+        padding: 0 1.5rem;
+      }
+
+      .page-hero {
+        text-align: center;
+        margin-bottom: 3.5rem;
+      }
+
+      .page-tag {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 4px 12px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .page-title {
+        font-family: var(--font-serif);
+        font-size: 3rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+      }
+
+      .page-desc {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        max-width: 680px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* Concept Card Styles */
+      .concept-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.08);
+      }
+
+      .concept-card-top {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        background: #fafaf9;
+        border-bottom: 1px solid #e4e4e7;
+        font-family: var(--font-mono);
+        font-size: 11px;
+      }
+
+      .concept-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 100px;
+        background: rgba(16, 185, 129, 0.12);
+        color: #047857;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .concept-card-meta {
+        display: flex;
+        gap: 1.25rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .concept-card-body {
+        padding: 2rem 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .concept-card-body { padding: 2.5rem 2rem; }
+      }
+
+      .concept-subtitle {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--text-muted);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .concept-main-title {
+        font-family: var(--font-serif);
+        font-size: 2.2rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .concept-hook-quote {
+        background: var(--accent-soft);
+        border-left: 3px solid var(--accent);
+        padding: 1rem 1.25rem;
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .concept-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      @media (min-width: 40rem) {
+        .concept-grid { grid-template-columns: 1fr 1fr; }
+      }
+
+      .concept-box {
+        background: #f8fafc;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 1.25rem;
+      }
+
+      .concept-box-title {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .concept-box p {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        line-height: 1.55;
+      }
+
+      .concept-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        background: #fafaf9;
+        border-top: 1px solid var(--border-light);
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .concept-read-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 400;
+        background: var(--text);
+        color: #ffffff;
+        text-decoration: none;
+        transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      }
+
+      .concept-read-btn:hover {
+        background: var(--accent);
+        color: var(--text);
+        transform: translateY(-1px);
+      }
+
+      .footer-simple {
+        margin-top: auto;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="map-page">
+      <div class="map-bg-nature"></div>
+
+      <!-- Header -->
+      <header class="map-header">
+        <a href="index.html" class="map-header-left">
+          <span class="status-dot"></span>
+          <span class="map-header-label">Content &amp; Co</span>
+        </a>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-container">
+        <div class="page-hero">
+          <span class="page-tag">Strategic Blueprint Collection</span>
+          <h1 class="page-title">Campaign Concepts</h1>
+          <p class="page-desc">
+            Creator-led campaign blueprints engineered to turn simple products into high-converting travel stories. Explore our specimen angles below.
+          </p>
+        </div>
+
+        <!-- Concept Specimen 01 -->
+        <div class="concept-card">
+          <div class="concept-card-top">
+            <div class="concept-status-pill">
+              <span class="status-dot" style="width: 6px; height: 6px;"></span>
+              Concept Ready to Test
+            </div>
+            <div class="concept-card-meta">
+              <span>Category: Travel / eSIM</span>
+              <span>Format: Challenge Narrative</span>
+            </div>
+          </div>
+
+          <div class="concept-card-body">
+            <span class="concept-subtitle">Campaign Experiment Specimen 01</span>
+            <h2 class="concept-main-title">Turning an eSIM Into Part of the Travel Story</h2>
+            
+            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">
+              Most eSIM campaigns ask creators to pause the trip and read a discount code. We developed a challenge-driven angle where the technology quietly enables the adventure.
+            </p>
+
+            <div class="concept-hook-quote">
+              “Can I Survive 48 Hours in Tokyo Without Hotel Wi-Fi?”
+            </div>
+
+            <div class="concept-grid">
+              <div class="concept-box">
+                <div class="concept-box-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  The Standard Problem
+                </div>
+                <p>Standard creator integrations sound like commercials. Viewers scroll past discount codes because nobody wakes up wanting to watch someone install an eSIM.</p>
+              </div>
+
+              <div class="concept-box">
+                <div class="concept-box-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  Our Strategic Angle
+                </div>
+                <p>Make the eSIM the invisible hero of a travel challenge. The creator navigates, translates, and books transit live. If connection fails, the trip gets harder.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card-footer">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+              Includes: Creator Strategy · Conversion Funnel · Testing Roadmap
+            </span>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="case-study-esim-travel-story.html" class="concept-read-btn">
+                View Campaign Strategy
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concept Specimen 02 -->
+        <div class="concept-card">
+          <div class="concept-card-top">
+            <div class="concept-status-pill">
+              <span class="status-dot" style="width: 6px; height: 6px;"></span>
+              Concept Ready to Test
+            </div>
+            <div class="concept-card-meta">
+              <span>Category: Travel / Car Rental</span>
+              <span>Format: Creative Spontaneity</span>
+            </div>
+          </div>
+
+          <div class="concept-card-body">
+            <span class="concept-subtitle">Campaign Experiment Specimen 02</span>
+            <h2 class="concept-main-title">I Let the Car Decide Where I Go</h2>
+            
+            <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">
+              Most car rental sponsorships are dry reviews. We structured a challenge concept for DiscoverCars.com where comparing vehicle conditions actually decides the destination.
+            </p>
+
+            <div class="concept-hook-quote">
+              “I Let My Rental Car Decide My Entire Trip”
+            </div>
+
+            <div class="concept-grid">
+              <div class="concept-box">
+                <div class="concept-box-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  The Standard Problem
+                </div>
+                <p>Renting a car isn't the exciting part; the road trip is. Audiences skip generic sponsorships because they don't care about comparing mileage or conditions on spreadsheets.</p>
+              </div>
+
+              <div class="concept-box">
+                <div class="concept-box-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  Our Strategic Angle
+                </div>
+                <p>A spontaneous journey built around constraints. The creator uses DiscoverCars.com to compare offers within a budget. The vehicle selected decides the road trip direction.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card-footer">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+              Includes: Real Tradeoffs · Decision Science · Multi-Format Hooks
+            </span>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="case-study-discovercars-challenge.html" class="concept-read-btn">
+                View Campaign Strategy
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Box -->
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f4f4f5 100%); border: 1px solid var(--border-light); border-radius: 16px; padding: 2.5rem; text-align: center;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.5rem;">Want a Custom Concept Built for Your Product?</h3>
+          <p style="color: var(--text-muted); max-width: 540px; margin: 0 auto 1.5rem;">
+            We pair your product with handpicked creators and custom-fit campaign narratives designed for your target audience.
+          </p>
+          <a href="request-roster.html" class="concept-read-btn" style="padding: 10px 24px; font-size: 12px;">
+            Request Your Creator Roster &rarr;
+          </a>
+        </div>
+      </main>
+
+      <footer class="footer-simple">
+        Content &amp; Co · Creator Partnerships, Roster Curation &amp; Campaign Concepts
+      </footer>
+    </div>
+  </body>
+</html>
