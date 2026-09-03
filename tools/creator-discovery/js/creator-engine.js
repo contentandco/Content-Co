@@ -3,7 +3,7 @@
  * Modern ES2026 Standards: Multi-Key API Rotation & Quota Failover, Parallelism, Collections Manager, Lookalike Engine, Pitch Generator
  */
 
-export class CreatorEngine {
+class CreatorEngine {
   #apiKeys = [
     'AIzaSyCdsggSnd2SQcFCPrTVnawQ5ZB1_jOk3JI',
     'AIzaSyBvrRPVd-7Yj6K6Z1yW_Qodve1us-VHKlI'
