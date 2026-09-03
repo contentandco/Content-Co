@@ -1,6 +1,6 @@
 /**
  * Content & Co - Creator Discovery & Lead Engine
- * Modern ES2026 Standards: Multi-Page Quota-Safe Discovery, Deep Auto-Pagination, Collections Manager, Lookalike Engine, Pitch Generator
+ * Modern ES2026 Standards: YouTube TopicDetails Graph, Human Creator Classifier, Quota Failover, Parallel Deep Analysis
  */
 
 class CreatorEngine {
@@ -256,6 +256,79 @@ class CreatorEngine {
     return { email, maskedEmail, socials };
   }
 
+  // --- YouTube Official TopicDetails & Category Classifier ---
+  classifyChannelTopic(channel) {
+    const topicCategories = channel.topicDetails?.topicCategories || [];
+    const detectedCategories = [];
+
+    // 1. Check YouTube Wikipedia Topic Graph
+    const topicMap = {
+      'Lifestyle_(sociology)': '✈️ Travel & Lifestyle',
+      'Tourism': '✈️ Travel & Adventure',
+      'Technology': '💻 Tech & Gadgets',
+      'Video_game_culture': '🎮 Gaming',
+      'Action-adventure_game': '🎮 Gaming',
+      'Fashion': '💄 Beauty & Fashion',
+      'Health': '🏋️ Fitness & Wellness',
+      'Physical_fitness': '🏋️ Fitness & Wellness',
+      'Food': '🍳 Food & Cooking',
+      'Entertainment': '🎬 Entertainment & Vlogs',
+      'Business': '💼 Finance & Business',
+      'Finance': '📈 Investing & Crypto',
+      'Knowledge': '📚 Education & Science'
+    };
+
+    for (const url of topicCategories) {
+      for (const [key, label] of Object.entries(topicMap)) {
+        if (url.includes(key) && !detectedCategories.includes(label)) {
+          detectedCategories.push(label);
+        }
+      }
+    }
+
+    // 2. Keyword Context Fallback from Title / Description
+    if (detectedCategories.length === 0) {
+      const text = `${channel.snippet?.title || ''} ${channel.snippet?.description || ''}`.toLowerCase();
+      if (/travel|backpacking|vlog|nomad|trip|vacation|explore|flight|hotel/i.test(text)) {
+        detectedCategories.push('✈️ Travel & Lifestyle');
+      } else if (/tech|review|gadget|software|iphone|android|laptop|unboxing/i.test(text)) {
+        detectedCategories.push('💻 Tech & Gadgets');
+      } else if (/beauty|makeup|skincare|fashion|outfit|style|grwm/i.test(text)) {
+        detectedCategories.push('💄 Beauty & Fashion');
+      } else if (/fitness|workout|gym|diet|health|bodybuilding/i.test(text)) {
+        detectedCategories.push('🏋️ Fitness & Wellness');
+      } else if (/gaming|gameplay|walkthrough|playthrough|gamer/i.test(text)) {
+        detectedCategories.push('🎮 Gaming');
+      } else if (/finance|investing|money|crypto|stock|trading|business/i.test(text)) {
+        detectedCategories.push('💼 Finance & Business');
+      } else {
+        detectedCategories.push('🌟 Digital Creator');
+      }
+    }
+
+    return detectedCategories[0] || '🌟 Digital Creator';
+  }
+
+  // --- Corporate / TV News / Ambient Channel Filter ---
+  isHumanInfluencer(channel) {
+    const title = (channel.snippet?.title || '').toLowerCase();
+    const handle = (channel.snippet?.customUrl || '').toLowerCase();
+    
+    // Corporate/Broadcast channel exclusion keywords
+    const blacklistWords = [
+      'news', 'official', 'media', 'tv', 'network', 'records', 'studios',
+      'broadcast', 'company', 'corporation', 'publishing', 'relaxing ambient',
+      'sleep music', 'white noise', 'lofi beats', 't-series', 'soundtracks'
+    ];
+
+    for (const word of blacklistWords) {
+      if (title.includes(word) || handle.includes(word)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   // --- Sponsor / Brand Keyword Detector ---
   detectPastSponsors(descriptions) {
     if (!Array.isArray(descriptions) || descriptions.length === 0) return [];
@@ -384,10 +457,11 @@ Partnerships Team · ${brandName}
     }
   }
 
-  // --- Quota-Safe Deep Auto-Pagination Discovery Engine ---
+  // --- Quota-Safe Deep Discovery Engine with Official Topic Details ---
   async searchCreators(params, onProgress = null) {
     const {
       query,
+      category = 'all',
       country = 'ANY',
       formatFilter = 'all',
       minSubs = 0,
@@ -402,10 +476,14 @@ Partnerships Team · ${brandName}
 
     onProgress?.('Searching YouTube for top active creators...');
 
-    // 1. Build Smart Targeted Queries (Includes location and niche synonyms)
-    const searchQuery = country && country !== 'ANY' ? `${query} ${country}` : query;
+    // 1. Build Targeted Search Query
+    let refinedQuery = query;
+    if (category !== 'all') {
+      refinedQuery = `${query} ${category}`;
+    }
+    const searchQuery = country && country !== 'ANY' ? `${refinedQuery} ${country}` : refinedQuery;
     
-    // We execute deep pagination across 2 pages (up to 100 candidate channels) to ensure narrow filters always find plenty of creators!
+    // Deep Search Across 2 Pages
     let candidateChannelIds = [];
     let pageToken = '';
 
@@ -424,24 +502,21 @@ Partnerships Team · ${brandName}
       if (!pageToken) break;
     }
 
-    // Deduplicate unique channel IDs
     const uniqueChannelIds = Array.from(new Set(candidateChannelIds));
-
-    // Filter out already scraped leads if requested
     const filteredCandidateIds = excludeScraped 
       ? uniqueChannelIds.filter(id => !this.isLeadScraped(id))
       : uniqueChannelIds;
 
     if (!filteredCandidateIds.length) return [];
 
-    onProgress?.(`Batch fetching metrics for ${filteredCandidateIds.length} candidate channels...`);
+    onProgress?.(`Batch fetching verified topic & metric details for ${filteredCandidateIds.length} channels...`);
 
-    // 2. Batch Fetch Channel Details in Chunks of 50
+    // 2. Batch Fetch Channel Details including topicDetails & branding
     const channels = [];
     for (let i = 0; i < Math.min(filteredCandidateIds.length, 100); i += 50) {
       const chunk = filteredCandidateIds.slice(i, i + 50);
       const chunkData = await this.#fetchWithKeyFailover((k) =>
-        `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,brandingSettings&id=${chunk.join(',')}&key=${k}`
+        `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,topicDetails,brandingSettings&id=${chunk.join(',')}&key=${k}`
       ).catch(() => null);
 
       if (chunkData?.items) {
@@ -451,19 +526,21 @@ Partnerships Team · ${brandName}
 
     if (!channels.length) return [];
 
-    // 3. Pre-filter channels by subscriber tier & country with smart flexibility
+    // 3. Pre-filter channels: Human Creators Only + Verified Topic Category + Subscriber Range
     const qualifiedChannels = channels.filter(ch => {
+      // Exclude media/broadcast networks
+      if (!this.isHumanInfluencer(ch)) return false;
+
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
       const chCountry = ch.snippet?.country;
 
       if (subs < minSubs || subs > maxSubs) return false;
       
-      // Country matching (Check snippet country, or allow if bio/title references the country, or if channel has no country set)
+      // Country matching
       if (country && country !== 'ANY') {
         const fullBio = `${ch.snippet?.title ?? ''} ${ch.snippet?.description ?? ''}`.toLowerCase();
         const countryMatch = (chCountry && chCountry.toUpperCase() === country.toUpperCase()) || 
                              fullBio.includes(country.toLowerCase());
-        // If channel explicitly declared a different country, filter out; otherwise allow search relevance
         if (chCountry && chCountry !== 'Global' && !countryMatch) return false;
       }
 
@@ -476,7 +553,7 @@ Partnerships Team · ${brandName}
 
     onProgress?.(`Analyzing video performance across ${qualifiedChannels.length} qualified creators in parallel...`);
 
-    // 4. Parallel Deep Metric Analysis using Promise.allSettled
+    // 4. Parallel Deep Metric Analysis
     const analysisPromises = qualifiedChannels.map(async (ch) => {
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
       const totalViews = Number.parseInt(ch.statistics?.viewCount ?? '0', 10) || 0;
@@ -485,6 +562,8 @@ Partnerships Team · ${brandName}
 
       const fullBio = `${ch.snippet?.description ?? ''} ${ch.brandingSettings?.channel?.description ?? ''}`;
       const contactInfo = this.extractContacts(fullBio);
+
+      const detectedTopic = this.classifyChannelTopic(ch);
 
       const videoAnalysis = await this.#analyzeChannelVideos(ch);
       const avgViews = videoAnalysis?.avgViews ?? Math.round(totalViews / Math.max(totalVideos, 1));
@@ -508,6 +587,7 @@ Partnerships Team · ${brandName}
         avatar: ch.snippet?.thumbnails?.medium?.url ?? ch.snippet?.thumbnails?.default?.url,
         banner: ch.brandingSettings?.image?.bannerExternalUrl ?? null,
         description: ch.snippet?.description ?? '',
+        categoryBadge: detectedTopic,
         country: chCountry,
         subscribers: subs,
         totalViews,
@@ -543,6 +623,7 @@ Partnerships Team · ${brandName}
 
     const headers = [
       'Channel Name',
+      'Category / Niche',
       'YouTube Handle',
       'Channel URL',
       'Country',
@@ -558,6 +639,7 @@ Partnerships Team · ${brandName}
 
     const rows = creators.map(c => [
       `"${(c.title ?? '').replaceAll('"', '""')}"`,
+      `"${c.categoryBadge || 'Creator'}"`,
       `"${c.handle ?? ''}"`,
       `"https://youtube.com/channel/${c.id}"`,
       `"${c.country}"`,
