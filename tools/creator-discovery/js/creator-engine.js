@@ -1,6 +1,6 @@
 /**
  * Content & Co - Creator Discovery & Lead Engine
- * Modern ES2026 Standards: YouTube TopicDetails Graph, Human Creator Classifier, Quota Failover, Parallel Deep Analysis
+ * Modern ES2026 Standards: Deep Scaled Pagination (Up to 150 Channels / Query), Load More Capability, Quota-Safe Parallelism
  */
 
 class CreatorEngine {
@@ -261,7 +261,6 @@ class CreatorEngine {
     const topicCategories = channel.topicDetails?.topicCategories || [];
     const detectedCategories = [];
 
-    // 1. Check YouTube Wikipedia Topic Graph
     const topicMap = {
       'Lifestyle_(sociology)': '✈️ Travel & Lifestyle',
       'Tourism': '✈️ Travel & Adventure',
@@ -286,7 +285,6 @@ class CreatorEngine {
       }
     }
 
-    // 2. Keyword Context Fallback from Title / Description
     if (detectedCategories.length === 0) {
       const text = `${channel.snippet?.title || ''} ${channel.snippet?.description || ''}`.toLowerCase();
       if (/travel|backpacking|vlog|nomad|trip|vacation|explore|flight|hotel/i.test(text)) {
@@ -314,11 +312,10 @@ class CreatorEngine {
     const title = (channel.snippet?.title || '').toLowerCase();
     const handle = (channel.snippet?.customUrl || '').toLowerCase();
     
-    // Corporate/Broadcast channel exclusion keywords
     const blacklistWords = [
       'news', 'official', 'media', 'tv', 'network', 'records', 'studios',
       'broadcast', 'company', 'corporation', 'publishing', 'relaxing ambient',
-      'sleep music', 'white noise', 'lofi beats', 't-series', 'soundtracks'
+      'sleep music', 'white noise', 'lofi beats', 'soundtracks'
     ];
 
     for (const word of blacklistWords) {
@@ -457,7 +454,7 @@ Partnerships Team · ${brandName}
     }
   }
 
-  // --- Quota-Safe Deep Discovery Engine with Official Topic Details ---
+  // --- High-Capacity Discovery Engine (Scans up to 150 Channels per Search) ---
   async searchCreators(params, onProgress = null) {
     const {
       query,
@@ -471,10 +468,11 @@ Partnerships Team · ${brandName}
       lastUploadDays = 180,
       onlyWithEmail = false,
       excludeScraped = false,
-      maxResults = 25
+      maxResults = 50,
+      searchDepth = 3 // 3 pages = 150 candidate videos/channels
     } = params;
 
-    onProgress?.('Searching YouTube for top active creators...');
+    onProgress?.('Searching YouTube for active creator channels...');
 
     // 1. Build Targeted Search Query
     let refinedQuery = query;
@@ -483,11 +481,11 @@ Partnerships Team · ${brandName}
     }
     const searchQuery = country && country !== 'ANY' ? `${refinedQuery} ${country}` : refinedQuery;
     
-    // Deep Search Across 2 Pages
+    // Deep Pagination across up to 3 pages
     let candidateChannelIds = [];
     let pageToken = '';
 
-    for (let page = 0; page < 2; page++) {
+    for (let page = 0; page < searchDepth; page++) {
       const pageParam = pageToken ? `&pageToken=${pageToken}` : '';
       const searchUrlBuilder = (k) => 
         `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`;
@@ -509,11 +507,11 @@ Partnerships Team · ${brandName}
 
     if (!filteredCandidateIds.length) return [];
 
-    onProgress?.(`Batch fetching verified topic & metric details for ${filteredCandidateIds.length} channels...`);
+    onProgress?.(`Batch fetching metrics for ${filteredCandidateIds.length} candidate channels...`);
 
-    // 2. Batch Fetch Channel Details including topicDetails & branding
+    // 2. Batch Fetch Channel Details in 50-item batches
     const channels = [];
-    for (let i = 0; i < Math.min(filteredCandidateIds.length, 100); i += 50) {
+    for (let i = 0; i < Math.min(filteredCandidateIds.length, 150); i += 50) {
       const chunk = filteredCandidateIds.slice(i, i + 50);
       const chunkData = await this.#fetchWithKeyFailover((k) =>
         `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,topicDetails,brandingSettings&id=${chunk.join(',')}&key=${k}`
@@ -526,9 +524,8 @@ Partnerships Team · ${brandName}
 
     if (!channels.length) return [];
 
-    // 3. Pre-filter channels: Human Creators Only + Verified Topic Category + Subscriber Range
+    // 3. Pre-filter channels
     const qualifiedChannels = channels.filter(ch => {
-      // Exclude media/broadcast networks
       if (!this.isHumanInfluencer(ch)) return false;
 
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
@@ -536,7 +533,6 @@ Partnerships Team · ${brandName}
 
       if (subs < minSubs || subs > maxSubs) return false;
       
-      // Country matching
       if (country && country !== 'ANY') {
         const fullBio = `${ch.snippet?.title ?? ''} ${ch.snippet?.description ?? ''}`.toLowerCase();
         const countryMatch = (chCountry && chCountry.toUpperCase() === country.toUpperCase()) || 
@@ -571,11 +567,9 @@ Partnerships Team · ${brandName}
       const engagementRate = videoAnalysis?.engagementRate ?? 0;
       const formatType = videoAnalysis?.formatType ?? 'Longform Video';
 
-      // Format Filter check
       if (formatFilter === 'longform' && formatType !== 'Longform Video') return null;
       if (formatFilter === 'shorts' && formatType !== 'Shorts Heavy') return null;
 
-      // Filter verification
       if (daysSinceUpload > lastUploadDays) return null;
       if (avgViews < minAvgViews) return null;
       if (engagementRate < minEngagement) return null;
