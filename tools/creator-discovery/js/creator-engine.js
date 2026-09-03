@@ -49,12 +49,23 @@ class CreatorEngine {
           return await response.json();
         }
 
-        // Quota Exceeded (403) or Rate Limited (429) -> Switch to next key
-        if (response.status === 403 || response.status === 429) {
-          console.warn(`[CreatorEngine] API Key #${this.#activeKeyIndex + 1} quota limit reached. Rotating key...`);
+        // Quota Exceeded (403 with quota message) or Rate Limited (429)
+        if (response.status === 429) {
           this.#rotateKey();
           attempts++;
           continue;
+        }
+
+        if (response.status === 403) {
+          const errData = await response.json().catch(() => ({}));
+          const errMsg = errData?.error?.message || '';
+          if (errMsg.includes('quota') || errMsg.includes('Quota')) {
+            console.warn(`[CreatorEngine] API Key #${this.#activeKeyIndex + 1} quota limit reached. Rotating key...`);
+            this.#rotateKey();
+            attempts++;
+            continue;
+          }
+          throw new Error(`YouTube API error (403): ${errMsg || 'Permission Denied / Check API Key restrictions'}`);
         }
 
         throw new Error(`YouTube API request failed with status: HTTP ${response.status}`);
@@ -68,7 +79,7 @@ class CreatorEngine {
       }
     }
 
-    throw new Error('All configured YouTube API keys have reached their quota limits for today. (20,000 unit daily pool exhausted)');
+    throw new Error('All configured YouTube API keys have reached their quota limits for today.');
   }
 
   // --- Credits System ---
@@ -381,7 +392,7 @@ Partnerships Team · ${brandName}
   async searchCreators(params, onProgress = null) {
     const {
       query,
-      country,
+      country = 'ANY',
       formatFilter = 'all',
       minSubs = 0,
       maxSubs = 10000000,
@@ -390,15 +401,15 @@ Partnerships Team · ${brandName}
       lastUploadDays = 90,
       onlyWithEmail = false,
       excludeScraped = false,
-      maxResults = 20
+      maxResults = 25
     } = params;
 
-    onProgress?.('Searching YouTube with multi-key pool failover...');
+    onProgress?.('Searching YouTube for top active creators...');
 
-    // 1. Search Channels via YouTube API with Auto Failover
+    // 1. Search Channels via YouTube API
     const searchQuery = country && country !== 'ANY' ? `${query} ${country}` : query;
     const searchData = await this.#fetchWithKeyFailover((k) =>
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&maxResults=40&order=relevance&key=${k}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&maxResults=50&order=relevance&key=${k}`
     );
 
     if (!searchData.items?.length) return [];
@@ -413,7 +424,7 @@ Partnerships Team · ${brandName}
 
     if (!candidateChannelIds.length) return [];
 
-    onProgress?.(`Batch fetching metrics for ${candidateChannelIds.length} channels...`);
+    onProgress?.(`Batch fetching metrics for ${candidateChannelIds.length} candidate channels...`);
 
     // 2. Batch Fetch Channel Details (Up to 50 channels = 1 Quota unit!)
     const channelsData = await this.#fetchWithKeyFailover((k) =>
@@ -422,13 +433,20 @@ Partnerships Team · ${brandName}
 
     if (!channelsData.items?.length) return [];
 
-    // 3. Pre-filter channels by subscriber tier & country
+    // 3. Pre-filter channels by subscriber tier & country (Smart fallback if channel didn't set public country)
     const qualifiedChannels = channelsData.items.filter(ch => {
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
-      const chCountry = ch.snippet?.country ?? 'Global';
+      const chCountry = ch.snippet?.country;
 
       if (subs < minSubs || subs > maxSubs) return false;
-      if (country && country !== 'ANY' && chCountry.toUpperCase() !== country.toUpperCase()) return false;
+      
+      // If country is specified, check snippet country, or allow if channel text includes country
+      if (country && country !== 'ANY') {
+        const fullBio = `${ch.snippet?.title ?? ''} ${ch.snippet?.description ?? ''}`.toLowerCase();
+        const countryMatch = (chCountry && chCountry.toUpperCase() === country.toUpperCase()) || 
+                             fullBio.includes(country.toLowerCase());
+        if (chCountry && !countryMatch) return false;
+      }
 
       const fullBio = `${ch.snippet?.description ?? ''} ${ch.brandingSettings?.channel?.description ?? ''}`;
       const contactInfo = this.extractContacts(fullBio);
