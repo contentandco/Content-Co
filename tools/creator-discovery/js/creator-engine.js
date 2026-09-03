@@ -1,6 +1,6 @@
 /**
  * Content & Co - Creator Discovery & Lead Engine
- * Modern ES2026 Standards: Multi-Key API Rotation & Quota Failover, Parallelism, Collections Manager, Lookalike Engine, Pitch Generator
+ * Modern ES2026 Standards: Multi-Page Quota-Safe Discovery, Deep Auto-Pagination, Collections Manager, Lookalike Engine, Pitch Generator
  */
 
 class CreatorEngine {
@@ -49,7 +49,6 @@ class CreatorEngine {
           return await response.json();
         }
 
-        // Quota Exceeded (403 with quota message) or Rate Limited (429)
         if (response.status === 429) {
           this.#rotateKey();
           attempts++;
@@ -225,7 +224,6 @@ class CreatorEngine {
   extractContacts(text) {
     if (!text) return { email: null, maskedEmail: null, socials: [] };
 
-    // Standard RFC-compliant email matching
     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
     const matches = text.match(emailRegex);
     let email = null;
@@ -239,7 +237,6 @@ class CreatorEngine {
         : `•••@${domainPart}`;
     }
 
-    // Social Links / Handles Matching
     const socials = [];
     const igMatch = text.match(/instagram\.com\/([a-zA-Z0-9_.]+)/i);
     if (igMatch?.[1]) {
@@ -341,7 +338,6 @@ Partnerships Team · ${brandName}
         const vLikes = Number.parseInt(v.statistics?.likeCount ?? '0', 10) || 0;
         const vComments = Number.parseInt(v.statistics?.commentCount ?? '0', 10) || 0;
         
-        // Duration parser (PT1M30S etc)
         const durationStr = v.contentDetails?.duration || '';
         const isShort = durationStr.includes('S') && !durationStr.includes('M') && !durationStr.includes('H');
         if (isShort) shortsCount++; else longformCount++;
@@ -388,17 +384,17 @@ Partnerships Team · ${brandName}
     }
   }
 
-  // --- Quota-Safe Batch Discovery Engine with Multi-Key Failover ---
+  // --- Quota-Safe Deep Auto-Pagination Discovery Engine ---
   async searchCreators(params, onProgress = null) {
     const {
       query,
       country = 'ANY',
       formatFilter = 'all',
       minSubs = 0,
-      maxSubs = 10000000,
+      maxSubs = 100000000,
       minAvgViews = 0,
       minEngagement = 0,
-      lastUploadDays = 90,
+      lastUploadDays = 180,
       onlyWithEmail = false,
       excludeScraped = false,
       maxResults = 25
@@ -406,46 +402,69 @@ Partnerships Team · ${brandName}
 
     onProgress?.('Searching YouTube for top active creators...');
 
-    // 1. Search Channels via YouTube API
+    // 1. Build Smart Targeted Queries (Includes location and niche synonyms)
     const searchQuery = country && country !== 'ANY' ? `${query} ${country}` : query;
-    const searchData = await this.#fetchWithKeyFailover((k) =>
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&maxResults=50&order=relevance&key=${k}`
-    );
+    
+    // We execute deep pagination across 2 pages (up to 100 candidate channels) to ensure narrow filters always find plenty of creators!
+    let candidateChannelIds = [];
+    let pageToken = '';
 
-    if (!searchData.items?.length) return [];
+    for (let page = 0; page < 2; page++) {
+      const pageParam = pageToken ? `&pageToken=${pageToken}` : '';
+      const searchUrlBuilder = (k) => 
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`;
+      
+      const searchData = await this.#fetchWithKeyFailover(searchUrlBuilder).catch(() => null);
+      if (!searchData?.items?.length) break;
 
-    // Extract unique channel IDs
-    const uniqueChannelIds = Array.from(new Set(searchData.items.map(item => item.snippet?.channelId).filter(Boolean)));
+      const ids = searchData.items.map(item => item.snippet?.channelId).filter(Boolean);
+      candidateChannelIds.push(...ids);
+      
+      pageToken = searchData.nextPageToken;
+      if (!pageToken) break;
+    }
+
+    // Deduplicate unique channel IDs
+    const uniqueChannelIds = Array.from(new Set(candidateChannelIds));
 
     // Filter out already scraped leads if requested
-    const candidateChannelIds = excludeScraped 
+    const filteredCandidateIds = excludeScraped 
       ? uniqueChannelIds.filter(id => !this.isLeadScraped(id))
       : uniqueChannelIds;
 
-    if (!candidateChannelIds.length) return [];
+    if (!filteredCandidateIds.length) return [];
 
-    onProgress?.(`Batch fetching metrics for ${candidateChannelIds.length} candidate channels...`);
+    onProgress?.(`Batch fetching metrics for ${filteredCandidateIds.length} candidate channels...`);
 
-    // 2. Batch Fetch Channel Details (Up to 50 channels = 1 Quota unit!)
-    const channelsData = await this.#fetchWithKeyFailover((k) =>
-      `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,brandingSettings&id=${candidateChannelIds.slice(0, 50).join(',')}&key=${k}`
-    );
+    // 2. Batch Fetch Channel Details in Chunks of 50
+    const channels = [];
+    for (let i = 0; i < Math.min(filteredCandidateIds.length, 100); i += 50) {
+      const chunk = filteredCandidateIds.slice(i, i + 50);
+      const chunkData = await this.#fetchWithKeyFailover((k) =>
+        `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,brandingSettings&id=${chunk.join(',')}&key=${k}`
+      ).catch(() => null);
 
-    if (!channelsData.items?.length) return [];
+      if (chunkData?.items) {
+        channels.push(...chunkData.items);
+      }
+    }
 
-    // 3. Pre-filter channels by subscriber tier & country (Smart fallback if channel didn't set public country)
-    const qualifiedChannels = channelsData.items.filter(ch => {
+    if (!channels.length) return [];
+
+    // 3. Pre-filter channels by subscriber tier & country with smart flexibility
+    const qualifiedChannels = channels.filter(ch => {
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
       const chCountry = ch.snippet?.country;
 
       if (subs < minSubs || subs > maxSubs) return false;
       
-      // If country is specified, check snippet country, or allow if channel text includes country
+      // Country matching (Check snippet country, or allow if bio/title references the country, or if channel has no country set)
       if (country && country !== 'ANY') {
         const fullBio = `${ch.snippet?.title ?? ''} ${ch.snippet?.description ?? ''}`.toLowerCase();
         const countryMatch = (chCountry && chCountry.toUpperCase() === country.toUpperCase()) || 
                              fullBio.includes(country.toLowerCase());
-        if (chCountry && !countryMatch) return false;
+        // If channel explicitly declared a different country, filter out; otherwise allow search relevance
+        if (chCountry && chCountry !== 'Global' && !countryMatch) return false;
       }
 
       const fullBio = `${ch.snippet?.description ?? ''} ${ch.brandingSettings?.channel?.description ?? ''}`;
@@ -457,7 +476,7 @@ Partnerships Team · ${brandName}
 
     onProgress?.(`Analyzing video performance across ${qualifiedChannels.length} qualified creators in parallel...`);
 
-    // 4. Parallel Analysis using Promise.allSettled
+    // 4. Parallel Deep Metric Analysis using Promise.allSettled
     const analysisPromises = qualifiedChannels.map(async (ch) => {
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
       const totalViews = Number.parseInt(ch.statistics?.viewCount ?? '0', 10) || 0;
