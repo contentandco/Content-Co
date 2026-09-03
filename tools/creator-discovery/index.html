@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Search, filter, and discover YouTube creator leads for brand sponsorships with live analytics, engagement rate, lookalikes, and pitch email generator." />
+    <meta name="keywords" content="youtube creator discovery, influencer search tool, find youtube influencers, creator lead generation, influencer marketing discovery" />
+    <meta name="author" content="Content & Co" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#10b981" />
+
+    <title>Creator Discovery &amp; Lead Engine — Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" href="../../assets/Google%20search.png" type="image/png" />
+    <link rel="apple-touch-icon" href="../../Favicon.webp" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --accent-glow: rgba(16, 185, 129, 0.35);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: #a1a1aa;
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+        --badge-bg: #f4f4f5;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      .discovery-page {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('../../Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      /* ─── Navigation Header ─── */
+      .nav-header {
+        position: relative;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(212, 212, 216, 0.5);
+        background: rgba(250, 250, 249, 0.85);
+        backdrop-filter: blur(12px);
+      }
+      @media (min-width: 48rem) { .nav-header { padding: 1.25rem 3rem; } }
+
+      .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+      .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+      .nav-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); }
+      .nav-label a { color: inherit; text-decoration: none; }
+
+      .nav-right { display: flex; align-items: center; gap: 1rem; }
+      
+      .tab-nav-btn {
+        background: transparent;
+        border: 1px solid var(--border-light);
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .tab-nav-btn.active {
+        background: var(--text);
+        color: #ffffff;
+      }
+
+      .credits-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        padding: 0.35rem 0.85rem;
+        border-radius: 9999px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--accent-dark);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      }
+
+      /* ─── Hero Section ─── */
+      .hero-wrap {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        max-width: 52rem;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 1.5rem;
+      }
+      .tag-pill {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--accent-dark);
+        background: var(--accent-soft);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        padding: 0.3rem 0.75rem;
+        border-radius: 9999px;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+      .hero-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2.4rem, 6vw, 4rem);
+        line-height: 1.05;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+      }
+      .hero-subtitle {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+        max-width: 38rem;
+        margin: 0 auto 2rem;
+      }
+
+      /* ─── Search & Filter Panel ─── */
+      .app-container {
+        position: relative;
+        z-index: 10;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 1.5rem 5rem;
+      }
+
+      .filter-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 14px 40px -15px rgba(0,0,0,0.07);
+        margin-bottom: 2rem;
+      }
+
+      .search-main-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      @media (min-width: 48rem) {
+        .search-main-row {
+          grid-template-columns: 2fr 1fr auto;
+        }
+      }
+
+      .input-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        text-align: left;
+      }
+      .input-label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .text-input, .select-input {
+        width: 100%;
+        padding: 0.85rem 1.1rem;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        color: var(--text);
+        background: #fafaf9;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+      .text-input:focus, .select-input:focus {
+        border-color: var(--accent);
+        background: #ffffff;
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .btn-search {
+        align-self: flex-end;
+        padding: 0.85rem 1.75rem;
+        background: var(--text);
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .btn-search:hover {
+        background: var(--accent-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      }
+      .btn-search:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ─── Filter Grid ─── */
+      .filters-secondary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 1.25rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-light);
+      }
+
+      .toggles-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding-top: 1.25rem;
+        margin-top: 1.25rem;
+        border-top: 1px dashed var(--border-light);
+      }
+
+      .toggle-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9rem;
+        color: var(--text);
+        cursor: pointer;
+        user-select: none;
+      }
+      .toggle-checkbox {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+        cursor: pointer;
+      }
+
+      /* ─── Results Header & Actions ─── */
+      .results-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 0 0.5rem;
+      }
+      .results-count {
+        font-family: var(--font-serif);
+        font-size: 1.6rem;
+        color: var(--text);
+      }
+
+      .results-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .btn-action {
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        padding: 0.55rem 1rem;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--text);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: all 0.2s ease;
+      }
+      .btn-action:hover {
+        border-color: var(--accent);
+        color: var(--accent-dark);
+      }
+
+      /* ─── Creator Lead Cards Grid ─── */
+      .creators-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      @media (min-width: 48rem) {
+        .creators-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 72rem) {
+        .creators-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .creator-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 8px 24px -10px rgba(0,0,0,0.05);
+        transition: all 0.25s ease;
+        position: relative;
+      }
+      .creator-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px -12px rgba(0,0,0,0.09);
+        border-color: rgba(16, 185, 129, 0.5);
+      }
+
+      .creator-banner {
+        height: 70px;
+        background: linear-gradient(135deg, #10b981 0%, #064e3b 100%);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+
+      .scraped-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(24, 24, 27, 0.85);
+        backdrop-filter: blur(4px);
+        color: #f4f4f5;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.5rem;
+        border-radius: 999px;
+      }
+
+      .format-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--text);
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: 600;
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+      }
+
+      .creator-body {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .creator-header {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        margin-top: -2.5rem;
+        margin-bottom: 1rem;
+      }
+      .creator-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        object-fit: cover;
+        background: #ffffff;
+      }
+
+      .creator-meta {
+        padding-top: 1.25rem;
+        overflow: hidden;
+      }
+      .creator-name {
+        font-family: var(--font-sans);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .creator-name:hover { color: var(--accent-dark); }
+      .creator-handle {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      /* Stats Grid */
+      .creator-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        background: #fafaf9;
+        border: 1px solid rgba(228, 228, 231, 0.8);
+        border-radius: 12px;
+        padding: 0.85rem;
+        margin-bottom: 1rem;
+      }
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+      }
+      .stat-label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .stat-val {
+        font-family: var(--font-sans);
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      /* Creator Tags */
+      .tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.25rem;
+      }
+      .badge-tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+        background: var(--badge-bg);
+        color: var(--text-muted);
+      }
+      .badge-tag.highlight {
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        font-weight: 600;
+      }
+
+      /* Contact & Actions Row */
+      .creator-footer-actions {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .email-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fafaf9;
+        border: 1px dashed var(--border-light);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 11px;
+      }
+      .email-text {
+        color: var(--text-muted);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .btn-unlock {
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .btn-unlock:hover {
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .card-btn-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 0.4rem;
+      }
+
+      .btn-card-action {
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        color: var(--text);
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.55rem 0.4rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .btn-card-action:hover {
+        background: var(--text);
+        color: #ffffff;
+      }
+
+      .btn-card-action.highlight {
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+      .btn-card-action.highlight:hover {
+        background: var(--accent-dark);
+        color: #ffffff;
+      }
+
+      .btn-save-lead {
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        padding: 0.55rem 0.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+      }
+      .btn-save-lead.saved {
+        background: var(--accent-soft);
+        border-color: var(--accent);
+        color: var(--accent-dark);
+      }
+
+      /* ─── Modal / Drawer ─── */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(6px);
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      .modal-backdrop.active { display: flex; }
+
+      .modal-card {
+        background: #ffffff;
+        border-radius: 20px;
+        max-width: 720px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        position: relative;
+      }
+      .btn-modal-close {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        background: #f4f4f5;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .video-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.5rem;
+        font-size: 0.85rem;
+      }
+      .video-table th, .video-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .video-table th {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .email-pitch-textarea {
+        width: 100%;
+        height: 240px;
+        padding: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        color: var(--text);
+        background: #fafaf9;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        resize: vertical;
+        margin: 1rem 0;
+        outline: none;
+      }
+
+      /* ─── Empty & Loading States ─── */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 1.5rem;
+        color: var(--text-muted);
+      }
+      .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <div class="discovery-page">
+      <div class="map-bg-nature" aria-hidden="true"></div>
+
+      <!-- Navigation Header -->
+      <header class="nav-header">
+        <div class="nav-left">
+          <span class="status-dot"></span>
+          <span class="nav-label">
+            <a href="../../index.html">Content &amp; Co</a> / Creator Engine
+          </span>
+        </div>
+        <div class="nav-right">
+          <button id="viewCollectionsBtn" class="tab-nav-btn">📁 Campaign Lists (<span id="colCount">1</span>)</button>
+          <div class="credits-pill" id="creditsDisplay">
+            ⚡ <span id="creditCount">50</span> Credits
+          </div>
+          <a href="../../request-roster.html" style="font-size: 0.85rem; color: var(--text); text-decoration: none; font-weight: 500;">For Brands &rarr;</a>
+        </div>
+      </header>
+
+      <!-- Hero Header -->
+      <div class="hero-wrap">
+        <span class="tag-pill">AI &amp; Data Driven Discovery</span>
+        <h1 class="hero-title">YouTube Creator Discovery &amp; Lead Engine</h1>
+        <p class="hero-subtitle">
+          Find, verify, and export high-performing YouTube creators for your next brand campaign with live analytics and engagement metrics.
+        </p>
+      </div>
+
+      <!-- Main Application Container -->
+      <main class="app-container">
+        
+        <!-- Filter Panel -->
+        <section class="filter-card">
+          <div class="search-main-row">
+            <div class="input-wrap">
+              <label class="input-label">Niche / Topic / Keyword</label>
+              <input type="text" id="queryInput" class="text-input" placeholder="e.g. Travel, Backpacking, Tech Reviews, Solo Travel" value="Travel Backpacking" />
+            </div>
+            <div class="input-wrap">
+              <label class="input-label">Target Location / Country</label>
+              <select id="countrySelect" class="select-input">
+                <option value="ANY">🌍 Any Country (Global)</option>
+                <option value="US" selected>🇺🇸 United States</option>
+                <option value="GB">🇬🇧 United Kingdom</option>
+                <option value="CA">🇨🇦 Canada</option>
+                <option value="AU">🇦🇺 Australia</option>
+                <option value="DE">🇩🇪 Germany</option>
+                <option value="IN">🇮🇳 India</option>
+              </select>
+            </div>
+            <button id="searchBtn" class="btn-search">
+              <span id="btnText">🔍 Search Creators</span>
+            </button>
+          </div>
+
+          <!-- Secondary Filters (Modash Format & Tiers) -->
+          <div class="filters-secondary">
+            <div class="input-wrap">
+              <label class="input-label">Subscriber Range</label>
+              <select id="subsRangeSelect" class="select-input">
+                <option value="all">Any Subscriber Count</option>
+                <option value="micro" selected>Micro (10k – 50k subs)</option>
+                <option value="mid">Mid-Tier (50k – 250k subs)</option>
+                <option value="macro">Macro (250k – 1M subs)</option>
+                <option value="mega">1M+ Subscribers</option>
+              </select>
+            </div>
+
+            <div class="input-wrap">
+              <label class="input-label">Content Format</label>
+              <select id="formatFilterSelect" class="select-input">
+                <option value="all" selected>🎬 All Formats</option>
+                <option value="longform">📹 Longform Video Only (Best for Integrations)</option>
+                <option value="shorts">📱 Shorts Heavy (Fast Reach)</option>
+              </select>
+            </div>
+
+            <div class="input-wrap">
+              <label class="input-label">Min. Recent Avg Views</label>
+              <select id="avgViewsSelect" class="select-input">
+                <option value="0">Any Avg Views</option>
+                <option value="3000" selected>3,000+ views / video</option>
+                <option value="10000">10,000+ views / video</option>
+                <option value="25000">25,000+ views / video</option>
+                <option value="50000">50,000+ views / video</option>
+              </select>
+            </div>
+
+            <div class="input-wrap">
+              <label class="input-label">Min. Engagement Rate</label>
+              <select id="engSelect" class="select-input">
+                <option value="0">Any Engagement</option>
+                <option value="2" selected>2%+ (Standard)</option>
+                <option value="4">4%+ (High Active)</option>
+                <option value="7">7%+ (Ultra High)</option>
+              </select>
+            </div>
+
+            <div class="input-wrap">
+              <label class="input-label">Last Upload Recency</label>
+              <select id="recencySelect" class="select-input">
+                <option value="14">Uploaded in last 14 days</option>
+                <option value="30" selected>Uploaded in last 30 days</option>
+                <option value="60">Uploaded in last 60 days</option>
+                <option value="180">Uploaded in last 6 months</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Boolean Lead Toggles -->
+          <div class="toggles-row">
+            <label class="toggle-label">
+              <input type="checkbox" id="toggleEmailOnly" class="toggle-checkbox" checked />
+              <span>📧 Has Contact / Email detected in profile</span>
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="toggleExcludeScraped" class="toggle-checkbox" />
+              <span>🚫 Exclude creators already in my saved history</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Results Header Bar -->
+        <div class="results-bar">
+          <div class="results-count" id="resultsStatus">Ready to search creators</div>
+          <div class="results-actions" id="resultsActions" style="display: none;">
+            <button id="exportCsvBtn" class="btn-action">
+              📥 Export Leads to CSV (1 Credit / creator)
+            </button>
+            <button id="clearHistoryBtn" class="btn-action" style="color: var(--text-faint);">
+              Reset Saved History
+            </button>
+          </div>
+        </div>
+
+        <!-- Creator Grid Container -->
+        <div id="creatorsGrid" class="creators-grid">
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="empty-icon">🎯</div>
+            <h3>Enter a niche and click "Search Creators" to start discovery.</h3>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">The engine batches requests efficiently to pull live subscribers, real average views, and engagement rates.</p>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Creator Deep Dive Modal -->
+      <div id="detailModal" class="modal-backdrop">
+        <div class="modal-card">
+          <button id="modalCloseBtn" class="btn-modal-close">&times;</button>
+          <div id="modalContent"></div>
+        </div>
+      </div>
+
+      <!-- Outreach Pitch Email Modal -->
+      <div id="pitchModal" class="modal-backdrop">
+        <div class="modal-card">
+          <button id="pitchModalCloseBtn" class="btn-modal-close">&times;</button>
+          <h2 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.25rem;">✉️ 1-Click Outreach Pitch</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Personalized email template ready to copy and send in Gmail/Outlook.</p>
+
+          <div style="margin-top: 1.25rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div>
+              <label class="input-label">Your Brand Name</label>
+              <input type="text" id="pitchBrandName" class="text-input" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;" value="Content & Co" />
+            </div>
+            <div>
+              <label class="input-label">Collaboration Type</label>
+              <input type="text" id="pitchCollabType" class="text-input" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;" value="60-90s sponsored video integration" />
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <label class="input-label">Subject Line</label>
+            <input type="text" id="pitchSubject" class="text-input" style="font-weight: 600; font-size: 0.9rem; padding: 0.5rem 0.75rem;" readonly />
+          </div>
+
+          <textarea id="pitchBody" class="email-pitch-textarea" readonly></textarea>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="copyPitchBtn" class="btn-search" style="padding: 0.65rem 1.5rem;">📋 Copy to Clipboard</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaign Lists / Collections Modal -->
+      <div id="collectionsModal" class="modal-backdrop">
+        <div class="modal-card">
+          <button id="collectionsModalCloseBtn" class="btn-modal-close">&times;</button>
+          <h2 style="font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.25rem;">📁 Campaign Collections</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Organize your vetted creator leads by campaign folders.</p>
+
+          <div style="display: flex; gap: 0.5rem; margin: 1.25rem 0;">
+            <input type="text" id="newColNameInput" class="text-input" placeholder="e.g. Q4 Travel App Campaign" />
+            <button id="createColBtn" class="btn-search" style="white-space: nowrap; padding: 0.65rem 1.25rem;">+ Create List</button>
+          </div>
+
+          <div id="collectionsListContainer" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Logic Engine -->
+    <script src="js/creator-engine.js"></script>
+    <script>
+      const engine = new CreatorEngine();
+      let currentResults = [];
+      let activePitchCreator = null;
+
+      // UI Element bindings
+      const searchBtn = document.getElementById('searchBtn');
+      const btnText = document.getElementById('btnText');
+      const queryInput = document.getElementById('queryInput');
+      const countrySelect = document.getElementById('countrySelect');
+      const subsRangeSelect = document.getElementById('subsRangeSelect');
+      const formatFilterSelect = document.getElementById('formatFilterSelect');
+      const avgViewsSelect = document.getElementById('avgViewsSelect');
+      const engSelect = document.getElementById('engSelect');
+      const recencySelect = document.getElementById('recencySelect');
+      const toggleEmailOnly = document.getElementById('toggleEmailOnly');
+      const toggleExcludeScraped = document.getElementById('toggleExcludeScraped');
+      
+      const creditCountEl = document.getElementById('creditCount');
+      const colCountEl = document.getElementById('colCount');
+      const creatorsGrid = document.getElementById('creatorsGrid');
+      const resultsStatus = document.getElementById('resultsStatus');
+      const resultsActions = document.getElementById('resultsActions');
+      const exportCsvBtn = document.getElementById('exportCsvBtn');
+      const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+
+      const detailModal = document.getElementById('detailModal');
+      const modalCloseBtn = document.getElementById('modalCloseBtn');
+      const modalContent = document.getElementById('modalContent');
+
+      const pitchModal = document.getElementById('pitchModal');
+      const pitchModalCloseBtn = document.getElementById('pitchModalCloseBtn');
+      const pitchSubject = document.getElementById('pitchSubject');
+      const pitchBody = document.getElementById('pitchBody');
+      const pitchBrandName = document.getElementById('pitchBrandName');
+      const pitchCollabType = document.getElementById('pitchCollabType');
+      const copyPitchBtn = document.getElementById('copyPitchBtn');
+
+      const collectionsModal = document.getElementById('collectionsModal');
+      const viewCollectionsBtn = document.getElementById('viewCollectionsBtn');
+      const collectionsModalCloseBtn = document.getElementById('collectionsModalCloseBtn');
+      const createColBtn = document.getElementById('createColBtn');
+      const newColNameInput = document.getElementById('newColNameInput');
+      const collectionsListContainer = document.getElementById('collectionsListContainer');
+
+      // Update Header Counts
+      function updateHeaderUI() {
+        creditCountEl.textContent = engine.getCredits();
+        const cols = engine.getCollections();
+        colCountEl.textContent = cols.length;
+      }
+      updateHeaderUI();
+
+      // Number Formatter
+      function formatNumber(num) {
+        if (!num) return '0';
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+        return num.toLocaleString();
+      }
+
+      // Search Action Handler
+      searchBtn.addEventListener('click', async () => {
+        executeSearch();
+      });
+
+      async function executeSearch(customQuery = null) {
+        const query = customQuery || queryInput.value.trim();
+        if (!query) return alert('Please enter a search topic or keyword.');
+        if (customQuery) queryInput.value = customQuery;
+
+        // Map subscriber range
+        let minSubs = 0;
+        let maxSubs = 10000000;
+        const subVal = subsRangeSelect.value;
+        if (subVal === 'micro') { minSubs = 10000; maxSubs = 50000; }
+        else if (subVal === 'mid') { minSubs = 50000; maxSubs = 250000; }
+        else if (subVal === 'macro') { minSubs = 250000; maxSubs = 1000000; }
+        else if (subVal === 'mega') { minSubs = 1000000; maxSubs = 50000000; }
+
+        const params = {
+          query,
+          country: countrySelect.value,
+          formatFilter: formatFilterSelect.value,
+          minSubs,
+          maxSubs,
+          minAvgViews: parseInt(avgViewsSelect.value, 10) || 0,
+          minEngagement: parseFloat(engSelect.value) || 0,
+          lastUploadDays: parseInt(recencySelect.value, 10) || 90,
+          onlyWithEmail: toggleEmailOnly.checked,
+          excludeScraped: toggleExcludeScraped.checked,
+          maxResults: 18
+        };
+
+        // UI Loading state
+        searchBtn.disabled = true;
+        btnText.innerHTML = '<span class="loading-spinner"></span> Scanning...';
+        resultsStatus.textContent = 'Searching active creator channels...';
+        creatorsGrid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="empty-icon"><span class="loading-spinner" style="border-color: rgba(16,185,129,0.3); border-top-color: var(--accent); width: 36px; height: 36px;"></span></div>
+            <h3>Discovering matching YouTube creators in parallel...</h3>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Evaluating real view averages & engagement rates.</p>
+          </div>
+        `;
+
+        try {
+          currentResults = await engine.searchCreators(params, (msg) => {
+            resultsStatus.textContent = msg;
+          });
+
+          renderResults(currentResults);
+        } catch (err) {
+          console.error(err);
+          creatorsGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1; color: #ef4444;">
+              <div class="empty-icon">⚠️</div>
+              <h3>Search Notice</h3>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">${err.message}</p>
+            </div>
+          `;
+          resultsStatus.textContent = 'Search halted';
+        } finally {
+          searchBtn.disabled = false;
+          btnText.textContent = '🔍 Search Creators';
+        }
+      }
+
+      // Render Creator Cards
+      function renderResults(creators) {
+        if (!creators || creators.length === 0) {
+          resultsStatus.textContent = 'No matching creators found';
+          resultsActions.style.display = 'none';
+          creatorsGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <div class="empty-icon">🔍</div>
+              <h3>No creators matched all filter criteria</h3>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">Try broadening your subscriber range or choosing "All Formats".</p>
+            </div>
+          `;
+          return;
+        }
+
+        resultsStatus.textContent = `Found ${creators.length} Matching Creator Leads`;
+        resultsActions.style.display = 'flex';
+        creatorsGrid.innerHTML = '';
+
+        creators.forEach((c, idx) => {
+          const isSaved = engine.isLeadScraped(c.id);
+          const card = document.createElement('div');
+          card.className = 'creator-card';
+          card.innerHTML = `
+            <div class="creator-banner" style="${c.banner ? `background-image: url('${c.banner}');` : ''}">
+              <span class="format-badge">${c.formatType || 'Longform'}</span>
+              ${isSaved ? '<span class="scraped-badge">Saved Lead</span>' : ''}
+            </div>
+            <div class="creator-body">
+              <div class="creator-header">
+                <img src="${c.avatar}" alt="${c.title}" class="creator-avatar" />
+                <div class="creator-meta">
+                  <a href="https://youtube.com/channel/${c.id}" target="_blank" rel="noopener noreferrer" class="creator-name">${c.title}</a>
+                  <span class="creator-handle">${c.handle} · ${c.country}</span>
+                </div>
+              </div>
+
+              <div class="creator-stats-grid">
+                <div class="stat-item">
+                  <span class="stat-label">Subscribers</span>
+                  <span class="stat-val">${formatNumber(c.subscribers)}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Avg. Views</span>
+                  <span class="stat-val">${formatNumber(c.avgViews)}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Engagement</span>
+                  <span class="stat-val" style="color: var(--accent-dark);">${c.engagementRate}%</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Last Upload</span>
+                  <span class="stat-val">${c.daysSinceUpload === 0 ? 'Today' : c.daysSinceUpload + 'd ago'}</span>
+                </div>
+              </div>
+
+              <div class="tags-list">
+                ${c.contact.email ? '<span class="badge-tag highlight">📧 Email Verified</span>' : '<span class="badge-tag">No Public Email</span>'}
+                ${c.pastSponsors && c.pastSponsors.length > 0 ? `<span class="badge-tag">⭐ Partnered: ${c.pastSponsors[0]}</span>` : ''}
+              </div>
+
+              <div class="creator-footer-actions">
+                <div class="email-box">
+                  <span class="email-text" id="emailDisplay_${idx}">
+                    ${c.unlocked && c.contact.email ? `📧 ${c.contact.email}` : (c.contact.maskedEmail ? `🔒 ${c.contact.maskedEmail}` : 'No Email Found')}
+                  </span>
+                  ${!c.unlocked && c.contact.email ? `
+                    <button class="btn-unlock" onclick="unlockLead(${idx})">Unlock (1 Credit)</button>
+                  ` : ''}
+                </div>
+
+                <div class="card-btn-row">
+                  <button class="btn-card-action" onclick="openDeepDive(${idx})">📊 Breakdown</button>
+                  <button class="btn-card-action highlight" onclick="openPitchModal(${idx})">✉️ Pitch</button>
+                  <button class="btn-card-action" onclick="findLookalikes(${idx})">✨ Similar</button>
+                  <button class="btn-save-lead ${isSaved ? 'saved' : ''}" id="saveBtn_${idx}" title="Save to list" onclick="toggleSaveLead(${idx})">
+                    ${isSaved ? '✓' : '+'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          creatorsGrid.appendChild(card);
+        });
+      }
+
+      // Unlock Contact Details with Credits
+      window.unlockLead = function(idx) {
+        const creator = currentResults[idx];
+        if (!creator || creator.unlocked) return;
+
+        if (engine.useCredits(1)) {
+          creator.unlocked = true;
+          engine.saveLeadToHistory(creator);
+          updateHeaderUI();
+          renderResults(currentResults);
+        } else {
+          alert('You have run out of credits! In the full version, credits can be refilled via subscription.');
+        }
+      };
+
+      // Save / Bookmark Lead
+      window.toggleSaveLead = function(idx) {
+        const creator = currentResults[idx];
+        if (!creator) return;
+        engine.saveLeadToHistory(creator);
+        renderResults(currentResults);
+      };
+
+      // Lookalike Discovery Handler
+      window.findLookalikes = function(idx) {
+        const c = currentResults[idx];
+        if (!c) return;
+        const lookalikeQuery = `${c.title} travel style`;
+        window.scrollTo({ top: 150, behavior: 'smooth' });
+        executeSearch(lookalikeQuery);
+      };
+
+      // Pitch Modal Handler
+      window.openPitchModal = function(idx) {
+        activePitchCreator = currentResults[idx];
+        if (!activePitchCreator) return;
+
+        updatePitchContent();
+        pitchModal.classList.add('active');
+      };
+
+      function updatePitchContent() {
+        if (!activePitchCreator) return;
+        const pitch = engine.generatePitchEmail(
+          activePitchCreator,
+          pitchBrandName.value.trim() || 'Content & Co',
+          pitchCollabType.value.trim() || 'sponsored video integration'
+        );
+        pitchSubject.value = pitch.subject;
+        pitchBody.value = pitch.body;
+      }
+
+      pitchBrandName.addEventListener('input', updatePitchContent);
+      pitchCollabType.addEventListener('input', updatePitchContent);
+
+      copyPitchBtn.addEventListener('click', () => {
+        const fullCopy = `Subject: ${pitchSubject.value}\n\n${pitchBody.value}`;
+        navigator.clipboard.writeText(fullCopy).then(() => {
+          copyPitchBtn.textContent = '✓ Copied to Clipboard!';
+          setTimeout(() => copyPitchBtn.textContent = '📋 Copy to Clipboard', 2000);
+        });
+      });
+
+      pitchModalCloseBtn.addEventListener('click', () => pitchModal.classList.remove('active'));
+      pitchModal.addEventListener('click', (e) => {
+        if (e.target === pitchModal) pitchModal.classList.remove('active');
+      });
+
+      // Collections Modal Handler
+      viewCollectionsBtn.addEventListener('click', () => {
+        renderCollectionsList();
+        collectionsModal.classList.add('active');
+      });
+
+      collectionsModalCloseBtn.addEventListener('click', () => collectionsModal.classList.remove('active'));
+      collectionsModal.addEventListener('click', (e) => {
+        if (e.target === collectionsModal) collectionsModal.classList.remove('active');
+      });
+
+      createColBtn.addEventListener('click', () => {
+        const name = newColNameInput.value.trim();
+        if (!name) return alert('Enter a collection name.');
+        engine.createCollection(name);
+        newColNameInput.value = '';
+        updateHeaderUI();
+        renderCollectionsList();
+      });
+
+      function renderCollectionsList() {
+        const cols = engine.getCollections();
+        collectionsListContainer.innerHTML = '';
+        if (!cols.length) {
+          collectionsListContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No campaign lists created yet.</p>';
+          return;
+        }
+
+        cols.forEach(col => {
+          const div = document.createElement('div');
+          div.style.cssText = 'background: #fafaf9; border: 1px solid var(--border-light); padding: 1rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center;';
+          div.innerHTML = `
+            <div>
+              <div style="font-weight: 600; font-size: 1rem;">${col.name}</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">${col.creators.length} Saved Leads</div>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn-action" onclick="exportColCsv('${col.id}')">📥 Export</button>
+            </div>
+          `;
+          collectionsListContainer.appendChild(div);
+        });
+      }
+
+      window.exportColCsv = function(colId) {
+        const cols = engine.getCollections();
+        const col = cols.find(c => c.id === colId);
+        if (!col || !col.creators.length) return alert('This list has no creators yet.');
+        engine.exportToCSV(col.creators, `${col.name.toLowerCase().replace(/\s+/g, '_')}_leads.csv`);
+      };
+
+      // Deep Dive Modal Handler
+      window.openDeepDive = function(idx) {
+        const c = currentResults[idx];
+        if (!c) return;
+
+        modalContent.innerHTML = `
+          <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+            <img src="${c.avatar}" style="width: 54px; height: 54px; border-radius: 50%;" />
+            <div>
+              <h2 style="font-family: var(--font-serif); font-size: 1.6rem;">${c.title}</h2>
+              <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${c.handle} · ${formatNumber(c.subscribers)} Subscribers</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: #fafaf9; padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--text-muted);">Avg. Recent Views</div>
+              <div style="font-size: 1.25rem; font-weight: 700; margin-top: 0.2rem;">${formatNumber(c.avgViews)}</div>
+            </div>
+            <div style="background: #fafaf9; padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--text-muted);">Engagement Rate</div>
+              <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-dark); margin-top: 0.2rem;">${c.engagementRate}%</div>
+            </div>
+            <div style="background: #fafaf9; padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--text-muted);">Format Type</div>
+              <div style="font-size: 1.25rem; font-weight: 700; margin-top: 0.2rem;">${c.formatType || 'Longform'}</div>
+            </div>
+          </div>
+
+          ${c.pastSponsors && c.pastSponsors.length > 0 ? `
+            <div style="background: var(--accent-soft); border: 1px solid rgba(16,185,129,0.2); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--accent-dark); font-weight: 600;">Brand Partnerships Detected</div>
+              <div style="font-size: 0.9rem; margin-top: 0.35rem; color: var(--text);">Mentions: ${c.pastSponsors.map(s => `<strong>${s}</strong>`).join(', ')}</div>
+            </div>
+          ` : ''}
+
+          <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem;">Recent Uploads Performance</h3>
+          <table class="video-table">
+            <thead>
+              <tr>
+                <th>Video</th>
+                <th>Views</th>
+                <th>Likes</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${(c.recentVideos || []).map(v => `
+                <tr>
+                  <td style="max-width: 320px; font-weight: 500;">
+                    <a href="https://youtube.com/watch?v=${v.id}" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
+                      ${v.title}
+                    </a>
+                  </td>
+                  <td><strong>${formatNumber(v.views)}</strong></td>
+                  <td>${formatNumber(v.likes)}</td>
+                  <td>${formatNumber(v.comments)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+        detailModal.classList.add('active');
+      };
+
+      modalCloseBtn.addEventListener('click', () => detailModal.classList.remove('active'));
+      detailModal.addEventListener('click', (e) => {
+        if (e.target === detailModal) detailModal.classList.remove('active');
+      });
+
+      // Export CSV Action
+      exportCsvBtn.addEventListener('click', () => {
+        if (!currentResults || currentResults.length === 0) return;
+        const requiredCredits = Math.min(currentResults.length, 5);
+        if (engine.useCredits(requiredCredits)) {
+          currentResults.forEach(c => engine.saveLeadToHistory(c));
+          engine.exportToCSV(currentResults);
+          updateHeaderUI();
+          renderResults(currentResults);
+          alert(`Successfully exported ${currentResults.length} creator leads to CSV! (${requiredCredits} credits deducted)`);
+        } else {
+          alert('Not enough credits to export batch! Please refill credits.');
+        }
+      });
+
+      // Clear Saved History Action
+      clearHistoryBtn.addEventListener('click', () => {
+        if (confirm('Clear your saved creator lead history?')) {
+          engine.clearHistory();
+          renderResults(currentResults);
+        }
+      });
+    </script>
+  </body>
+</html>
