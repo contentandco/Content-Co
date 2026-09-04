@@ -310,6 +310,23 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .sort-select {
+        padding: 0.5rem 0.85rem;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        font-weight: 500;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        color: var(--text);
+        cursor: pointer;
+        outline: none;
+      }
+      .sort-select:focus {
+        border-color: var(--accent);
       }
 
       .btn-action {
@@ -329,6 +346,88 @@
       .btn-action:hover {
         border-color: var(--accent);
         color: var(--accent-dark);
+      }
+
+      /* ─── Floating Batch Lead Cart / Dock ─── */
+      .batch-dock {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(120px);
+        background: rgba(24, 24, 27, 0.95);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        padding: 0.85rem 1.5rem;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+        z-index: 90;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .batch-dock.active {
+        transform: translateX(-50%) translateY(0);
+      }
+      .batch-count-pill {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 600;
+        background: var(--accent);
+        color: #064e3b;
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+      }
+      .batch-btn {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        padding: 0.45rem 0.85rem;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .batch-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .batch-btn.primary {
+        background: var(--accent);
+        color: #064e3b;
+        border-color: var(--accent);
+      }
+      .batch-btn.primary:hover {
+        background: #34d399;
+      }
+
+      /* ─── Health Score & Card Checkbox ─── */
+      .card-select-checkbox {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+        cursor: pointer;
+        z-index: 10;
+        background: #ffffff;
+        border-radius: 4px;
+      }
+
+      .health-badge {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 600;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
       }
 
       /* ─── Creator Lead Cards Grid ─── */
@@ -696,6 +795,9 @@
           </span>
         </div>
         <div class="nav-right">
+          <div class="credits-pill" style="color: var(--text); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.06);" title="Saved creators available for free instant retrieval">
+            🗄️ <span id="dbCount" style="font-weight: 700; color: var(--accent-dark);">0</span> Leads Indexed
+          </div>
           <button id="viewCollectionsBtn" class="tab-nav-btn">📁 Campaign Lists (<span id="colCount">1</span>)</button>
           <div class="credits-pill" id="creditsDisplay">
             ⚡ <span id="creditCount">50</span> Credits
@@ -740,24 +842,25 @@
             </button>
           </div>
 
-          <!-- Secondary Filters (Modash Format & Tiers) -->
+          <!-- Secondary Filters (Flexible, Non-Choking Controls) -->
           <div class="filters-secondary">
             <div class="input-wrap">
               <label class="input-label">Subscriber Range</label>
               <select id="subsRangeSelect" class="select-input">
-                <option value="all">Any Subscriber Count</option>
-                <option value="micro" selected>Micro (10k – 50k subs)</option>
+                <option value="all" selected>All Creator Sizes (Any Subs)</option>
+                <option value="nano">Nano (1k – 10k subs)</option>
+                <option value="micro">Micro (10k – 50k subs)</option>
                 <option value="mid">Mid-Tier (50k – 250k subs)</option>
                 <option value="macro">Macro (250k – 1M subs)</option>
-                <option value="mega">1M+ Subscribers</option>
+                <option value="mega">Mega (1M+ subs)</option>
               </select>
             </div>
 
             <div class="input-wrap">
               <label class="input-label">Content Format</label>
               <select id="formatFilterSelect" class="select-input">
-                <option value="all" selected>🎬 All Formats</option>
-                <option value="longform">📹 Longform Video Only (Best for Integrations)</option>
+                <option value="all" selected>🎬 All Formats (Any)</option>
+                <option value="longform">📹 Longform Video (Best for Integrations)</option>
                 <option value="shorts">📱 Shorts Heavy (Fast Reach)</option>
               </select>
             </div>
@@ -765,10 +868,10 @@
             <div class="input-wrap">
               <label class="input-label">Min. Recent Avg Views</label>
               <select id="avgViewsSelect" class="select-input">
-                <option value="0">Any Avg Views</option>
-                <option value="3000" selected>3,000+ views / video</option>
-                <option value="10000">10,000+ views / video</option>
-                <option value="25000">25,000+ views / video</option>
+                <option value="0" selected>Any Avg Views</option>
+                <option value="1000">1,000+ views / video</option>
+                <option value="5000">5,000+ views / video</option>
+                <option value="20000">20,000+ views / video</option>
                 <option value="50000">50,000+ views / video</option>
               </select>
             </div>
@@ -776,8 +879,9 @@
             <div class="input-wrap">
               <label class="input-label">Min. Engagement Rate</label>
               <select id="engSelect" class="select-input">
-                <option value="0">Any Engagement</option>
-                <option value="2" selected>2%+ (Standard)</option>
+                <option value="0" selected>Any Engagement</option>
+                <option value="1">1%+ (Active)</option>
+                <option value="2">2%+ (Standard)</option>
                 <option value="4">4%+ (High Active)</option>
                 <option value="7">7%+ (Ultra High)</option>
               </select>
@@ -786,9 +890,9 @@
             <div class="input-wrap">
               <label class="input-label">Last Upload Recency</label>
               <select id="recencySelect" class="select-input">
-                <option value="14">Uploaded in last 14 days</option>
-                <option value="30" selected>Uploaded in last 30 days</option>
-                <option value="60">Uploaded in last 60 days</option>
+                <option value="0" selected>Any Upload Time</option>
+                <option value="30">Uploaded in last 30 days</option>
+                <option value="90">Uploaded in last 3 months</option>
                 <option value="180">Uploaded in last 6 months</option>
               </select>
             </div>
@@ -797,13 +901,16 @@
           <!-- Boolean Lead Toggles -->
           <div class="toggles-row">
             <label class="toggle-label">
-              <input type="checkbox" id="toggleEmailOnly" class="toggle-checkbox" checked />
+              <input type="checkbox" id="toggleEmailOnly" class="toggle-checkbox" />
               <span>📧 Has Contact / Email detected in profile</span>
             </label>
             <label class="toggle-label">
               <input type="checkbox" id="toggleExcludeScraped" class="toggle-checkbox" />
               <span>🚫 Exclude creators already in my saved history</span>
             </label>
+            <button id="resetFiltersBtn" type="button" class="btn-action" style="margin-left: auto; font-size: 0.8rem; padding: 0.35rem 0.75rem;">
+              🔄 Reset Filters
+            </button>
           </div>
         </section>
 
@@ -811,11 +918,23 @@
         <div class="results-bar">
           <div class="results-count" id="resultsStatus">Ready to search creators</div>
           <div class="results-actions" id="resultsActions" style="display: none;">
+            <label style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">Sort:</label>
+            <select id="sortBySelect" class="sort-select">
+              <option value="default">✨ Smart Rank (Relevance)</option>
+              <option value="health_desc">🛡️ Highest Health / Quality Score</option>
+              <option value="engagement_desc">🔥 Highest Engagement Rate</option>
+              <option value="views_desc">👁️ Highest Avg Views</option>
+              <option value="subs_desc">👥 Highest Subscribers</option>
+              <option value="recency_asc">⚡ Most Recently Active</option>
+            </select>
+            <button id="selectAllBtn" class="btn-action">
+              ☑️ Select All
+            </button>
             <button id="exportCsvBtn" class="btn-action">
-              📥 Export Leads to CSV (1 Credit / creator)
+              📥 Export All Leads (CSV)
             </button>
             <button id="clearHistoryBtn" class="btn-action" style="color: var(--text-faint);">
-              Reset Saved History
+              Reset Saved
             </button>
           </div>
         </div>
@@ -826,6 +945,26 @@
             <div class="empty-icon">🎯</div>
             <h3>Enter a niche and click "Search Creators" to start discovery.</h3>
             <p style="margin-top: 0.5rem; font-size: 0.9rem;">The engine batches requests efficiently to pull live subscribers, real average views, and engagement rates.</p>
+          </div>
+        </div>
+
+        <!-- Load More Pagination Container -->
+        <div id="loadMoreWrap" style="display: none; text-align: center; margin-top: 2.5rem;">
+          <button id="loadMoreBtn" class="btn-search" style="margin: 0 auto; padding: 0.85rem 2.5rem; background: #ffffff; color: var(--text); border: 1px solid var(--border-light);">
+            <span id="loadMoreText">⚡ Load More Creators (Next Batch)</span>
+          </button>
+        </div>
+
+        <!-- Floating Batch Action Dock -->
+        <div id="batchDock" class="batch-dock">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="batch-count-pill" id="batchCount">0</span>
+            <span style="font-size: 13px; font-weight: 500;">Creators Selected</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button id="batchAddCampaignBtn" class="batch-btn primary">📁 Add to Campaign List</button>
+            <button id="batchExportBtn" class="batch-btn">📥 Export Selected CSV</button>
+            <button id="batchDeselectBtn" class="batch-btn" style="opacity: 0.7;">✕ Clear</button>
           </div>
         </div>
 
@@ -892,7 +1031,8 @@
     <script src="js/creator-engine.js"></script>
     <script>
       const engine = new CreatorEngine();
-      let currentResults = [];
+      let rawCreatorPool = []; // Master cache of fetched candidates for the current topic
+      let currentFilteredResults = [];
       let activePitchCreator = null;
 
       // UI Element bindings
@@ -907,6 +1047,7 @@
       const recencySelect = document.getElementById('recencySelect');
       const toggleEmailOnly = document.getElementById('toggleEmailOnly');
       const toggleExcludeScraped = document.getElementById('toggleExcludeScraped');
+      const resetFiltersBtn = document.getElementById('resetFiltersBtn');
       
       const creditCountEl = document.getElementById('creditCount');
       const colCountEl = document.getElementById('colCount');
@@ -935,11 +1076,16 @@
       const newColNameInput = document.getElementById('newColNameInput');
       const collectionsListContainer = document.getElementById('collectionsListContainer');
 
+      const dbCountEl = document.getElementById('dbCount');
+
       // Update Header Counts
       function updateHeaderUI() {
         creditCountEl.textContent = engine.getCredits();
         const cols = engine.getCollections();
         colCountEl.textContent = cols.length;
+        if (dbCountEl) {
+          dbCountEl.textContent = engine.getDatabaseCount();
+        }
       }
       updateHeaderUI();
 
@@ -951,9 +1097,159 @@
         return num.toLocaleString();
       }
 
+      // Get current criteria from UI
+      function getCurrentCriteria() {
+        let minSubs = 0;
+        let maxSubs = 1000000000;
+        const subVal = subsRangeSelect.value;
+        if (subVal === 'nano') { minSubs = 1000; maxSubs = 10000; }
+        else if (subVal === 'micro') { minSubs = 10000; maxSubs = 50000; }
+        else if (subVal === 'mid') { minSubs = 50000; maxSubs = 250000; }
+        else if (subVal === 'macro') { minSubs = 250000; maxSubs = 1000000; }
+        else if (subVal === 'mega') { minSubs = 1000000; maxSubs = 1000000000; }
+
+        return {
+          country: countrySelect.value,
+          formatFilter: formatFilterSelect.value,
+          minSubs,
+          maxSubs,
+          minAvgViews: parseInt(avgViewsSelect.value, 10) || 0,
+          minEngagement: parseFloat(engSelect.value) || 0,
+          lastUploadDays: parseInt(recencySelect.value, 10) || 0,
+          onlyWithEmail: toggleEmailOnly.checked,
+          excludeScraped: toggleExcludeScraped.checked
+        };
+      }
+
+      const sortBySelect = document.getElementById('sortBySelect');
+      const selectAllBtn = document.getElementById('selectAllBtn');
+      const batchDock = document.getElementById('batchDock');
+      const batchCountEl = document.getElementById('batchCount');
+      const batchAddCampaignBtn = document.getElementById('batchAddCampaignBtn');
+      const batchExportBtn = document.getElementById('batchExportBtn');
+      const batchDeselectBtn = document.getElementById('batchDeselectBtn');
+      
+      let selectedCreatorIds = new Set();
+
+      // Live Instant Client-Side Filter & Sort Re-evaluation
+      function applyLiveFilters() {
+        if (!rawCreatorPool.length) return;
+        const criteria = getCurrentCriteria();
+        const filtered = engine.filterCreators(rawCreatorPool, criteria);
+        currentFilteredResults = engine.sortCreators(filtered, sortBySelect.value);
+        renderResults(currentFilteredResults, rawCreatorPool.length);
+      }
+
+      // Sort Change Handler
+      sortBySelect.addEventListener('change', () => {
+        if (currentFilteredResults.length > 0) {
+          currentFilteredResults = engine.sortCreators(currentFilteredResults, sortBySelect.value);
+          renderResults(currentFilteredResults, rawCreatorPool.length);
+        }
+      });
+
+      // Attach Live Listeners to Secondary Filters
+      [countrySelect, subsRangeSelect, formatFilterSelect, avgViewsSelect, engSelect, recencySelect, toggleEmailOnly, toggleExcludeScraped].forEach(el => {
+        el.addEventListener('change', () => {
+          if (rawCreatorPool.length > 0) {
+            applyLiveFilters();
+          }
+        });
+      });
+
+      // Reset Filters Action
+      resetFiltersBtn.addEventListener('click', () => {
+        countrySelect.value = 'ANY';
+        subsRangeSelect.value = 'all';
+        formatFilterSelect.value = 'all';
+        avgViewsSelect.value = '0';
+        engSelect.value = '0';
+        recencySelect.value = '0';
+        toggleEmailOnly.checked = false;
+        toggleExcludeScraped.checked = false;
+        sortBySelect.value = 'default';
+        if (rawCreatorPool.length > 0) {
+          applyLiveFilters();
+        }
+      });
+
+      // Batch Dock UI Updater
+      function updateBatchDock() {
+        const count = selectedCreatorIds.size;
+        batchCountEl.textContent = count;
+        if (count > 0) {
+          batchDock.classList.add('active');
+        } else {
+          batchDock.classList.remove('active');
+        }
+      }
+
+      // Select All Button Handler
+      selectAllBtn.addEventListener('click', () => {
+        if (selectedCreatorIds.size === currentFilteredResults.length) {
+          selectedCreatorIds.clear();
+        } else {
+          currentFilteredResults.forEach(c => selectedCreatorIds.add(c.id));
+        }
+        updateBatchDock();
+        renderResults(currentFilteredResults, rawCreatorPool.length);
+      });
+
+      // Clear Batch Selection
+      batchDeselectBtn.addEventListener('click', () => {
+        selectedCreatorIds.clear();
+        updateBatchDock();
+        renderResults(currentFilteredResults, rawCreatorPool.length);
+      });
+
+      // Batch Export to CSV
+      batchExportBtn.addEventListener('click', () => {
+        const selectedCreators = currentFilteredResults.filter(c => selectedCreatorIds.has(c.id));
+        if (!selectedCreators.length) return;
+        const requiredCredits = Math.min(selectedCreators.length, 5);
+        if (engine.useCredits(requiredCredits)) {
+          selectedCreators.forEach(c => engine.saveLeadToHistory(c));
+          engine.exportToCSV(selectedCreators, `selected_creator_leads_${Date.now()}.csv`);
+          updateHeaderUI();
+          renderResults(currentFilteredResults, rawCreatorPool.length);
+          alert(`Successfully exported ${selectedCreators.length} selected creator leads to CSV!`);
+        } else {
+          alert('Not enough credits to export batch! Please refill credits.');
+        }
+      });
+
+      // Batch Add to Campaign List
+      batchAddCampaignBtn.addEventListener('click', () => {
+        const selectedCreators = currentFilteredResults.filter(c => selectedCreatorIds.has(c.id));
+        if (!selectedCreators.length) return;
+        const cols = engine.getCollections();
+        if (!cols.length) {
+          engine.createCollection('New Brand Campaign');
+        }
+        const activeCol = engine.getCollections()[0];
+        selectedCreators.forEach(c => engine.addCreatorToCollection(activeCol.id, c));
+        updateHeaderUI();
+        alert(`Added ${selectedCreators.length} creators to list "${activeCol.name}"!`);
+      });
+
+      let currentSearchQuery = '';
+      let currentNextPageToken = null;
+
+      const loadMoreWrap = document.getElementById('loadMoreWrap');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const loadMoreText = document.getElementById('loadMoreText');
+
       // Search Action Handler
       searchBtn.addEventListener('click', async () => {
         executeSearch();
+      });
+
+      // Enter key on query input triggers search
+      queryInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeSearch();
+        }
       });
 
       async function executeSearch(customQuery = null) {
@@ -961,89 +1257,172 @@
         if (!query) return alert('Please enter a search topic or keyword.');
         if (customQuery) queryInput.value = customQuery;
 
-        // Map subscriber range
-        let minSubs = 0;
-        let maxSubs = 10000000;
-        const subVal = subsRangeSelect.value;
-        if (subVal === 'micro') { minSubs = 10000; maxSubs = 50000; }
-        else if (subVal === 'mid') { minSubs = 50000; maxSubs = 250000; }
-        else if (subVal === 'macro') { minSubs = 250000; maxSubs = 1000000; }
-        else if (subVal === 'mega') { minSubs = 1000000; maxSubs = 50000000; }
+        currentSearchQuery = query;
+        currentNextPageToken = null;
 
-        const params = {
-          query,
-          country: countrySelect.value,
-          formatFilter: formatFilterSelect.value,
-          minSubs,
-          maxSubs,
-          minAvgViews: parseInt(avgViewsSelect.value, 10) || 0,
-          minEngagement: parseFloat(engSelect.value) || 0,
-          lastUploadDays: parseInt(recencySelect.value, 10) || 90,
-          onlyWithEmail: toggleEmailOnly.checked,
-          excludeScraped: toggleExcludeScraped.checked,
-          maxResults: 40
-        };
+        // 1. Instant Cache/Database Pre-serve (Instant Free Leads!)
+        const savedMatches = (await engine.queryDatabase(query)) || [];
+        if (savedMatches.length > 0) {
+          rawCreatorPool = [...savedMatches];
+          applyLiveFilters();
+          resultsStatus.textContent = `Serving ${savedMatches.length} indexed leads from database. Scanning YouTube for fresh additions...`;
+        }
 
         // UI Loading state
         searchBtn.disabled = true;
         btnText.innerHTML = '<span class="loading-spinner"></span> Scanning...';
-        resultsStatus.textContent = 'Searching active creator channels...';
-        creatorsGrid.innerHTML = `
-          <div class="empty-state" style="grid-column: 1 / -1;">
-            <div class="empty-icon"><span class="loading-spinner" style="border-color: rgba(16,185,129,0.3); border-top-color: var(--accent); width: 36px; height: 36px;"></span></div>
-            <h3>Discovering matching YouTube creators in parallel...</h3>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Evaluating real view averages & engagement rates.</p>
-          </div>
-        `;
+        loadMoreWrap.style.display = 'none';
+
+        if (!savedMatches.length) {
+          resultsStatus.textContent = 'Searching active creator channels on YouTube...';
+          creatorsGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <div class="empty-icon"><span class="loading-spinner" style="border-color: rgba(16,185,129,0.3); border-top-color: var(--accent); width: 36px; height: 36px;"></span></div>
+              <h3>Discovering high-performing YouTube creators...</h3>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">Fetching live statistics, upload velocity, and engagement rates.</p>
+            </div>
+          `;
+        }
 
         try {
-          currentResults = await engine.searchCreators(params, (msg) => {
+          const result = await engine.searchCreators({
+            query,
+            category: 'all',
+            pageToken: '',
+            searchDepth: 2
+          }, (msg) => {
             resultsStatus.textContent = msg;
           });
 
-          renderResults(currentResults);
+          const liveCreators = result.creators || [];
+          
+          // 2. Automatically save newly scraped creators into persistent repository database
+          engine.saveCreatorsToDatabase(liveCreators);
+          updateHeaderUI();
+
+          // Merge saved database leads and live discoveries (deduplicated)
+          const mergedMap = new Map();
+          if (Array.isArray(savedMatches)) {
+            savedMatches.forEach(c => mergedMap.set(c.id, c));
+          }
+          if (Array.isArray(liveCreators)) {
+            liveCreators.forEach(c => mergedMap.set(c.id, c));
+          }
+          rawCreatorPool = Array.from(mergedMap.values());
+
+          currentNextPageToken = result.nextPageToken || null;
+
+          selectedCreatorIds.clear();
+          updateBatchDock();
+          applyLiveFilters();
+
+          if (currentNextPageToken) {
+            loadMoreWrap.style.display = 'block';
+          }
         } catch (err) {
           console.error(err);
-          creatorsGrid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1; color: #ef4444;">
-              <div class="empty-icon">⚠️</div>
-              <h3>Search Notice</h3>
-              <p style="margin-top: 0.5rem; font-size: 0.9rem;">${err.message}</p>
-            </div>
-          `;
-          resultsStatus.textContent = 'Search halted';
+          // If live search fails (e.g. quota limit), but we have saved database leads, keep showing them!
+          if (rawCreatorPool.length > 0) {
+            resultsStatus.textContent = `Offline Mode: Displaying ${rawCreatorPool.length} saved leads from your local database.`;
+          } else {
+            creatorsGrid.innerHTML = `
+              <div class="empty-state" style="grid-column: 1 / -1; color: #ef4444;">
+                <div class="empty-icon">⚠️</div>
+                <h3>Search Notice</h3>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">${err.message}</p>
+              </div>
+            `;
+            resultsStatus.textContent = 'Search halted';
+          }
         } finally {
           searchBtn.disabled = false;
           btnText.textContent = '🔍 Search Creators';
         }
       }
 
+      // Load More Handler (Fetches next batch and merges with master candidate pool)
+      loadMoreBtn.addEventListener('click', async () => {
+        if (!currentNextPageToken || !currentSearchQuery) return;
+
+        loadMoreBtn.disabled = true;
+        loadMoreText.innerHTML = '<span class="loading-spinner"></span> Loading Next Batch...';
+
+        try {
+          const result = await engine.searchCreators({
+            query: currentSearchQuery,
+            category: 'all',
+            pageToken: currentNextPageToken,
+            searchDepth: 2
+          }, (msg) => {
+            resultsStatus.textContent = msg;
+          });
+
+          const newCreators = result.creators || [];
+          
+          // Index into database
+          engine.saveCreatorsToDatabase(newCreators);
+          updateHeaderUI();
+
+          // Deduplicate and append to raw pool
+          const existingIds = new Set(rawCreatorPool.map(c => c.id));
+          newCreators.forEach(c => {
+            if (!existingIds.has(c.id)) {
+              rawCreatorPool.push(c);
+            }
+          });
+
+          currentNextPageToken = result.nextPageToken || null;
+          applyLiveFilters();
+
+          if (!currentNextPageToken) {
+            loadMoreWrap.style.display = 'none';
+          }
+        } catch (err) {
+          console.error('Load more error:', err);
+          alert('Failed to load more creators: ' + err.message);
+        } finally {
+          loadMoreBtn.disabled = false;
+          loadMoreText.textContent = '⚡ Load More Creators (Next Batch)';
+        }
+      });
+
       // Render Creator Cards
-      function renderResults(creators) {
+      function renderResults(creators, totalInPool = 0) {
         if (!creators || creators.length === 0) {
-          resultsStatus.textContent = 'No matching creators found';
+          resultsStatus.textContent = totalInPool > 0 
+            ? `0 matching filters (out of ${totalInPool} creators found)` 
+            : 'No matching creators found';
           resultsActions.style.display = 'none';
+          batchDock.classList.remove('active');
           creatorsGrid.innerHTML = `
             <div class="empty-state" style="grid-column: 1 / -1;">
               <div class="empty-icon">🔍</div>
               <h3>No creators matched all filter criteria</h3>
-              <p style="margin-top: 0.5rem; font-size: 0.9rem;">Try broadening your subscriber range or choosing "All Formats".</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">We found ${totalInPool} channels for this search topic. Try loosening your subscriber range, average views, or click <strong>Reset Filters</strong> above.</p>
             </div>
           `;
           return;
         }
 
-        resultsStatus.textContent = `Found ${creators.length} Matching Creator Leads`;
+        resultsStatus.textContent = `Found ${creators.length} Matching Creator Leads ${totalInPool > 0 ? `(from pool of ${totalInPool})` : ''}`;
         resultsActions.style.display = 'flex';
+        selectAllBtn.textContent = (selectedCreatorIds.size === creators.length && creators.length > 0) ? '☒ Deselect All' : '☑️ Select All';
+        if (currentNextPageToken) {
+          loadMoreWrap.style.display = 'block';
+        }
         creatorsGrid.innerHTML = '';
 
         creators.forEach((c, idx) => {
           const isSaved = engine.isLeadScraped(c.id);
+          const isSelected = selectedCreatorIds.has(c.id);
+          const health = c.health || engine.calculateHealthScore(c);
+          
           const card = document.createElement('div');
           card.className = 'creator-card';
           card.innerHTML = `
             <div class="creator-banner" style="${c.banner ? `background-image: url('${c.banner}');` : ''}">
-              <span class="format-badge">${c.formatType || 'Longform'}</span>
+              <input type="checkbox" class="card-select-checkbox" data-id="${c.id}" ${isSelected ? 'checked' : ''} />
+              <span class="format-badge" style="left: 36px;">${c.formatType || 'Longform'}</span>
               ${isSaved ? '<span class="scraped-badge">Saved Lead</span>' : ''}
             </div>
             <div class="creator-body">
@@ -1076,6 +1455,7 @@
 
               <div class="tags-list">
                 <span class="badge-tag highlight" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-dark); font-weight: 600;">${c.categoryBadge || '🌟 Digital Creator'}</span>
+                <span class="health-badge" style="background: ${health.color}18; color: ${health.color};">🛡️ ${health.score}/100 ${health.label}</span>
                 ${c.contact.email ? '<span class="badge-tag highlight">📧 Email Verified</span>' : '<span class="badge-tag">No Public Email</span>'}
                 ${c.pastSponsors && c.pastSponsors.length > 0 ? `<span class="badge-tag">⭐ Partnered: ${c.pastSponsors[0]}</span>` : ''}
               </div>
@@ -1101,20 +1481,33 @@
               </div>
             </div>
           `;
+
+          // Card Checkbox toggle
+          const chk = card.querySelector('.card-select-checkbox');
+          chk.addEventListener('change', (e) => {
+            if (e.target.checked) {
+              selectedCreatorIds.add(c.id);
+            } else {
+              selectedCreatorIds.delete(c.id);
+            }
+            updateBatchDock();
+            selectAllBtn.textContent = (selectedCreatorIds.size === creators.length && creators.length > 0) ? '☒ Deselect All' : '☑️ Select All';
+          });
+
           creatorsGrid.appendChild(card);
         });
       }
 
       // Unlock Contact Details with Credits
       window.unlockLead = function(idx) {
-        const creator = currentResults[idx];
+        const creator = currentFilteredResults[idx];
         if (!creator || creator.unlocked) return;
 
         if (engine.useCredits(1)) {
           creator.unlocked = true;
           engine.saveLeadToHistory(creator);
           updateHeaderUI();
-          renderResults(currentResults);
+          renderResults(currentFilteredResults, rawCreatorPool.length);
         } else {
           alert('You have run out of credits! In the full version, credits can be refilled via subscription.');
         }
@@ -1122,24 +1515,30 @@
 
       // Save / Bookmark Lead
       window.toggleSaveLead = function(idx) {
-        const creator = currentResults[idx];
+        const creator = currentFilteredResults[idx];
         if (!creator) return;
         engine.saveLeadToHistory(creator);
-        renderResults(currentResults);
+        renderResults(currentFilteredResults, rawCreatorPool.length);
       };
 
-      // Lookalike Discovery Handler
+      // Lookalike Discovery Handler (Modash-style smart peer discovery)
       window.findLookalikes = function(idx) {
-        const c = currentResults[idx];
+        const c = currentFilteredResults[idx];
         if (!c) return;
-        const lookalikeQuery = `${c.title} travel style`;
-        window.scrollTo({ top: 150, behavior: 'smooth' });
+        
+        // Clean channel name from noise words and build lookalike query
+        const cleanTitle = (c.title || '').replace(/\b(vlogs|tv|official|channel|daily|show|yt)\b/gi, '').trim();
+        const categoryKeyword = (c.categoryBadge || '').replace(/[^\w\s]/gi, '').trim();
+        const lookalikeQuery = `${cleanTitle} ${categoryKeyword || ''}`.trim();
+        
+        queryInput.value = lookalikeQuery;
+        window.scrollTo({ top: 180, behavior: 'smooth' });
         executeSearch(lookalikeQuery);
       };
 
       // Pitch Modal Handler
       window.openPitchModal = function(idx) {
-        activePitchCreator = currentResults[idx];
+        activePitchCreator = currentFilteredResults[idx];
         if (!activePitchCreator) return;
 
         updatePitchContent();
@@ -1226,8 +1625,9 @@
 
       // Deep Dive Modal Handler
       window.openDeepDive = function(idx) {
-        const c = currentResults[idx];
+        const c = currentFilteredResults[idx];
         if (!c) return;
+        const health = c.health || engine.calculateHealthScore(c);
 
         modalContent.innerHTML = `
           <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
@@ -1235,6 +1635,9 @@
             <div>
               <h2 style="font-family: var(--font-serif); font-size: 1.6rem;">${c.title}</h2>
               <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${c.handle} · ${formatNumber(c.subscribers)} Subscribers</p>
+            </div>
+            <div style="margin-left: auto;">
+              <span class="health-badge" style="background: ${health.color}18; color: ${health.color}; font-size: 12px; padding: 0.35rem 0.75rem;">🛡️ ${health.score}/100 ${health.label}</span>
             </div>
           </div>
 
@@ -1296,14 +1699,14 @@
 
       // Export CSV Action
       exportCsvBtn.addEventListener('click', () => {
-        if (!currentResults || currentResults.length === 0) return;
-        const requiredCredits = Math.min(currentResults.length, 5);
+        if (!currentFilteredResults || currentFilteredResults.length === 0) return;
+        const requiredCredits = Math.min(currentFilteredResults.length, 5);
         if (engine.useCredits(requiredCredits)) {
-          currentResults.forEach(c => engine.saveLeadToHistory(c));
-          engine.exportToCSV(currentResults);
+          currentFilteredResults.forEach(c => engine.saveLeadToHistory(c));
+          engine.exportToCSV(currentFilteredResults);
           updateHeaderUI();
-          renderResults(currentResults);
-          alert(`Successfully exported ${currentResults.length} creator leads to CSV! (${requiredCredits} credits deducted)`);
+          renderResults(currentFilteredResults, rawCreatorPool.length);
+          alert(`Successfully exported ${currentFilteredResults.length} creator leads to CSV! (${requiredCredits} credits deducted)`);
         } else {
           alert('Not enough credits to export batch! Please refill credits.');
         }
@@ -1313,7 +1716,7 @@
       clearHistoryBtn.addEventListener('click', () => {
         if (confirm('Clear your saved creator lead history?')) {
           engine.clearHistory();
-          renderResults(currentResults);
+          renderResults(currentFilteredResults, rawCreatorPool.length);
         }
       });
     </script>

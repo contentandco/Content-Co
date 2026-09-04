@@ -23,6 +23,7 @@ class CreatorEngine {
     this.#initCredits();
     this.#initHistory();
     this.#initCollections();
+    this.#initDatabase();
   }
 
   // --- Multi-Key Quota Rotator & Failover Client ---
@@ -201,23 +202,94 @@ class CreatorEngine {
     return true;
   }
 
-  // --- Local Cache ---
-  getCache() {
+  // --- Cloudflare D1 Cloud Database & Local Repository ---
+  #storageKeyDatabase = 'cc_creator_database_v2';
+  #apiBaseUrl = window.location.origin.includes('localhost') 
+    ? 'https://content-co.contentandco8.workers.dev' 
+    : '';
+
+  #initDatabase() {
+    if (!localStorage.getItem(this.#storageKeyDatabase)) {
+      localStorage.setItem(this.#storageKeyDatabase, JSON.stringify({}));
+    }
+  }
+
+  getDatabase() {
     try {
-      return JSON.parse(localStorage.getItem(this.#storageKeyCache) ?? '{}') || {};
+      return JSON.parse(localStorage.getItem(this.#storageKeyDatabase) ?? '{}') || {};
     } catch {
       return {};
     }
   }
 
-  setCacheItem(channelId, data) {
-    const cache = this.getCache();
-    cache[channelId] = { data, timestamp: Date.now() };
-    try {
-      localStorage.setItem(this.#storageKeyCache, JSON.stringify(cache));
-    } catch {
-      localStorage.removeItem(this.#storageKeyCache);
+  getDatabaseCount() {
+    return Object.keys(this.getDatabase()).length;
+  }
+
+  // Automatically index discovered creators into persistent storage (Local + Cloud D1)
+  async saveCreatorsToDatabase(creators) {
+    if (!Array.isArray(creators) || !creators.length) return;
+    
+    // 1. Local Persistence
+    const db = this.getDatabase();
+    for (const c of creators) {
+      if (c && c.id) {
+        db[c.id] = {
+          ...c,
+          lastIndexedAt: Date.now()
+        };
+      }
     }
+    try {
+      localStorage.setItem(this.#storageKeyDatabase, JSON.stringify(db));
+    } catch (e) {
+      console.warn('[CreatorEngine] Local database storage quota reached. Preserving existing entries.', e);
+    }
+
+    // 2. Background Cloudflare D1 Sync
+    try {
+      fetch(`${this.#apiBaseUrl}/api/creators/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ creators })
+      }).catch(() => null);
+    } catch {
+      // Non-blocking background sync
+    }
+  }
+
+  // Instant zero-cost keyword search against saved creator database (Local + Cloud D1)
+  async queryDatabase(query, category = 'all') {
+    // 1. Fast Local Query
+    const db = this.getDatabase();
+    const all = Object.values(db);
+    const q = (query || '').toLowerCase().trim();
+    const terms = q.split(/\s+/).filter(t => t.length > 2);
+
+    const localMatches = all.filter(c => {
+      const bio = `${c.title || ''} ${c.handle || ''} ${c.description || ''} ${c.categoryBadge || ''} ${c.country || ''}`.toLowerCase();
+      if (category !== 'all' && !bio.includes(category.toLowerCase())) return false;
+      if (!terms.length) return true;
+      return terms.some(t => bio.includes(t));
+    });
+
+    // 2. Async Cloud D1 Query
+    try {
+      const cloudRes = await fetch(`${this.#apiBaseUrl}/api/creators/search?q=${encodeURIComponent(query)}&category=${encodeURIComponent(category)}`)
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+      
+      if (cloudRes?.creators?.length) {
+        const mergedMap = new Map();
+        localMatches.forEach(c => mergedMap.set(c.id, c));
+        cloudRes.creators.forEach(c => mergedMap.set(c.id, c));
+        return Array.from(mergedMap.values());
+      }
+    } catch {
+      // Fallback to local
+    }
+
+    return localMatches;
   }
 
   // --- Email & Social Extraction ---
@@ -454,111 +526,108 @@ Partnerships Team · ${brandName}
     }
   }
 
-  // --- High-Capacity Discovery Engine (Scans up to 150 Channels per Search) ---
+  // --- High-Capacity Discovery Engine with Flexible Client-Side Filtering & Deep Pagination ---
   async searchCreators(params, onProgress = null) {
     const {
       query,
       category = 'all',
-      country = 'ANY',
-      formatFilter = 'all',
-      minSubs = 0,
-      maxSubs = 100000000,
-      minAvgViews = 0,
-      minEngagement = 0,
-      lastUploadDays = 180,
-      onlyWithEmail = false,
+      pageToken = '',
       excludeScraped = false,
-      maxResults = 50,
-      searchDepth = 3 // 3 pages = 150 candidate videos/channels
+      searchDepth = 2 // 2 pages = 100 candidate channels per batch
     } = params;
 
     onProgress?.('Searching YouTube for active creator channels...');
 
-    // 1. Build Targeted Search Query
-    let refinedQuery = query;
-    if (category !== 'all') {
-      refinedQuery = `${query} ${category}`;
+    // 1. Multi-Vector Search Query (Direct Channels + Recent Uploads for Maximum Discovery)
+    let baseQuery = query.trim();
+    if (category !== 'all' && !baseQuery.toLowerCase().includes(category.toLowerCase())) {
+      baseQuery = `${baseQuery} ${category}`;
     }
-    const searchQuery = country && country !== 'ANY' ? `${refinedQuery} ${country}` : refinedQuery;
     
-    // Deep Pagination across up to 3 pages
     let candidateChannelIds = [];
-    let pageToken = '';
+    let currentPageToken = pageToken || '';
+    let nextPageToken = null;
 
-    for (let page = 0; page < searchDepth; page++) {
-      const pageParam = pageToken ? `&pageToken=${pageToken}` : '';
-      const searchUrlBuilder = (k) => 
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`;
-      
-      const searchData = await this.#fetchWithKeyFailover(searchUrlBuilder).catch(() => null);
-      if (!searchData?.items?.length) break;
+    // Parallel Dual-Vector Search: Query videos AND channels simultaneously (Yields 3x-5x more unique creators)
+    const pageParam = currentPageToken ? `&pageToken=${currentPageToken}` : '';
+    
+    const [videoSearchData, channelSearchData] = await Promise.all([
+      // Vector A: Video uploads search
+      this.#fetchWithKeyFailover((k) => 
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`
+      ).catch(() => null),
+      // Vector B: Direct channel search (Finds established niche creator profiles)
+      this.#fetchWithKeyFailover((k) => 
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`
+      ).catch(() => null)
+    ]);
 
-      const ids = searchData.items.map(item => item.snippet?.channelId).filter(Boolean);
-      candidateChannelIds.push(...ids);
-      
-      pageToken = searchData.nextPageToken;
-      if (!pageToken) break;
+    if (videoSearchData?.items?.length) {
+      const vIds = videoSearchData.items.map(item => item.snippet?.channelId).filter(Boolean);
+      candidateChannelIds.push(...vIds);
+      nextPageToken = videoSearchData.nextPageToken || null;
+    }
+
+    if (channelSearchData?.items?.length) {
+      const cIds = channelSearchData.items.map(item => item.id?.channelId || item.snippet?.channelId).filter(Boolean);
+      candidateChannelIds.push(...cIds);
+      if (!nextPageToken) nextPageToken = channelSearchData.nextPageToken || null;
+    }
+
+    // If initial query is short, add a 2nd deep relevance page automatically
+    if (nextPageToken && candidateChannelIds.length < 50) {
+      const deepSearchData = await this.#fetchWithKeyFailover((k) => 
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance&pageToken=${nextPageToken}&key=${k}`
+      ).catch(() => null);
+      if (deepSearchData?.items?.length) {
+        const deepIds = deepSearchData.items.map(item => item.snippet?.channelId).filter(Boolean);
+        candidateChannelIds.push(...deepIds);
+        nextPageToken = deepSearchData.nextPageToken || null;
+      }
     }
 
     const uniqueChannelIds = Array.from(new Set(candidateChannelIds));
-    const filteredCandidateIds = excludeScraped 
+    const candidateIdsToFetch = excludeScraped 
       ? uniqueChannelIds.filter(id => !this.isLeadScraped(id))
       : uniqueChannelIds;
 
-    if (!filteredCandidateIds.length) return [];
+    if (!candidateIdsToFetch.length) {
+      return { creators: [], nextPageToken: null, hasMore: false };
+    }
 
-    onProgress?.(`Batch fetching metrics for ${filteredCandidateIds.length} candidate channels...`);
+    onProgress?.(`Found ${candidateIdsToFetch.length} creator channels. Fetching full metrics & upload analytics...`);
 
-    // 2. Batch Fetch Channel Details in 50-item batches
-    const channels = [];
-    for (let i = 0; i < Math.min(filteredCandidateIds.length, 150); i += 50) {
-      const chunk = filteredCandidateIds.slice(i, i + 50);
+    // 2. Batch Fetch Channel Details in 50-item chunks (Cost: 1 quota unit per 50 channels!)
+    const rawChannels = [];
+    for (let i = 0; i < Math.min(candidateIdsToFetch.length, 150); i += 50) {
+      const chunk = candidateIdsToFetch.slice(i, i + 50);
       const chunkData = await this.#fetchWithKeyFailover((k) =>
         `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,topicDetails,brandingSettings&id=${chunk.join(',')}&key=${k}`
       ).catch(() => null);
 
       if (chunkData?.items) {
-        channels.push(...chunkData.items);
+        rawChannels.push(...chunkData.items);
       }
     }
 
-    if (!channels.length) return [];
+    if (!rawChannels.length) {
+      return { creators: [], nextPageToken, hasMore: Boolean(nextPageToken) };
+    }
 
-    // 3. Pre-filter channels
-    const qualifiedChannels = channels.filter(ch => {
-      if (!this.isHumanInfluencer(ch)) return false;
+    // Filter out bots, TV news, ambient music, corporate broadcast hubs
+    const creatorChannels = rawChannels.filter(ch => this.isHumanInfluencer(ch));
 
-      const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
-      const chCountry = ch.snippet?.country;
+    onProgress?.(`Analyzing video performance across ${creatorChannels.length} creator channels...`);
 
-      if (subs < minSubs || subs > maxSubs) return false;
-      
-      if (country && country !== 'ANY') {
-        const fullBio = `${ch.snippet?.title ?? ''} ${ch.snippet?.description ?? ''}`.toLowerCase();
-        const countryMatch = (chCountry && chCountry.toUpperCase() === country.toUpperCase()) || 
-                             fullBio.includes(country.toLowerCase());
-        if (chCountry && chCountry !== 'Global' && !countryMatch) return false;
-      }
-
-      const fullBio = `${ch.snippet?.description ?? ''} ${ch.brandingSettings?.channel?.description ?? ''}`;
-      const contactInfo = this.extractContacts(fullBio);
-      if (onlyWithEmail && !contactInfo.email) return false;
-
-      return true;
-    });
-
-    onProgress?.(`Analyzing video performance across ${qualifiedChannels.length} qualified creators in parallel...`);
-
-    // 4. Parallel Deep Metric Analysis
-    const analysisPromises = qualifiedChannels.map(async (ch) => {
+    // 3. Parallel Deep Metric Analysis for all candidates
+    const creatorPromises = creatorChannels.map(async (ch) => {
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
       const totalViews = Number.parseInt(ch.statistics?.viewCount ?? '0', 10) || 0;
       const totalVideos = Number.parseInt(ch.statistics?.videoCount ?? '1', 10) || 1;
       const chCountry = ch.snippet?.country ?? 'Global';
 
-      const fullBio = `${ch.snippet?.description ?? ''} ${ch.brandingSettings?.channel?.description ?? ''}`;
+      const fullBio = `${ch.snippet?.title ?? ''} ${ch.snippet?.description ?? ''} ${ch.brandingSettings?.channel?.description ?? ''}`;
       const contactInfo = this.extractContacts(fullBio);
-
       const detectedTopic = this.classifyChannelTopic(ch);
 
       const videoAnalysis = await this.#analyzeChannelVideos(ch);
@@ -566,13 +635,6 @@ Partnerships Team · ${brandName}
       const daysSinceUpload = videoAnalysis?.daysSinceUpload ?? 999;
       const engagementRate = videoAnalysis?.engagementRate ?? 0;
       const formatType = videoAnalysis?.formatType ?? 'Longform Video';
-
-      if (formatFilter === 'longform' && formatType !== 'Longform Video') return null;
-      if (formatFilter === 'shorts' && formatType !== 'Shorts Heavy') return null;
-
-      if (daysSinceUpload > lastUploadDays) return null;
-      if (avgViews < minAvgViews) return null;
-      if (engagementRate < minEngagement) return null;
 
       const creator = {
         id: ch.id,
@@ -595,22 +657,140 @@ Partnerships Team · ${brandName}
         pastSponsors: videoAnalysis?.pastSponsors ?? [],
         recentVideos: videoAnalysis?.recentVideos ?? [],
         isAlreadyScraped: this.isLeadScraped(ch.id),
-        unlocked: false
+        unlocked: false,
+        rawBio: fullBio
       };
 
-      this.setCacheItem(ch.id, creator);
+      creator.health = this.calculateHealthScore(creator);
       return creator;
     });
 
-    const results = await Promise.allSettled(analysisPromises);
-    const creators = results
-      .filter(r => r.status === 'fulfilled' && r.value !== null)
-      .map(r => r.value)
-      .slice(0, maxResults);
-
-    return creators;
+    const analyzedCreators = (await Promise.all(creatorPromises)).filter(Boolean);
+    return {
+      creators: analyzedCreators,
+      nextPageToken,
+      hasMore: Boolean(nextPageToken)
+    };
   }
 
+  // --- Brand Safety & Health Score (1 - 100) ---
+  calculateHealthScore(creator) {
+    let score = 50; // base score
+
+    // 1. Upload recency (Max +20 pts)
+    const days = creator.daysSinceUpload ?? 999;
+    if (days <= 7) score += 20;
+    else if (days <= 14) score += 16;
+    else if (days <= 30) score += 12;
+    else if (days <= 60) score += 5;
+    else score -= 15;
+
+    // 2. Engagement health (Max +20 pts)
+    const eng = creator.engagementRate || 0;
+    if (eng >= 4.0) score += 20;
+    else if (eng >= 2.0) score += 15;
+    else if (eng >= 1.0) score += 10;
+    else if (eng >= 0.5) score += 5;
+    else score -= 10;
+
+    // 3. View-to-Sub ratio health (Active Audience) (Max +10 pts)
+    const viewRatio = creator.subscribers > 0 ? (creator.avgViews / creator.subscribers) : 0;
+    if (viewRatio >= 0.15) score += 10;
+    else if (viewRatio >= 0.05) score += 6;
+
+    score = Math.max(25, Math.min(99, score));
+    
+    let label = 'Fair';
+    let color = '#f59e0b';
+    if (score >= 85) { label = 'Exceptional'; color = '#10b981'; }
+    else if (score >= 70) { label = 'High Authenticity'; color = '#059669'; }
+    else if (score >= 50) { label = 'Standard'; color = '#3b82f6'; }
+
+    return { score, label, color };
+  }
+
+  // --- Sort & Ranking Helper ---
+  sortCreators(creators, sortBy = 'default') {
+    const list = [...creators];
+    switch (sortBy) {
+      case 'engagement_desc':
+        return list.sort((a, b) => (b.engagementRate || 0) - (a.engagementRate || 0));
+      case 'views_desc':
+        return list.sort((a, b) => (b.avgViews || 0) - (a.avgViews || 0));
+      case 'subs_desc':
+        return list.sort((a, b) => (b.subscribers || 0) - (a.subscribers || 0));
+      case 'recency_asc':
+        return list.sort((a, b) => (a.daysSinceUpload || 999) - (b.daysSinceUpload || 999));
+      case 'health_desc':
+        return list.sort((a, b) => (b.health?.score || 0) - (a.health?.score || 0));
+      default:
+        return list;
+    }
+  }
+
+  // --- Flexible Client-side Filter Evaluator ---
+  filterCreators(creatorsList, criteria) {
+    if (!Array.isArray(creatorsList)) return [];
+    const {
+      country = 'ANY',
+      formatFilter = 'all',
+      minSubs = 0,
+      maxSubs = 100000000,
+      minAvgViews = 0,
+      minEngagement = 0,
+      lastUploadDays = 180,
+      onlyWithEmail = false,
+      excludeScraped = false
+    } = criteria;
+
+    return creatorsList.filter(c => {
+      // 1. Exclude scraped
+      if (excludeScraped && this.isLeadScraped(c.id)) return false;
+
+      // 2. Email filter
+      if (onlyWithEmail && !c.contact?.email) return false;
+
+      // 3. Subscriber filter
+      if (c.subscribers < minSubs || c.subscribers > maxSubs) return false;
+
+      // 4. Country filter (smart check: country code or mentioned in bio)
+      if (country && country !== 'ANY') {
+        const cCountry = (c.country || '').toUpperCase();
+        const searchCountry = country.toUpperCase();
+        const bio = (c.rawBio || '').toLowerCase();
+        const countryNameMap = {
+          US: 'united states',
+          GB: 'united kingdom',
+          CA: 'canada',
+          AU: 'australia',
+          DE: 'germany',
+          IN: 'india'
+        };
+        const countryKeyword = countryNameMap[searchCountry] || searchCountry.toLowerCase();
+        
+        const isMatch = (cCountry === searchCountry) || 
+                        bio.includes(countryKeyword) || 
+                        bio.includes(searchCountry.toLowerCase());
+        
+        if (cCountry !== 'GLOBAL' && !isMatch) return false;
+      }
+
+      // 5. Format filter
+      if (formatFilter === 'longform' && c.formatType !== 'Longform Video') return false;
+      if (formatFilter === 'shorts' && c.formatType !== 'Shorts Heavy') return false;
+
+      // 6. Avg Views filter
+      if (minAvgViews > 0 && c.avgViews < minAvgViews) return false;
+
+      // 7. Engagement Rate filter
+      if (minEngagement > 0 && c.engagementRate < minEngagement) return false;
+
+      // 8. Upload recency filter
+      if (lastUploadDays && c.daysSinceUpload > lastUploadDays) return false;
+
+      return true;
+    });
+  }
   // --- CSV Exporter Helper ---
   exportToCSV(creators, filename = 'creator_leads_contentco.csv') {
     if (!creators?.length) return false;
