@@ -1260,29 +1260,41 @@
         currentSearchQuery = query;
         currentNextPageToken = null;
 
-        // 1. Instant Cache/Database Pre-serve (Instant Free Leads!)
+        // 1. Instant Cache/Database Query (Zero-Cost Local + Cloud D1)
         const savedMatches = (await engine.queryDatabase(query)) || [];
+        
+        // If database already has 10+ matching leads, serve them directly for FREE without wasting YouTube API quota!
+        if (savedMatches.length >= 10) {
+          rawCreatorPool = [...savedMatches];
+          selectedCreatorIds.clear();
+          updateBatchDock();
+          applyLiveFilters();
+          resultsStatus.textContent = `⚡ Found ${savedMatches.length} creator leads from database (Zero API Quota Used)`;
+          searchBtn.disabled = false;
+          btnText.textContent = '🔍 Search Creators';
+          return;
+        }
+
+        // If database has some results, show them immediately while scanning YouTube for more
         if (savedMatches.length > 0) {
           rawCreatorPool = [...savedMatches];
           applyLiveFilters();
-          resultsStatus.textContent = `Serving ${savedMatches.length} indexed leads from database. Scanning YouTube for fresh additions...`;
+          resultsStatus.textContent = `Serving ${savedMatches.length} leads from database. Scanning YouTube for fresh creators...`;
+        } else {
+          resultsStatus.textContent = 'Searching active creator channels on YouTube...';
+          creatorsGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <div class="empty-icon"><span class="loading-spinner" style="border-color: rgba(16,185,129,0.3); border-top-color: var(--accent); width: 36px; height: 36px;"></span></div>
+              <h3>Discovering high-performing YouTube creators...</h3>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">Evaluating real view averages & engagement rates.</p>
+            </div>
+          `;
         }
 
         // UI Loading state
         searchBtn.disabled = true;
         btnText.innerHTML = '<span class="loading-spinner"></span> Scanning...';
         loadMoreWrap.style.display = 'none';
-
-        if (!savedMatches.length) {
-          resultsStatus.textContent = 'Searching active creator channels on YouTube...';
-          creatorsGrid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1;">
-              <div class="empty-icon"><span class="loading-spinner" style="border-color: rgba(16,185,129,0.3); border-top-color: var(--accent); width: 36px; height: 36px;"></span></div>
-              <h3>Discovering high-performing YouTube creators...</h3>
-              <p style="margin-top: 0.5rem; font-size: 0.9rem;">Fetching live statistics, upload velocity, and engagement rates.</p>
-            </div>
-          `;
-        }
 
         try {
           const result = await engine.searchCreators({
@@ -1296,7 +1308,7 @@
 
           const liveCreators = result.creators || [];
           
-          // 2. Automatically save newly scraped creators into persistent repository database
+          // 2. Automatically save newly scraped creators into persistent Cloud D1 + Local database
           engine.saveCreatorsToDatabase(liveCreators);
           updateHeaderUI();
 
@@ -1323,7 +1335,7 @@
           console.error(err);
           // If live search fails (e.g. quota limit), but we have saved database leads, keep showing them!
           if (rawCreatorPool.length > 0) {
-            resultsStatus.textContent = `Offline Mode: Displaying ${rawCreatorPool.length} saved leads from your local database.`;
+            resultsStatus.textContent = `Database Mode: Displaying ${rawCreatorPool.length} saved leads from your creator database.`;
           } else {
             creatorsGrid.innerHTML = `
               <div class="empty-state" style="grid-column: 1 / -1; color: #ef4444;">

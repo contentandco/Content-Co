@@ -451,6 +451,7 @@ Partnerships Team · ${brandName}
   }
 
   // --- Deep Channel Recent Video Analyzer ---
+  // --- Deep Channel Recent Video Analyzer (Fail-Safe) ---
   async #analyzeChannelVideos(channel) {
     const uploadsId = channel.contentDetails?.relatedPlaylists?.uploads;
     if (!uploadsId) return null;
@@ -458,16 +459,16 @@ Partnerships Team · ${brandName}
     try {
       const plData = await this.#fetchWithKeyFailover((k) => 
         `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${uploadsId}&maxResults=8&key=${k}`
-      );
+      ).catch(() => null);
       
-      const videoIds = plData.items?.map(v => v.contentDetails?.videoId).filter(Boolean) ?? [];
+      const videoIds = plData?.items?.map(v => v.contentDetails?.videoId).filter(Boolean) ?? [];
       if (!videoIds.length) return null;
 
       const vidData = await this.#fetchWithKeyFailover((k) =>
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoIds.join(',')}&key=${k}`
-      );
+      ).catch(() => null);
 
-      if (!vidData.items?.length) return null;
+      if (!vidData?.items?.length) return null;
 
       let totalRecentViews = 0;
       let totalInteractions = 0;
@@ -533,12 +534,11 @@ Partnerships Team · ${brandName}
       category = 'all',
       pageToken = '',
       excludeScraped = false,
-      searchDepth = 2 // 2 pages = 100 candidate channels per batch
+      searchDepth = 2
     } = params;
 
     onProgress?.('Searching YouTube for active creator channels...');
 
-    // 1. Multi-Vector Search Query (Direct Channels + Recent Uploads for Maximum Discovery)
     let baseQuery = query.trim();
     if (category !== 'all' && !baseQuery.toLowerCase().includes(category.toLowerCase())) {
       baseQuery = `${baseQuery} ${category}`;
@@ -548,42 +548,17 @@ Partnerships Team · ${brandName}
     let currentPageToken = pageToken || '';
     let nextPageToken = null;
 
-    // Parallel Dual-Vector Search: Query videos AND channels simultaneously (Yields 3x-5x more unique creators)
     const pageParam = currentPageToken ? `&pageToken=${currentPageToken}` : '';
     
-    const [videoSearchData, channelSearchData] = await Promise.all([
-      // Vector A: Video uploads search
-      this.#fetchWithKeyFailover((k) => 
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`
-      ).catch(() => null),
-      // Vector B: Direct channel search (Finds established niche creator profiles)
-      this.#fetchWithKeyFailover((k) => 
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`
-      ).catch(() => null)
-    ]);
+    // Query YouTube
+    const searchData = await this.#fetchWithKeyFailover((k) => 
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance${pageParam}&key=${k}`
+    ).catch(() => null);
 
-    if (videoSearchData?.items?.length) {
-      const vIds = videoSearchData.items.map(item => item.snippet?.channelId).filter(Boolean);
+    if (searchData?.items?.length) {
+      const vIds = searchData.items.map(item => item.snippet?.channelId).filter(Boolean);
       candidateChannelIds.push(...vIds);
-      nextPageToken = videoSearchData.nextPageToken || null;
-    }
-
-    if (channelSearchData?.items?.length) {
-      const cIds = channelSearchData.items.map(item => item.id?.channelId || item.snippet?.channelId).filter(Boolean);
-      candidateChannelIds.push(...cIds);
-      if (!nextPageToken) nextPageToken = channelSearchData.nextPageToken || null;
-    }
-
-    // If initial query is short, add a 2nd deep relevance page automatically
-    if (nextPageToken && candidateChannelIds.length < 50) {
-      const deepSearchData = await this.#fetchWithKeyFailover((k) => 
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(baseQuery)}&maxResults=50&order=relevance&pageToken=${nextPageToken}&key=${k}`
-      ).catch(() => null);
-      if (deepSearchData?.items?.length) {
-        const deepIds = deepSearchData.items.map(item => item.snippet?.channelId).filter(Boolean);
-        candidateChannelIds.push(...deepIds);
-        nextPageToken = deepSearchData.nextPageToken || null;
-      }
+      nextPageToken = searchData.nextPageToken || null;
     }
 
     const uniqueChannelIds = Array.from(new Set(candidateChannelIds));
@@ -597,9 +572,9 @@ Partnerships Team · ${brandName}
 
     onProgress?.(`Found ${candidateIdsToFetch.length} creator channels. Fetching full metrics & upload analytics...`);
 
-    // 2. Batch Fetch Channel Details in 50-item chunks (Cost: 1 quota unit per 50 channels!)
+    // Batch Fetch Channel Details (50 at a time)
     const rawChannels = [];
-    for (let i = 0; i < Math.min(candidateIdsToFetch.length, 150); i += 50) {
+    for (let i = 0; i < Math.min(candidateIdsToFetch.length, 100); i += 50) {
       const chunk = candidateIdsToFetch.slice(i, i + 50);
       const chunkData = await this.#fetchWithKeyFailover((k) =>
         `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails,topicDetails,brandingSettings&id=${chunk.join(',')}&key=${k}`
@@ -619,7 +594,7 @@ Partnerships Team · ${brandName}
 
     onProgress?.(`Analyzing video performance across ${creatorChannels.length} creator channels...`);
 
-    // 3. Parallel Deep Metric Analysis for all candidates
+    // Parallel Deep Metric Analysis
     const creatorPromises = creatorChannels.map(async (ch) => {
       const subs = Number.parseInt(ch.statistics?.subscriberCount ?? '0', 10) || 0;
       const totalViews = Number.parseInt(ch.statistics?.viewCount ?? '0', 10) || 0;
