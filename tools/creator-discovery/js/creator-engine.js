@@ -5,6 +5,7 @@
 
 class CreatorEngine {
   #apiKeys = [
+    'AIzaSyBNjgaj1gNYAE5DEurXI4UeiRuYK2GDAyM',
     'AIzaSyBvrRPVd-7Yj6K6Z1yW_Qodve1us-VHKlI'
   ];
   #activeKeyIndex = 0;
