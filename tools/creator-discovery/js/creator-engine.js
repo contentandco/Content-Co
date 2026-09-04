@@ -753,7 +753,7 @@ Partnerships Team · ${brandName}
       // 3. Subscriber filter
       if (c.subscribers < minSubs || c.subscribers > maxSubs) return false;
 
-      // 4. Country filter (smart check: country code or mentioned in bio)
+      // 4. Country filter (smart check: country code or mentioned in bio/title)
       if (country && country !== 'ANY') {
         const cCountry = (c.country || '').toUpperCase();
         const searchCountry = country.toUpperCase();
@@ -770,9 +770,10 @@ Partnerships Team · ${brandName}
         
         const isMatch = (cCountry === searchCountry) || 
                         bio.includes(countryKeyword) || 
-                        bio.includes(searchCountry.toLowerCase());
+                        bio.includes(searchCountry.toLowerCase()) ||
+                        cCountry === 'GLOBAL' || !cCountry;
         
-        if (cCountry !== 'GLOBAL' && !isMatch) return false;
+        if (!isMatch) return false;
       }
 
       // 5. Format filter
