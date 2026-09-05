@@ -325,6 +325,166 @@
         .map-header-label {
           font-size: 1.05rem !important;
         }
+
+        .map-header-nav {
+          display: none !important;
+        }
+
+        .mobile-burger-btn {
+          display: flex !important;
+        }
+      }
+
+      /* ─── Mobile Hamburger Menu & Drawer ─── */
+      .mobile-burger-btn {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        border: 1px solid var(--border-light);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+        padding: 0;
+        transition: all 0.2s ease;
+      }
+
+      .mobile-burger-btn:hover {
+        background: #ffffff;
+        border-color: var(--accent);
+      }
+
+      .mobile-burger-line {
+        width: 18px;
+        height: 2px;
+        background-color: var(--text);
+        border-radius: 2px;
+        transition: all 0.2s ease;
+      }
+
+      .mobile-nav-drawer {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(24, 24, 27, 0.45);
+        backdrop-filter: blur(6px);
+        display: flex;
+        justify-content: flex-end;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .mobile-nav-drawer.is-active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .mobile-drawer-panel {
+        width: min(85vw, 340px);
+        height: 100%;
+        background: #ffffff;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        padding: 1.75rem 1.5rem;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        overflow-y: auto;
+      }
+
+      .mobile-nav-drawer.is-active .mobile-drawer-panel {
+        transform: translateX(0);
+      }
+
+      .mobile-drawer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--border-light);
+        margin-bottom: 1.5rem;
+      }
+
+      .mobile-drawer-close {
+        background: none;
+        border: none;
+        font-size: 28px;
+        line-height: 1;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0 4px;
+        transition: color 0.2s ease;
+      }
+
+      .mobile-drawer-close:hover {
+        color: var(--text);
+      }
+
+      .mobile-drawer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+        flex: 1;
+      }
+
+      .mobile-drawer-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 1.1rem;
+        border-radius: 10px;
+        color: var(--text);
+        text-decoration: none;
+        font-family: var(--font-sans);
+        font-size: 1.05rem;
+        font-weight: 500;
+        background: #fafaf9;
+        border: 1px solid rgba(212, 212, 216, 0.5);
+        transition: all 0.2s ease;
+      }
+
+      .mobile-drawer-item:hover {
+        background: rgba(16, 185, 129, 0.08);
+        border-color: var(--accent);
+        color: #047857;
+      }
+
+      .mobile-drawer-item .arrow {
+        color: var(--text-muted);
+        font-size: 1rem;
+        transition: transform 0.2s ease;
+      }
+
+      .mobile-drawer-item:hover .arrow {
+        transform: translateX(4px);
+        color: var(--accent);
+      }
+
+      .mobile-drawer-cta {
+        margin-top: 2rem;
+        display: block;
+        text-align: center;
+        background: var(--accent);
+        color: var(--text);
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        box-shadow: 0 10px 25px -8px rgba(16, 185, 129, 0.6);
+        transition: all 0.2s ease;
+      }
+
+      .mobile-drawer-cta:hover {
+        background: #059669;
+        color: #ffffff;
+        transform: translateY(-1px);
       }
 
       /* ─── Modal Drawer & Fullscreen ─── */
@@ -1019,13 +1179,62 @@
         <div class="map-header-nav anim-fade-up anim-delay-2">
           <a href="creators.html" class="map-nav-link">Creators</a>
           <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
+          <a href="campaign-concepts.html" class="map-nav-link">Concepts</a>
+          <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
           <a href="rate-calculator.html" class="map-nav-link">Tools</a>
           <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
           <a href="blog.html" target="_blank" rel="noopener noreferrer" class="map-nav-link">Blog</a>
           <span style="color: var(--border-light); font-size: 0.8rem;">|</span>
           <a href="contact-us.html" class="map-nav-link map-nav-cta">Contact</a>
         </div>
+
+        <!-- Mobile Burger Trigger -->
+        <button class="mobile-burger-btn" id="openMobileMenu" aria-label="Open navigation menu">
+          <span class="mobile-burger-line"></span>
+          <span class="mobile-burger-line"></span>
+          <span class="mobile-burger-line"></span>
+        </button>
       </header>
+
+      <!-- Mobile Nav Drawer Overlay -->
+      <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-hidden="true">
+        <div class="mobile-drawer-panel">
+          <div class="mobile-drawer-top">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text);">
+              <img src="logo.svg" alt="Content & Co" style="height: 24px; width: auto;" />
+              <span style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600;">Content &amp; Co</span>
+            </a>
+            <button class="mobile-drawer-close" id="closeMobileMenu" aria-label="Close menu">&times;</button>
+          </div>
+
+          <div class="mobile-drawer-links">
+            <a href="index.html" class="mobile-drawer-item">
+              <span>Home</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+            <a href="creators.html" class="mobile-drawer-item">
+              <span>Creators</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+            <a href="campaign-concepts.html" class="mobile-drawer-item">
+              <span>Campaign Concepts</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+            <a href="rate-calculator.html" class="mobile-drawer-item">
+              <span>Rate Calculator</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+            <a href="blog.html" class="mobile-drawer-item">
+              <span>Creator Insights Blog</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+          </div>
+
+          <a href="contact-us.html" class="mobile-drawer-cta">
+            Work With Our Creators &rarr;
+          </a>
+        </div>
+      </div>
 
       <!-- Hero -->
       <div class="map-hero">
@@ -1506,6 +1715,37 @@
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && dcModal.classList.contains('active')) {
             closeDcModal();
+          }
+        });
+      }
+
+      // Mobile Menu Drawer Controls
+      const openMobileBtn = document.getElementById('openMobileMenu');
+      const closeMobileBtn = document.getElementById('closeMobileMenu');
+      const mobileDrawer = document.getElementById('mobileNavDrawer');
+
+      if (openMobileBtn && mobileDrawer && closeMobileBtn) {
+        openMobileBtn.addEventListener('click', () => {
+          mobileDrawer.classList.add('is-active');
+          document.body.style.overflow = 'hidden';
+        });
+
+        const closeMobile = () => {
+          mobileDrawer.classList.remove('is-active');
+          document.body.style.overflow = '';
+        };
+
+        closeMobileBtn.addEventListener('click', closeMobile);
+
+        mobileDrawer.addEventListener('click', (e) => {
+          if (e.target === mobileDrawer) {
+            closeMobile();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileDrawer.classList.contains('is-active')) {
+            closeMobile();
           }
         });
       }
