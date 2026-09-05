@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Finding the right creator is only half the job. Learn what to actually say in your first influencer outreach email to get replies and start real partnerships." />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://contentco.info/blog/influencer-outreach-what-to-say-first-contact.html" />
+    <meta property="og:title" content="Influencer Outreach: What to Say When You First Contact a Creator - Content &amp; Co" />
+    <meta property="og:description" content="Finding the right creator is only half the job. Learn what to actually say in your first influencer outreach email to get replies and start real partnerships." />
+    <meta property="og:image" content="https://contentco.info/assets/blog/influencer_outreach_hero.jpg" />
+    <meta name="theme-color" content="#10b981" />
+    <title>Influencer Outreach: What to Say When You First Contact a Creator - Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="../assets/Google%20search.png" type="image/png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('../Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .center-glow {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Header & Footer ─── */
+      .map-header, .map-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+      @media (min-width: 40rem) { .map-header, .map-footer { padding: 1.25rem 2.5rem; } }
+
+      .map-header-left { display: flex; align-items: center; gap: 0.75rem; }
+      .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+      
+      .map-header-label, .map-footer-label, .map-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+      .map-footer-links a { color: var(--text-muted); text-decoration: underline; }
+
+      /* ─── Blog Post ─── */
+      .blog-container {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 1.5rem;
+        display: flex;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .blog-post {
+        max-width: 720px;
+        width: 100%;
+        background: var(--card-bg);
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px -15px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-light);
+      }
+
+      @media (max-width: 40rem) {
+        .blog-post { padding: 2rem 1.5rem; }
+      }
+
+      .post-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        color: var(--text);
+        text-wrap: balance;
+      }
+      
+      .post-meta {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 1.5rem;
+      }
+
+      .post-content {
+        font-family: var(--font-sans);
+        color: #3f3f46;
+        line-height: 1.8;
+        font-size: 1.125rem;
+      }
+
+      .post-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .post-content h2 {
+        font-family: var(--font-serif);
+        font-size: 1.95rem;
+        color: var(--text);
+        margin-top: 3.25rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.25;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .step-num {
+        font-family: var(--font-mono);
+        font-size: 1.125rem;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        margin-top: 0.25rem;
+      }
+
+      .post-content ul {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      .post-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .post-content strong {
+        font-weight: 600;
+        color: var(--text);
+      }
+      
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Quote / Highlight Box */
+      .highlight-box {
+        background: var(--accent-soft);
+        border-left: 4px solid var(--accent);
+        padding: 1.25rem 1.5rem;
+        border-radius: 6px;
+        margin: 2rem 0;
+        color: var(--text);
+      }
+
+      .email-card {
+        background: #fdfdfc;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        margin: 1.5rem 0 2rem;
+        position: relative;
+      }
+      
+      .email-card-header {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .email-card.bad {
+        border-left: 4px solid #ef4444;
+      }
+
+      .email-card.good {
+        border-left: 4px solid var(--accent);
+      }
+
+      .copy-btn {
+        background: var(--accent-soft);
+        color: var(--accent-dark);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        padding: 0.25rem 0.6rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .copy-btn:hover {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      /* Outreach Checklist / Interactive Tool */
+      .checklist-card {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: #fafaf9;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+      }
+
+      .checklist-card h3 {
+        font-family: var(--font-serif);
+        font-size: 1.75rem;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+
+      .checklist-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+      }
+
+      .checklist-list {
+        list-style: none;
+        padding-left: 0 !important;
+        margin-bottom: 1.5rem !important;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .checklist-item:last-child {
+        border-bottom: none;
+      }
+
+      .checklist-checkbox {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--text-muted);
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        margin-top: 0.15rem;
+        flex-shrink: 0;
+      }
+
+      .checklist-checkbox:checked {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .checklist-checkbox:checked::after {
+        content: "✓";
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .checklist-text {
+        font-size: 1rem;
+        color: #3f3f46;
+        transition: color 0.2s ease, text-decoration 0.2s ease;
+      }
+
+      .checklist-checkbox:checked + .checklist-text {
+        color: var(--text-muted);
+        text-decoration: line-through;
+      }
+
+      .checklist-progress-bar {
+        height: 6px;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+
+      .checklist-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: var(--accent);
+        transition: width 0.3s ease;
+      }
+
+      .checklist-status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+      }
+
+      .checklist-btn-reset {
+        background: none;
+        border: none;
+        color: var(--accent-dark);
+        cursor: pointer;
+        text-decoration: underline;
+        font-family: var(--font-mono);
+        font-size: 11px;
+      }
+
+      /* ─── Animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-fade-up { opacity: 0; animation: fade-up 0.8s ease-out forwards; }
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+
+      /* ─── CTA & Keep Reading Styles ─── */
+      .article-cta {
+        margin-top: 3.5rem;
+        padding: 2.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        text-align: left;
+      }
+      .cta-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+      .article-cta h3 {
+        font-family: var(--font-serif);
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+        color: var(--text);
+      }
+      .article-cta p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 1.75rem;
+      }
+      .cta-btn {
+        display: inline-block;
+        background: var(--text);
+        color: #ffffff;
+        padding: 0.85rem 1.75rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .cta-btn:hover {
+        background: var(--accent);
+        color: var(--text);
+      }
+
+      .related-articles {
+        margin-top: 4rem;
+        border-top: 1px solid var(--border-light);
+        padding-top: 3rem;
+        text-align: left;
+      }
+      .related-articles h2 {
+        font-family: var(--font-serif);
+        font-size: 2.25rem;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        margin-top: 0 !important;
+      }
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.5rem;
+      }
+      @media (min-width: 40rem) {
+        .related-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .related-card {
+        padding: 1.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .related-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -10px rgba(0,0,0,0.08);
+      }
+      .related-title {
+        font-family: var(--font-serif);
+        font-size: 1.35rem;
+        line-height: 1.3;
+        margin-bottom: 1.25rem;
+        color: var(--text);
+      }
+      .related-arrow {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+    </style>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Influencer Outreach: What to Say When You First Contact a Creator",
+      "description": "Finding the right creator is only half the job. Learn what to actually say in your first influencer outreach email to get replies and start real partnerships.",
+      "datePublished": "2026-09-05T10:00:00+05:30",
+      "dateModified": "2026-09-05T10:00:00+05:30",
+      "author": {
+        "@type": "Organization",
+        "name": "Content & Co",
+        "url": "https://contentco.info"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Content & Co",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://contentco.info/assets/logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://contentco.info/blog/influencer-outreach-what-to-say-first-contact.html"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <main class="map-page">
+      <div class="map-bg-nature" aria-hidden="true"></div>
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <header class="map-header">
+        <div class="map-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="map-header-label">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Content &amp; Co</a> / <a href="../blog.html" style="color: inherit; text-decoration: none;">Blog</a>
+          </span>
+        </div>
+      </header>
+
+      <div class="blog-container anim-fade-up anim-delay-2">
+        <article class="blog-post">
+          <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+          
+          <h1 class="post-title">Influencer Outreach: What to Say When You First Contact a Creator</h1>
+          <div class="post-meta">September 5, 2026 · 4 min read · For Brands</div>
+          
+          <img src="../assets/blog/influencer_outreach_hero.jpg" alt="A modern editorial workspace with an email draft to a creator and notes on a wooden desk" class="post-hero-img" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem; border: 1px solid var(--border-light);" />
+          
+          <div class="post-content">
+            <p>Finding the right creator is only half the job.</p>
+            <p>You can have a great shortlist and still get almost no replies if your first message feels like it was copied and sent to 200 people.</p>
+            <p>Creators get plenty of brand emails every single week. Most of them are easy to ignore.</p>
+            <p>So what should you actually say?</p>
+
+            <h2>
+              <span class="step-num">01</span>
+              Start with why you picked them
+            </h2>
+            <p>Don't open with a long introduction about your company.</p>
+            <p>Tell them why you're reaching out to them specifically.</p>
+
+            <div class="email-card bad">
+              <div class="email-card-header">❌ Instead of (Generic &amp; Self-Centered)</div>
+              <p style="margin-bottom: 0; font-style: italic; color: #71717a;">
+                “We're a leading travel company looking to collaborate with creators across the world.”
+              </p>
+            </div>
+
+            <div class="email-card good">
+              <div class="email-card-header">
+                <span>✓ Try this (Specific &amp; Human)</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('I’ve been watching your travel videos and really liked your recent content around budget trips.'); this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 2000);">Copy</button>
+              </div>
+              <p style="margin-bottom: 0; font-weight: 500; color: var(--text);">
+                “I've been watching your travel videos and really liked your recent content around budget trips.”
+              </p>
+            </div>
+
+            <p>It's a small difference, but it tells the creator that you actually looked at their content and didn't just scrape their email from a generic database.</p>
+
+            <h2>
+              <span class="step-num">02</span>
+              Keep the first message short
+            </h2>
+            <p>Your first email doesn't need to explain the entire campaign, your brand's founding backstory, or a 10-page creative brief.</p>
+            <p>You mainly need to answer three simple questions:</p>
+            <ul>
+              <li><strong>Why them?</strong> (What about their channel fits)</li>
+              <li><strong>Why you?</strong> (What brand or product you represent)</li>
+              <li><strong>What are you asking for?</strong> (A quick conversation to see if it makes sense)</li>
+            </ul>
+
+            <div class="email-card good">
+              <div class="email-card-header">
+                <span>Sample First Contact Pitch</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('We’re working on an upcoming campaign for a travel app and think your audience could be a good fit. Would you be open to hearing more about it?'); this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 2000);">Copy</button>
+              </div>
+              <p style="margin-bottom: 0; font-weight: 500; color: var(--text);">
+                “We're working on an upcoming campaign for a travel app and think your audience could be a good fit. Would you be open to hearing more about it?”
+              </p>
+            </div>
+
+            <p>That's enough to start a conversation. You can discuss deliverables, rates, timelines, and content ideas once they confirm they're interested.</p>
+
+            <h2>
+              <span class="step-num">03</span>
+              Don't pretend every creator is your perfect match
+            </h2>
+            <p>Creators can tell immediately when an email is generic.</p>
+            <p>If you're contacting a travel creator, mention something real and verifiable about their content:</p>
+            <ul>
+              <li>Maybe they make city guides for solo backpackers.</li>
+              <li>Maybe they focus on long-form van-life vlogs.</li>
+              <li>Maybe their audience is passionate about flight hacks and budget routes.</li>
+            </ul>
+            <p>Use that context. One genuine sentence is worth more than five paragraphs of polished corporate language.</p>
+
+            <h2>
+              <span class="step-num">04</span>
+              Give them enough information to decide
+            </h2>
+            <p>Once a creator responds showing interest, don't make them play email ping-pong for a week just to understand the scope.</p>
+            <p>Lay out the basics clearly:</p>
+            <ul>
+              <li><strong>Brand:</strong> Who you are and what product you're promoting.</li>
+              <li><strong>Campaign:</strong> The central theme or objective.</li>
+              <li><strong>Content Format:</strong> Dedicated video, 60s integration, Shorts/Reels, or UGC.</li>
+              <li><strong>Approximate Timeline:</strong> Publishing window and review deadlines.</li>
+              <li><strong>Main Deliverables:</strong> Exact deliverables expected.</li>
+              <li><strong>Budget or Rate Expectations:</strong> What budget bracket is allocated, when appropriate.</li>
+              <li><strong>Any Important Requirements:</strong> Exclusivity, whitelisting rights, or geographic restrictions.</li>
+            </ul>
+            <p>The creator should be able to quickly decide whether the opportunity aligns with their calendar and audience.</p>
+
+            <h2>
+              <span class="step-num">05</span>
+              Don't make the first message all about your brand
+            </h2>
+            <p>This is easy to forget when writing outreach campaigns.</p>
+            <p>The creator doesn't really care that your company was founded in 2018, won an industry award last year, or has users in 50 countries.</p>
+            <p>They care about whether the partnership makes sense for them and provides real value to their audience.</p>
+            <p><strong>Lead with the opportunity, not your company history.</strong></p>
+
+            <h2>
+              <span class="step-num">06</span>
+              And don't give up after one email
+            </h2>
+            <p>Sometimes a creator doesn't reply simply because they're busy filming, traveling, or buried under inbox overload.</p>
+            <p>That doesn't automatically mean they're not interested.</p>
+            <p>A simple, polite follow-up 3 to 4 days later can double your response rate.</p>
+
+            <div class="email-card good">
+              <div class="email-card-header">
+                <span>The Frictionless Follow-Up</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('Just wanted to follow up on this in case it got buried in your inbox. No pressure at all, just let me know if you might be interested!'); this.textContent='Copied!'; setTimeout(() => this.textContent='Copy', 2000);">Copy</button>
+              </div>
+              <p style="margin-bottom: 0; font-weight: 500; color: var(--text);">
+                “Just wanted to follow up on this in case it got buried in your inbox. No pressure at all, just let me know if you might be interested!”
+              </p>
+            </div>
+
+            <p>No guilt. No pressure. Just a clean reminder.</p>
+
+            <!-- Interactive Pitch Readiness Checklist -->
+            <div class="checklist-card">
+              <h3>Pre-Send Outreach Checklist</h3>
+              <p>Before you hit send on your creator outreach emails, verify these 5 checkpoints:</p>
+              
+              <div class="checklist-progress-bar">
+                <div class="checklist-progress-fill" id="progress-fill"></div>
+              </div>
+
+              <div class="checklist-status">
+                <span id="checked-count">0 of 5 checked</span>
+                <button class="checklist-btn-reset" id="btn-reset">Reset</button>
+              </div>
+
+              <ul class="checklist-list">
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox" />
+                  <span class="checklist-text">Did I mention a specific recent video or topic they actually created?</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox" />
+                  <span class="checklist-text">Is the email under 100 words with a single clear call-to-action?</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox" />
+                  <span class="checklist-text">Did I remove long corporate company backstory paragraphs?</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox" />
+                  <span class="checklist-text">Is it addressed to their real creator name or channel handle?</span>
+                </label>
+                <label class="checklist-item">
+                  <input type="checkbox" class="checklist-checkbox" />
+                  <span class="checklist-text">Do I have a gentle follow-up reminder scheduled for 4 days out?</span>
+                </label>
+              </ul>
+            </div>
+
+            <h2 style="margin-top: 3.5rem;">
+              The goal isn't to send more emails
+            </h2>
+            <p>It's to start better conversations.</p>
+            <p>You could send 100 generic pitches and get nowhere. Or send 30 well-researched ones and find several creators who are genuinely interested and enthusiastic to work together.</p>
+            <p>The difference usually starts before you even press send.</p>
+
+            <div class="highlight-box">
+              <p style="font-family: var(--font-serif); font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--text); font-style: italic;">
+                “Find the right creator. Give them a reason to care. Keep the message human.”
+              </p>
+              <p style="font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0;">
+                The Golden Rule of Creator Outreach
+              </p>
+            </div>
+          </div>
+
+          <!-- For Brands CTA -->
+          <div class="article-cta">
+            <span class="cta-eyebrow">For Brands</span>
+            <h3>Want high-converting creators without the outreach headache?</h3>
+            <p>We discover vetted creators, manage communications, negotiate fair rates, and run high-performing sponsorship campaigns from end to end.</p>
+            <a href="../contact-us.html?ref=blog_outreach_guide" class="cta-btn">Work With Our Creators &rarr;</a>
+          </div>
+
+          <!-- Keep Reading (Related Posts) -->
+          <div class="related-articles">
+            <h2>Keep Reading</h2>
+            <div class="related-grid">
+              <a class="related-card" href="how-to-find-the-right-influencers-for-your-brand.html">
+                <div class="related-title">How to Find the Right Influencers for Your Brand</div>
+                <span class="related-arrow">Read article &rarr;</span>
+              </a>
+              <a class="related-card" href="why-your-travel-influencer-campaign-isnt-working.html">
+                <div class="related-title">Why Your Travel Influencer Campaign Isn't Working</div>
+                <span class="related-arrow">Read article &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <footer class="map-footer">
+        <span class="map-footer-label anim-fade-up anim-delay-2">Content &amp; Co</span>
+        <span class="map-footer-links anim-fade-up anim-delay-2">
+          <a href="../index.html">Home</a> · <a href="../privacy.html">Privacy</a>
+        </span>
+      </footer>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('.checklist-checkbox');
+        const fill = document.getElementById('progress-fill');
+        const label = document.getElementById('checked-count');
+        const resetBtn = document.getElementById('btn-reset');
+
+        function updateProgress() {
+          const total = checkboxes.length;
+          const checked = Array.from(checkboxes).filter(c => c.checked).length;
+          const percentage = (checked / total) * 100;
+          fill.style.width = `${percentage}%`;
+          label.textContent = `${checked} of ${total} checked`;
+        }
+
+        checkboxes.forEach(c => {
+          c.addEventListener('change', updateProgress);
+        });
+
+        resetBtn.addEventListener('click', () => {
+          checkboxes.forEach(c => c.checked = false);
+          updateProgress();
+        });
+      });
+    </script>
+  </body>
+</html>
