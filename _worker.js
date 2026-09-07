@@ -142,7 +142,12 @@ export default {
       }
     }
 
-    // 3. Fallback: Serve Static Assets (HTML, CSS, JS) via Cloudflare Assets
+    // 3. Protect internal tools from public access
+    if (url.pathname.startsWith('/tools/')) {
+      return new Response('Not Found', { status: 404 });
+    }
+
+    // 4. Fallback: Serve Static Assets (HTML, CSS, JS) via Cloudflare Assets
     if (env.ASSETS) {
       return env.ASSETS.fetch(request);
     }
