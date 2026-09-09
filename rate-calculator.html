@@ -485,6 +485,7 @@
       }
     </style>
   </head>
+  <body>
     <!-- Logo Navbar -->
     <nav class="nav">
       <a href="index.html" class="nav-logo">
@@ -541,12 +542,12 @@
             </select>
           </div>
           <div>
-            <label class="label" for="sampleSizeSelect">Analysis Depth (Recent Uploads)</label>
-            <select id="sampleSizeSelect" class="select-input">
-              <option value="10" selected>Last 10 Uploads (Standard)</option>
-              <option value="25">Last 25 Uploads (Deeper Sample)</option>
-              <option value="50">Last 50 Uploads (Extended Sample)</option>
-            </select>
+            <label class="label">Analysis Method</label>
+            <div style="background: #fafaf9; border: 1.5px solid var(--border-light); border-radius: 0.75rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.92rem; font-weight: 500; color: var(--text);">Last 10 Recent Uploads</span>
+              <span style="font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; background: rgba(16, 185, 129, 0.15); color: #047857; font-weight: 700; padding: 3px 8px; border-radius: 100px;">Standard</span>
+            </div>
+            <input type="hidden" id="sampleSizeSelect" value="10" />
           </div>
         </div>
 

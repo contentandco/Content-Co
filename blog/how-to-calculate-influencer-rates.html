@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Learn how to accurately calculate YouTube and influencer sponsorship rates in 2026 using expected views, CPM benchmarks, content format tiers, usage rights, and our free Rate Calculator." />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://contentco.info/blog/how-to-calculate-influencer-rates.html" />
+    <meta property="og:title" content="How to Calculate Influencer Rates in 2026 - Content &amp; Co" />
+    <meta property="og:description" content="Learn how to accurately calculate YouTube and influencer sponsorship rates in 2026 using expected views, CPM benchmarks, content format tiers, usage rights, and our free Rate Calculator." />
+    <meta property="og:image" content="https://contentco.info/assets/blog/calculate_rates_hero.jpg" />
+    <meta name="theme-color" content="#10b981" />
+    <title>How to Calculate Influencer Rates in 2026 - Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="../assets/Google%20search.png" type="image/png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('../Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .center-glow {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Header & Footer ─── */
+      .map-header, .map-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+      @media (min-width: 40rem) { .map-header, .map-footer { padding: 1.25rem 2.5rem; } }
+
+      .map-header-left { display: flex; align-items: center; gap: 0.75rem; }
+      .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+      
+      .map-header-label, .map-footer-label, .map-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+      .map-footer-links a { color: var(--text-muted); text-decoration: underline; }
+
+      /* ─── Blog Post ─── */
+      .blog-container {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 1.5rem;
+        display: flex;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .blog-post {
+        max-width: 720px;
+        width: 100%;
+        background: var(--card-bg);
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px -15px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-light);
+      }
+
+      @media (max-width: 40rem) {
+        .blog-post { padding: 2rem 1.5rem; }
+      }
+
+      .post-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        color: var(--text);
+        text-wrap: balance;
+      }
+      
+      .post-meta {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 1.5rem;
+      }
+
+      .post-content {
+        font-family: var(--font-sans);
+        color: #3f3f46;
+        line-height: 1.8;
+        font-size: 1.125rem;
+      }
+
+      .post-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .post-content h2 {
+        font-family: var(--font-serif);
+        font-size: 1.95rem;
+        color: var(--text);
+        margin-top: 3.25rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.25;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .step-num {
+        font-family: var(--font-mono);
+        font-size: 1.125rem;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        margin-top: 0.25rem;
+      }
+
+      .post-content ul {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      .post-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .post-content strong {
+        font-weight: 600;
+        color: var(--text);
+      }
+      
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Formula Equation Box */
+      .formula-box {
+        background: #fdfdfc;
+        border: 1px solid var(--border-light);
+        border-left: 4px solid var(--accent);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 1.75rem 0;
+      }
+
+      .formula-title {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .formula-math {
+        font-family: var(--font-mono);
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      /* Featured Tool Promotion Card */
+      .tool-feature-card {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(255, 255, 255, 1) 100%);
+        border: 1.5px solid rgba(16, 185, 129, 0.4);
+        border-radius: 16px;
+        padding: 2.25rem;
+        margin: 3rem 0;
+        box-shadow: 0 15px 35px -10px rgba(16, 185, 129, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tool-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #047857;
+        background: rgba(16, 185, 129, 0.15);
+        padding: 0.35rem 0.75rem;
+        border-radius: 100px;
+        margin-bottom: 1rem;
+      }
+
+      .tool-feature-title {
+        font-family: var(--font-serif);
+        font-size: 1.85rem;
+        color: var(--text);
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+      }
+
+      .tool-feature-desc {
+        color: #52525b;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .tool-feature-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        background: var(--text);
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.9rem 1.75rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      }
+
+      .tool-feature-btn:hover {
+        background: var(--accent);
+        color: var(--text);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+      }
+
+      /* Quote / Highlight Box */
+      .highlight-box {
+        background: var(--accent-soft);
+        border-left: 4px solid var(--accent);
+        padding: 1.25rem 1.5rem;
+        border-radius: 6px;
+        margin: 2rem 0;
+        color: var(--text);
+      }
+
+      /* ─── Animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-fade-up { opacity: 0; animation: fade-up 0.8s ease-out forwards; }
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+
+      /* ─── CTA & Keep Reading Styles ─── */
+      .article-cta {
+        margin-top: 3.5rem;
+        padding: 2.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        text-align: left;
+      }
+      .cta-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+      .article-cta h3 {
+        font-family: var(--font-serif);
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+        color: var(--text);
+      }
+      .article-cta p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 1.75rem;
+      }
+      .cta-btn {
+        display: inline-block;
+        background: var(--text);
+        color: #ffffff;
+        padding: 0.85rem 1.75rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .cta-btn:hover {
+        background: var(--accent);
+        color: var(--text);
+      }
+
+      .related-articles {
+        margin-top: 4rem;
+        border-top: 1px solid var(--border-light);
+        padding-top: 3rem;
+        text-align: left;
+      }
+      .related-articles h2 {
+        font-family: var(--font-serif);
+        font-size: 2.25rem;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        margin-top: 0 !important;
+      }
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.5rem;
+      }
+      @media (min-width: 40rem) {
+        .related-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .related-card {
+        padding: 1.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .related-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -10px rgba(0,0,0,0.08);
+      }
+      .related-title {
+        font-family: var(--font-serif);
+        font-size: 1.35rem;
+        line-height: 1.3;
+        margin-bottom: 1.25rem;
+        color: var(--text);
+      }
+      .related-arrow {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+    </style>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How to Calculate Influencer Rates in 2026",
+      "description": "Learn how to accurately calculate YouTube and influencer sponsorship rates in 2026 using expected views, CPM benchmarks, content format tiers, usage rights, and our free Rate Calculator.",
+      "datePublished": "2026-09-09T10:00:00+05:30",
+      "dateModified": "2026-09-09T10:00:00+05:30",
+      "author": {
+        "@type": "Organization",
+        "name": "Content & Co",
+        "url": "https://contentco.info"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Content & Co",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://contentco.info/assets/logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://contentco.info/blog/how-to-calculate-influencer-rates.html"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <main class="map-page">
+      <div class="map-bg-nature" aria-hidden="true"></div>
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <header class="map-header">
+        <div class="map-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="map-header-label">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Content &amp; Co</a> / <a href="../blog.html" style="color: inherit; text-decoration: none;">Blog</a>
+          </span>
+        </div>
+      </header>
+
+      <div class="blog-container anim-fade-up anim-delay-2">
+        <article class="blog-post">
+          <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+          
+          <h1 class="post-title">How to Calculate Influencer Rates in 2026</h1>
+          <div class="post-meta">September 9, 2026 · 5 min read · Pricing &amp; ROI</div>
+          
+          <img src="../assets/blog/calculate_rates_hero.jpg" alt="A marketer calculating YouTube creator sponsorship valuation and CPM rates on a laptop in a modern studio" class="post-hero-img" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem; border: 1px solid var(--border-light);" />
+          
+          <div class="post-content">
+            <p>One of the hardest parts of influencer marketing is figuring out what a creator should actually cost.</p>
+            <p>A creator has 50,000 followers. Another has 500,000.</p>
+            <p><strong>Does the second creator automatically deserve 10x the price?</strong></p>
+            <p>Not necessarily.</p>
+            <p>In 2026, follower count is still a useful baseline, but it shouldn't be the number you use to set a creator's sponsorship fee.</p>
+            <p>A far better approach is to look at <strong>audience quality, expected views, content format, usage rights, and campaign goals</strong>. Here is the framework brands and creators use to price fair partnerships.</p>
+
+            <h2>
+              <span class="step-num">01</span>
+              Start with Expected Views, Not Follower Count
+            </h2>
+            <p>For most sponsorship campaigns, actual video views are 10x more predictive of commercial success than subscribers.</p>
+            <p>Imagine comparing two YouTube creators:</p>
+            <ul>
+              <li><strong>Creator A:</strong> 100,000 subscribers &rarr; Averages 8,000 views per video.</li>
+              <li><strong>Creator B:</strong> 60,000 subscribers &rarr; Averages 35,000 views per video.</li>
+            </ul>
+            <p>If both are promoting your product, Creator B offers over 4x the commercial exposure despite having fewer total subscribers.</p>
+
+            <div class="formula-box">
+              <div class="formula-title">Core YouTube Sponsorship Pricing Formula</div>
+              <div class="formula-math">Estimated Rate = (Expected Views ÷ 1,000) × Target CPM</div>
+            </div>
+
+            <p>For example, if a creator normally averages 50,000 views and your target category CPM is $30:</p>
+            <p style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600; color: #047857;">
+              50,000 ÷ 1,000 × $30 = $1,500 Baseline Rate
+            </p>
+            <p>That is not necessarily the final contract price, but it gives you a data-backed starting benchmark.</p>
+
+            <!-- Featured Tool Promo Card 1 -->
+            <div class="tool-feature-card">
+              <div class="tool-badge">
+                <span class="status-dot" style="width: 6px; height: 6px;"></span>
+                Free Creator Intelligence Tool
+              </div>
+              <h3 class="tool-feature-title">Calculate Any YouTube Channel's Fair Rate Instantly</h3>
+              <p class="tool-feature-desc">
+                Don't guess CPMs or manually calculate view averages. Our free <strong>YouTube Rate Calculator</strong> pulls live YouTube channel analytics to estimate accurate pricing for 30s, 60s, 90s integrations and dedicated videos in seconds.
+              </p>
+              <a href="../rate-calculator.html" class="tool-feature-btn">
+                Launch YouTube Rate Calculator &rarr;
+              </a>
+            </div>
+
+            <h2>
+              <span class="step-num">02</span>
+              Engagement Still Dictates Value
+            </h2>
+            <p>Two creators can pull the exact same 40,000 views but deliver completely different commercial outcomes.</p>
+            <p>Look at the comment section, like ratio, and the quality of discussion. A creator whose audience actively asks for product links, itinerary advice, and recommendations has high buyer intent. An account with passive, clickbait views will often convert poorly.</p>
+            <p>This is why high-engagement micro-creators frequently command higher effective CPMs than generic macro-influencers.</p>
+
+            <h2>
+              <span class="step-num">03</span>
+              The Content Format Changes the Price
+            </h2>
+            <p>A creator isn't only charging for their audience distribution; they are charging for production labor.</p>
+            <p>A 15-second Story takes minutes to film. A 60-second YouTube integration requires script weaving and editing. A dedicated 15-minute video requires full production days.</p>
+            <ul>
+              <li><strong>Instagram Story / Reel:</strong> Lower baseline production cost.</li>
+              <li><strong>YouTube 60s Integration:</strong> Mid-tier pricing with high long-term search longevity.</li>
+              <li><strong>Dedicated YouTube Video:</strong> Highest pricing (typically 2.5x–4x an integration) because the entire video revolves around the brand.</li>
+              <li><strong>UGC Asset:</strong> Priced purely on production and licensing rather than audience size.</li>
+            </ul>
+
+            <h2>
+              <span class="step-num">04</span>
+              Don't Forget Usage Rights
+            </h2>
+            <p>This is where brands and creators often encounter friction.</p>
+            <p>Paying a creator $1,000 to publish a video on their channel covers <strong>organic distribution</strong>. If the brand also wants to:</p>
+            <ul>
+              <li>Embed the video on their homepage</li>
+              <li>Run the creator's video as a paid Meta/TikTok ad (whitelisting)</li>
+              <li>Use the asset across marketing channels for 6 to 12 months</li>
+            </ul>
+            <p>Those are commercial usage rights. Paid advertising rights generally command an additional 20% to 50% monthly licensing fee above the base organic rate.</p>
+
+            <h2>
+              <span class="step-num">05</span>
+              Category Exclusivity Costs Money
+            </h2>
+            <p>If you ask a travel creator not to promote any competing travel apps for 90 days, you are locking them out of other brand revenue streams.</p>
+            <p>Always define exclusivity boundaries clearly:</p>
+            <ul>
+              <li><strong>Exact Competitors:</strong> Name specific direct rivals rather than broad industry lockouts.</li>
+              <li><strong>Duration:</strong> Keep exclusivity windows reasonable (e.g., 30 to 60 days).</li>
+              <li><strong>Platform Scope:</strong> Specify whether it applies to YouTube only or all social channels.</li>
+            </ul>
+
+            <h2>
+              <span class="step-num">06</span>
+              A Complete Real-World Pricing Example
+            </h2>
+            <p>Let's price a hypothetical YouTube sponsorship campaign:</p>
+            <ul>
+              <li><strong>Average Views:</strong> 40,000 views per video</li>
+              <li><strong>Category CPM:</strong> $25 CPM benchmark</li>
+              <li><strong>Baseline Integration:</strong> 40,000 ÷ 1,000 × $25 = <strong>$1,000</strong></li>
+              <li><strong>Add-ons:</strong> Link in bio &amp; description + 30 days ad usage rights (+30%)</li>
+              <li><strong>Final Recommended Offer:</strong> <strong>$1,300</strong></li>
+            </ul>
+            <p>The mathematical formula provides an objective benchmark so both sides can negotiate with confidence and transparency.</p>
+
+            <!-- Featured Tool Promo Card 2 -->
+            <div class="tool-feature-card">
+              <div class="tool-badge">
+                <span class="status-dot" style="width: 6px; height: 6px;"></span>
+                Live Channel Analysis
+              </div>
+              <h3 class="tool-feature-title">Test Your Next Creator Shortlist</h3>
+              <p class="tool-feature-desc">
+                Enter any creator's YouTube handle in our calculator to see their real-time estimated rates across 30s, 60s, 90s, Shorts, and dedicated videos.
+              </p>
+              <a href="../rate-calculator.html" class="tool-feature-btn">
+                Open YouTube Worth Calculator &rarr;
+              </a>
+            </div>
+
+            <h2>The Golden Rule of Creator Pricing in 2026</h2>
+            <p>Never start by asking: <em>“How much should a 100k creator cost?”</em></p>
+            <p>Start with: <strong>“What business outcome and content asset am I actually buying?”</strong></p>
+
+            <div class="highlight-box">
+              <p style="font-family: var(--font-serif); font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--text); font-style: italic;">
+                “Expected Views &rarr; Audience Intent &rarr; Content Format &rarr; Usage Rights &rarr; Exclusivity.”
+              </p>
+              <p style="font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0;">
+                The 2026 Sponsorship Valuation Framework
+              </p>
+            </div>
+            <p>Having a verifiable benchmark means you negotiate from performance data rather than arbitrary guesswork.</p>
+          </div>
+
+          <!-- For Brands CTA -->
+          <div class="article-cta">
+            <span class="cta-eyebrow">For Brands &amp; Creators</span>
+            <h3>Need curated creators priced at fair market value?</h3>
+            <p>We analyze channel metrics, negotiate transparent rates, and match high-converting creators directly to your campaign goals.</p>
+            <a href="../contact-us.html?ref=blog_rate_calculation" class="cta-btn">Work With Our Creators &rarr;</a>
+          </div>
+
+          <!-- Keep Reading (Related Posts) -->
+          <div class="related-articles">
+            <h2>Keep Reading</h2>
+            <div class="related-grid">
+              <a class="related-card" href="whats-working-in-influencer-marketing-2026.html">
+                <div class="related-title">What’s Actually Working in Influencer Marketing in 2026?</div>
+                <span class="related-arrow">Read article &rarr;</span>
+              </a>
+              <a class="related-card" href="types-of-influencer-marketing-strategies.html">
+                <div class="related-title">The Different Types of Influencer Marketing Strategies Explained</div>
+                <span class="related-arrow">Read article &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <footer class="map-footer">
+        <span class="map-footer-label anim-fade-up anim-delay-2">Content &amp; Co</span>
+        <span class="map-footer-links anim-fade-up anim-delay-2">
+          <a href="../index.html">Home</a> · <a href="../privacy.html">Privacy</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
