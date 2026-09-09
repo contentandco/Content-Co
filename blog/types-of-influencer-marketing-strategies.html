@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explore the 9 core influencer marketing strategies — from paid content and product seeding to UGC, whitelisting, affiliates, and creator trips." />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://contentco.info/blog/types-of-influencer-marketing-strategies.html" />
+    <meta property="og:title" content="The Different Types of Influencer Marketing Strategies Explained - Content &amp; Co" />
+    <meta property="og:description" content="Explore the 9 core influencer marketing strategies — from paid content and product seeding to UGC, whitelisting, affiliates, and creator trips." />
+    <meta property="og:image" content="https://contentco.info/assets/blog/influencer_strategies_hero.jpg" />
+    <meta name="theme-color" content="#10b981" />
+    <title>The Different Types of Influencer Marketing Strategies Explained - Content &amp; Co</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="../assets/Google%20search.png" type="image/png" />
+
+    <style>
+      /* ─── Reset ─── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --font-serif: "Instrument Serif", "Georgia", serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", monospace;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --accent-glow: rgba(16, 185, 129, 0.6);
+        --accent-soft: rgba(16, 185, 129, 0.09);
+        --bg: #fafaf9;
+        --text: #18181b;
+        --text-muted: #71717a;
+        --text-faint: rgba(113, 113, 122, 0.8);
+        --border-light: rgba(212, 212, 216, 0.7);
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+
+      .map-page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh;
+        background: radial-gradient(90% 60% at 50% -12%, var(--accent-soft), transparent 60%);
+      }
+
+      .map-bg-nature {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-color: rgba(0, 102, 255, 0.15);
+        background-image: linear-gradient(rgba(0, 102, 255, 0.4), rgba(0, 102, 255, 0.4)), url('../Background nature.webp');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+
+      .center-glow {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 0;
+        width: 38vh;
+        height: 38vh;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(250,250,249,0.7), rgba(250,250,249,0.28) 50%, transparent 72%);
+        pointer-events: none;
+      }
+
+      /* ─── Header & Footer ─── */
+      .map-header, .map-footer {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 1.5rem;
+      }
+      @media (min-width: 40rem) { .map-header, .map-footer { padding: 1.25rem 2.5rem; } }
+
+      .map-header-left { display: flex; align-items: center; gap: 0.75rem; }
+      .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+      
+      .map-header-label, .map-footer-label, .map-footer-links {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-muted);
+      }
+      .map-footer-links a { color: var(--text-muted); text-decoration: underline; }
+
+      /* ─── Blog Post ─── */
+      .blog-container {
+        position: relative;
+        z-index: 10;
+        padding: 4rem 1.5rem;
+        display: flex;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .blog-post {
+        max-width: 720px;
+        width: 100%;
+        background: var(--card-bg);
+        padding: 3rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px -15px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-light);
+      }
+
+      @media (max-width: 40rem) {
+        .blog-post { padding: 2rem 1.5rem; }
+      }
+
+      .post-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        color: var(--text);
+        text-wrap: balance;
+      }
+      
+      .post-meta {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 1.5rem;
+      }
+
+      .post-content {
+        font-family: var(--font-sans);
+        color: #3f3f46;
+        line-height: 1.8;
+        font-size: 1.125rem;
+      }
+
+      .post-content p {
+        margin-bottom: 1.5rem;
+      }
+
+      .post-content h2 {
+        font-family: var(--font-serif);
+        font-size: 1.95rem;
+        color: var(--text);
+        margin-top: 3.25rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.25;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .step-num {
+        font-family: var(--font-mono);
+        font-size: 1.125rem;
+        color: var(--accent);
+        background: var(--accent-soft);
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        margin-top: 0.25rem;
+      }
+
+      .post-content ul {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+      }
+
+      .post-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .post-content strong {
+        font-weight: 600;
+        color: var(--text);
+      }
+      
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Strategy Summary Card / Comparison Matrix */
+      .strategy-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .strategy-row {
+        background: #fafaf9;
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .strategy-row:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .strategy-tag {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent-dark);
+        font-weight: 600;
+      }
+
+      .strategy-name {
+        font-family: var(--font-serif);
+        font-size: 1.35rem;
+        color: var(--text);
+      }
+
+      .strategy-purpose {
+        font-size: 0.95rem;
+        color: #52525b;
+        line-height: 1.5;
+      }
+
+      /* Quote / Highlight Box */
+      .highlight-box {
+        background: var(--accent-soft);
+        border-left: 4px solid var(--accent);
+        padding: 1.25rem 1.5rem;
+        border-radius: 6px;
+        margin: 2rem 0;
+        color: var(--text);
+      }
+
+      /* ─── Animations ─── */
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-fade-up { opacity: 0; animation: fade-up 0.8s ease-out forwards; }
+      .anim-delay-1 { animation-delay: 0.1s; }
+      .anim-delay-2 { animation-delay: 0.25s; }
+
+      /* ─── CTA & Keep Reading Styles ─── */
+      .article-cta {
+        margin-top: 3.5rem;
+        padding: 2.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        text-align: left;
+      }
+      .cta-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+      .article-cta h3 {
+        font-family: var(--font-serif);
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+        color: var(--text);
+      }
+      .article-cta p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 1.75rem;
+      }
+      .cta-btn {
+        display: inline-block;
+        background: var(--text);
+        color: #ffffff;
+        padding: 0.85rem 1.75rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .cta-btn:hover {
+        background: var(--accent);
+        color: var(--text);
+      }
+
+      .related-articles {
+        margin-top: 4rem;
+        border-top: 1px solid var(--border-light);
+        padding-top: 3rem;
+        text-align: left;
+      }
+      .related-articles h2 {
+        font-family: var(--font-serif);
+        font-size: 2.25rem;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        margin-top: 0 !important;
+      }
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.5rem;
+      }
+      @media (min-width: 40rem) {
+        .related-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .related-card {
+        padding: 1.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .related-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -10px rgba(0,0,0,0.08);
+      }
+      .related-title {
+        font-family: var(--font-serif);
+        font-size: 1.35rem;
+        line-height: 1.3;
+        margin-bottom: 1.25rem;
+        color: var(--text);
+      }
+      .related-arrow {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+    </style>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The Different Types of Influencer Marketing Strategies Explained",
+      "description": "Explore the 9 core influencer marketing strategies — from paid content and product seeding to UGC, whitelisting, affiliates, and creator trips.",
+      "datePublished": "2026-09-09T10:00:00+05:30",
+      "dateModified": "2026-09-09T10:00:00+05:30",
+      "author": {
+        "@type": "Organization",
+        "name": "Content & Co",
+        "url": "https://contentco.info"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Content & Co",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://contentco.info/assets/logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://contentco.info/blog/types-of-influencer-marketing-strategies.html"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <main class="map-page">
+      <div class="map-bg-nature" aria-hidden="true"></div>
+      <div class="center-glow" aria-hidden="true"></div>
+
+      <header class="map-header">
+        <div class="map-header-left anim-fade-up anim-delay-1">
+          <span class="status-dot"></span>
+          <span class="map-header-label">
+            <a href="../index.html" style="color: inherit; text-decoration: none;">Content &amp; Co</a> / <a href="../blog.html" style="color: inherit; text-decoration: none;">Blog</a>
+          </span>
+        </div>
+      </header>
+
+      <div class="blog-container anim-fade-up anim-delay-2">
+        <article class="blog-post">
+          <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+          
+          <h1 class="post-title">The Different Types of Influencer Marketing Strategies Explained</h1>
+          <div class="post-meta">September 9, 2026 · 5 min read · For Brands</div>
+          
+          <img src="../assets/blog/influencer_strategies_hero.jpg" alt="A modern marketing team reviewing creator media kits, storyboard mood boards, and analytics around an agency desk" class="post-hero-img" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem; border: 1px solid var(--border-light);" />
+          
+          <div class="post-content">
+            <p>When people say <strong>“influencer marketing,”</strong> they usually picture one thing:</p>
+            <p><em>A brand pays a creator to make a post.</em></p>
+            <p>That is only one way to work with creators.</p>
+            <p>There are actually several distinct strategies, and they serve very different business goals. Some are built for immediate brand awareness, some for performance sales, and others are designed for content asset creation or long-term brand equity.</p>
+            <p>Here are the 9 main creator partnership models brands should know.</p>
+
+            <h2>
+              <span class="step-num">01</span>
+              Paid Content
+            </h2>
+            <p>This is the most straightforward and traditional model.</p>
+            <p>A brand pays a creator a fixed fee to publish specific content directly to their own channels. That could be a YouTube 60-second dedicated segment, an Instagram Reel, a TikTok integration, a Story sequence, or an agreed multi-platform package.</p>
+            <p>For example, a travel app might sponsor a YouTuber to weave a 60-second demonstration into their next 48-hour city guide.</p>
+            <p>In paid content agreements, brands specify key terms:</p>
+            <ul>
+              <li><strong>Deliverable:</strong> Exact format, duration, and placement</li>
+              <li><strong>Publishing Window:</strong> Specific live date and time</li>
+              <li><strong>Talking Points:</strong> Key product value propositions</li>
+              <li><strong>Usage Rights:</strong> Organic reposting vs. commercial ad rights</li>
+              <li><strong>Exclusivity:</strong> Category lockouts for a set timeframe</li>
+            </ul>
+            <p><strong>Best for:</strong> Predictable reach, guaranteed placement, and product launch announcements.</p>
+
+            <h2>
+              <span class="step-num">02</span>
+              Product Seeding
+            </h2>
+            <p>Seeding operates without guaranteed contracts or fixed monetary payments.</p>
+            <p>The brand sends physical products directly to a curated list of relevant creators and invites them to try it out with zero strings attached.</p>
+            <p>If the creator genuinely loves the product, they often share it organically in their regular content because it delivers authentic value to their routine.</p>
+            <p><em>Example:</em> A premium luggage brand sends a carry-on suitcase to 100 travel creators ahead of holiday season. Some will feature it on their trip, others won't. That variance is expected.</p>
+            <p><strong>Best for:</strong> Building initial creator goodwill, generating organic buzz, and discovering high-affinity creators for future paid contracts.</p>
+
+            <h2>
+              <span class="step-num">03</span>
+              Gifting
+            </h2>
+            <p>Gifting is often grouped alongside seeding, but the distinction comes down to <strong>expectation</strong>.</p>
+            <p>If you send a package with zero obligation, it's a gift. But if you send free product with a strict requirement (e.g. <em>“We'll send you this jacket if you post 2 Instagram Stories”</em>), you have entered an unpaid barter collaboration.</p>
+            <p>Setting explicit expectations upfront prevents miscommunications — brands shouldn't expect guaranteed editorial work simply because an unsolicited package arrived in the mail.</p>
+            <p><strong>Best for:</strong> Micro-influencers and grassroots product distribution.</p>
+
+            <h2>
+              <span class="step-num">04</span>
+              Affiliate Marketing
+            </h2>
+            <p>Instead of paying a flat upfront sponsor fee, creators earn a percentage commission when their audience purchases via their unique tracking link or promo code.</p>
+            <p><em>Example:</em> A creator shares a hotel booking platform with their community. A viewer clicks their link and reserves a 4-night stay. The creator earns an 8% commission on that completed transaction.</p>
+            <p>This creates aligned incentives: creators are rewarded directly for driving real revenue, while brands maintain a predictable cost-per-acquisition (CPA).</p>
+            <p><strong>Best for:</strong> Performance-driven e-commerce, software subscriptions, and measurable sales conversion.</p>
+
+            <h2>
+              <span class="step-num">05</span>
+              User-Generated Content (UGC)
+            </h2>
+            <p>UGC flips the traditional sponsorship equation.</p>
+            <p>The creator produces high-quality video or photo assets, but they do <strong>not</strong> need to post it to their own followers. Instead, the brand licenses the media to run across its own paid ads, website, email flows, and social handles.</p>
+            <p>You aren't purchasing a creator's audience distribution; you are hiring their storytelling and production skills to build content that feels organic, human, and relatable rather than like a polished studio commercial.</p>
+            <p><strong>Best for:</strong> Paid social ad creative (TikTok Ads, Meta Ads) and on-site social proof.</p>
+
+            <h2>
+              <span class="step-num">06</span>
+              Whitelisting &amp; Creator Ads
+            </h2>
+            <p>When a creator's organic post performs exceptionally well, whitelisting (also known as creator licensing or partnership ads) allows the brand to put paid advertising budget directly behind that post through the creator's official handle.</p>
+            <p>Rather than relying only on algorithmic organic reach, the brand targets custom audience segments with the creator's endorsement showing natively in feeds.</p>
+            <p><strong>Best for:</strong> Scaling top-performing creative and boosting conversion rates with third-party social validation.</p>
+
+            <h2>
+              <span class="step-num">07</span>
+              Ambassador Programs
+            </h2>
+            <p>Ambassador partnerships replace one-off transactional posts with long-term, multi-month brand relationships.</p>
+            <p>Instead of hiring 50 different creators for single posts, a brand signs 5–10 core creators for 6 to 12 months. Over time, these ambassadors regularly feature the brand in daily vlogs, attend brand milestones, test early features, and wear the product naturally.</p>
+            <p>The audience sees consistent, authentic loyalty rather than an ad that disappears after 24 hours.</p>
+            <p><strong>Best for:</strong> Building deep brand affinity, sustainable trust, and ongoing creator collaboration.</p>
+
+            <h2>
+              <span class="step-num">08</span>
+              Giveaways &amp; Co-Promotions
+            </h2>
+            <p>A brand and creator co-host a contest giving away valuable prizes (e.g., weekend luxury hotel stays, camera kits, flight credits) to the creator's audience.</p>
+            <p>While giveaways generate quick spikes in follower count and engagement, brands should structure entry requirements carefully to ensure they attract prospective customers rather than just prize hunters.</p>
+            <p><strong>Best for:</strong> Top-of-funnel engagement bursts and rapid social audience growth.</p>
+
+            <h2>
+              <span class="step-num">09</span>
+              Creator Trips &amp; Experiential Events
+            </h2>
+            <p>For travel, hospitality, and lifestyle brands, creator trips offer immersive storytelling that single product posts cannot match.</p>
+            <p>Brands invite creators to experience a destination, resort opening, cruise route, or cultural itinerary in person. Each creator documents the journey from their unique aesthetic perspective — focusing on what their specific audience cares about (budget travel, luxury food, solo safety, or adventure photography).</p>
+            <p><strong>Best for:</strong> Travel, hospitality, tourism boards, and multi-angle destination marketing.</p>
+
+            <!-- Strategy Cheat Sheet Matrix -->
+            <h2 style="margin-top: 3.5rem;">Which Strategy Should Your Brand Choose?</h2>
+            <p>There is no single "best" influencer marketing strategy. The right model depends on your immediate campaign objective:</p>
+
+            <div class="strategy-grid">
+              <div class="strategy-row">
+                <span class="strategy-tag">Objective: Predictable Reach</span>
+                <span class="strategy-name">Paid Content &amp; Dedicated Integrations</span>
+                <span class="strategy-purpose">Guaranteed deliverables, exact dates, and contractually protected messaging.</span>
+              </div>
+              <div class="strategy-row">
+                <span class="strategy-tag">Objective: Product Discovery &amp; Seeding</span>
+                <span class="strategy-name">Product Seeding &amp; Gifting</span>
+                <span class="strategy-purpose">Get products into creator hands to surface natural organic advocates.</span>
+              </div>
+              <div class="strategy-row">
+                <span class="strategy-tag">Objective: Direct Sales &amp; CPA</span>
+                <span class="strategy-name">Affiliate &amp; Commission Programs</span>
+                <span class="strategy-purpose">Pay creators on measurable performance and tracked revenue.</span>
+              </div>
+              <div class="strategy-row">
+                <span class="strategy-tag">Objective: High-Converting Ad Creative</span>
+                <span class="strategy-name">UGC &amp; Creator Licensing (Whitelisting)</span>
+                <span class="strategy-purpose">License authentic creator video assets to scale paid advertising campaigns.</span>
+              </div>
+              <div class="strategy-row">
+                <span class="strategy-tag">Objective: Multi-Angle Storytelling</span>
+                <span class="strategy-name">Creator Trips &amp; Brand Ambassadors</span>
+                <span class="strategy-purpose">Immersive real-world experiences that turn creators into long-term brand evangelists.</span>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <p style="font-family: var(--font-serif); font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--text); font-style: italic;">
+                “Great campaigns don't just pick one strategy in isolation. They seed products to find champions, scale top posts into paid ads, and build ambassadors.”
+              </p>
+              <p style="font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0;">
+                The Multi-Stage Creator Growth Engine
+              </p>
+            </div>
+          </div>
+
+          <!-- For Brands CTA -->
+          <div class="article-cta">
+            <span class="cta-eyebrow">For Brands</span>
+            <h3>Need help choosing and executing the right creator strategy?</h3>
+            <p>From curated rosters and creator vetting to contract management, paid integrations, and experiential trips — we handle your entire campaign end to end.</p>
+            <a href="../contact-us.html?ref=blog_strategies_guide" class="cta-btn">Work With Our Creators &rarr;</a>
+          </div>
+
+          <!-- Keep Reading (Related Posts) -->
+          <div class="related-articles">
+            <h2>Keep Reading</h2>
+            <div class="related-grid">
+              <a class="related-card" href="influencer-outreach-what-to-say-first-contact.html">
+                <div class="related-title">Influencer Outreach: What to Say When You First Contact a Creator</div>
+                <span class="related-arrow">Read article &rarr;</span>
+              </a>
+              <a class="related-card" href="how-to-find-the-right-influencers-for-your-brand.html">
+                <div class="related-title">How to Find the Right Influencers for Your Brand</div>
+                <span class="related-arrow">Read article &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <footer class="map-footer">
+        <span class="map-footer-label anim-fade-up anim-delay-2">Content &amp; Co</span>
+        <span class="map-footer-links anim-fade-up anim-delay-2">
+          <a href="../index.html">Home</a> · <a href="../privacy.html">Privacy</a>
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>
